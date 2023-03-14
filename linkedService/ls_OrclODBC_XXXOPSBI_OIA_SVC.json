@@ -1,0 +1,21 @@
+{
+	"name": "ls_OrclODBC_XXXOPSBI_OIA_SVC",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "Odbc",
+		"typeProperties": {
+			"connectionString": {
+				"type": "SecureString",
+				"value": "**********"
+			},
+			"authenticationType": "Basic",
+			"userName": "XXXOPSBI_OIA_SVC",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJhYTM5NTM2Ni02N2FjLTQ0YmQtYmJlNC1kYWI1OTlmM2NkY2EiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "SHIR-Orcl-adf-ops-datascience-5026-dev",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

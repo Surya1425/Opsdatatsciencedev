@@ -1,0 +1,37 @@
+{
+	"name": "SRM_Assignments_Master_Pipeline",
+	"properties": {
+		"activities": [
+			{
+				"name": "SRM_Df",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "SRM_Assignments_DF",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"folder": {
+			"name": "Deepikapipelines"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-11-17T18:24:58Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

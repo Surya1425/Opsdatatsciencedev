@@ -1,0 +1,306 @@
+{
+	"name": "Wip_summary_copy_pipelines",
+	"properties": {
+		"activities": [
+			{
+				"name": "QAG0_NMR_Detail_Vsat",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select * from CSDG0_Repair_History_Vsat",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false
+				}
+			},
+			{
+				"name": "wipg0_routings",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select wipg0_routings.ASSEMBLY$SV$PART_NUMBER,\n\twipg0_routings.ASSEMBLY_DESCRIPTION,\n\twipg0_routings.DEPARTMENT,\n\twipg0_routings.FIRST_UNIT_COMPLETION_DATE,\n\twipg0_routings.FIRST_UNIT_START_DATE,\n\twipg0_routings.JOB_DATE_RELEASED,\n\twipg0_routings.JOB_NAME,\n\twipg0_routings.JOB_QUANTITY_COMPLETED,\n\twipg0_routings.JOB_QUANTITY_SCHEDULED,\n\twipg0_routings.JOB_QUANTITY_SCRAPPED,\n\twipg0_routings.JOB_START_DATE,\n\twipg0_routings.JOB_STATUS,\n\twipg0_routings.JOB_TYPE,\n\twipg0_routings.LAST_UNIT_COMPLETION_DATE,\n\twipg0_routings.LAST_UNIT_START_DATE,\n\twipg0_routings.OPERATION_DESCRIPTION,\n\twipg0_routings.OPERATION_QUANTITY_COMPLETED,\n\twipg0_routings.OPERATION_QUANTITY_IN_QUEUE,\n\twipg0_routings.OPERATION_QUANTITY_REJECTED,\n\twipg0_routings.OPERATION_QUANTITY_REMAINING,\n\twipg0_routings.OPERATION_QUANTITY_RUNNING,\n\twipg0_routings.OPERATION_QUANTITY_SCRAPPED,\n\twipg0_routings.OPERATION_QUANTITY_TO_MOVE,\n\twipg0_routings.OPERATION_SEQUENCE_NUMBER,\n\twipg0_routings.ORGANIZATION_CODE,\n\twipg0_routings.ORGANIZATION_NAME \nfrom wipg0_routings \nwhere (wipg0_routings.JOB_STATUS = 'Released') \n\tor (wipg0_routings.JOB_STATUS = 'Unreleased')",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false
+				}
+			},
+			{
+				"name": "wipg0_all_jobs",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select wipg0_all_jobs.ASSEMBLY$SV$PART_NUMBER,\n\twipg0_all_jobs.ASSEMBLY_DESCRIPTION,\n\twipg0_all_jobs.JOB_CLOSED_DATE,\n\twipg0_all_jobs.JOB_COMPLETED_DATE,\n\twipg0_all_jobs.JOB_CREATED_BY,\n\twipg0_all_jobs.JOB_NAME,\n\twipg0_all_jobs.JOB_QUANTITY_COMPLETED,\n\twipg0_all_jobs.JOB_QUANTITY_SCHEDULED,\n\twipg0_all_jobs.JOB_QUANTITY_SCRAPPED,\n\twipg0_all_jobs.JOB_DESCRIPTION,\n\twipg0_all_jobs.JOB_TYPE,\n\twipg0_all_jobs.JOB_STATUS,\n\twipg0_all_jobs.JOB_RELEASED_DATE,\n\twipg0_all_jobs.ORGANIZATION_CODE,\n\twipg0_all_jobs.PROJECT_NUMBER,\n\twipg0_all_jobs.TASK_NUMBER,\n\twipg0_all_jobs.JOB_SCHEDULED_COMPLETION_DT,\n\twipg0_all_jobs.JOB_START_DATE \nfrom wipg0_all_jobs \nwhere ((wipg0_all_jobs.JOB_STATUS = 'Released') or (wipg0_all_jobs.JOB_STATUS = 'Unreleased') or (wipg0_all_jobs.JOB_STATUS = 'Closed') or (wipg0_all_jobs.JOB_STATUS = 'Complete') or (wipg0_all_jobs.JOB_STATUS = 'Complete - No Charges')) \n\tand (wipg0_all_jobs.ORGANIZATION_CODE = '75' or wipg0_all_jobs.ORGANIZATION_CODE = '30' or wipg0_all_jobs.ORGANIZATION_CODE = '10') \n\tand wipg0_all_jobs.JOB_CREATION_DATE >= (CURRENT_DATE + Interval '-2' Year)",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false
+				}
+			},
+			{
+				"name": "Invg0_Items_Vsat",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select * from CSDG0_Repair_History_Vsat",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false
+				}
+			},
+			{
+				"name": "INVG0_Onhand_Quantities_Vsat",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false
+				}
+			},
+			{
+				"name": "MRPG0_MRP_Workbench_Vsat",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select MRPG0_MRP_Workbench_Vsat.ITEM_NUMBER,\n\tMRPG0_MRP_Workbench_Vsat.ITEM_DESCRIPTION,\n\tMRPG0_MRP_Workbench_Vsat.ORDER_NUMBER,\n\tMRPG0_MRP_Workbench_Vsat.OLD_DUE_DATE,\n\tMRPG0_MRP_Workbench_Vsat.QUANTITY_RATE,\n\tMRPG0_MRP_Workbench_Vsat.ORGANIZATION_CODE,\n\tMRPG0_MRP_Workbench_Vsat.ORDER_TYPE,\n\tMRPG0_MRP_Workbench_Vsat.NEW_DATE,\n\tMRPG0_MRP_Workbench_Vsat.PLANNING_GROUP,\n\tMRPG0_MRP_Workbench_Vsat.PROJECT_NUM,\n\tMRPG0_MRP_Workbench_Vsat.SUGG_DUE_DATE,\n\tMRPG0_MRP_Workbench_Vsat.SUGG_DOCK_DATE \nfrom MRPG0_MRP_Workbench_Vsat",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false
+				}
+			},
+			{
+				"name": "wipg0_all_move_transactions",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select wipg0_all_move_transactions.JOB_NAME,\n\twipg0_all_move_transactions.JOB_STATUS,\n\twipg0_all_move_transactions.ORGANIZATION_NAME,\n\tMax(wipg0_all_move_transactions.TRANSACTION_DATE),\n\twipg0_all_move_transactions.TRANSACTION_CREATED_BY,\n\twipg0_all_move_transactions.TO_OPERATION_SEQUENCE_NUMBER,\n\twipg0_all_move_transactions.TO_INTRAOPERATION_STEP,\n\twipg0_all_move_transactions.TO_DEPARTMENT_CODE \nfrom wipg0_all_move_transactions \nwhere wipg0_all_move_transactions.JOB_STATUS = 'Released'\ngroup by wipg0_all_move_transactions.JOB_NAME,\nwipg0_all_move_transactions.JOB_STATUS,\nwipg0_all_move_transactions.ORGANIZATION_NAME,\nwipg0_all_move_transactions.TRANSACTION_CREATED_BY,\nwipg0_all_move_transactions.TO_OPERATION_SEQUENCE_NUMBER,\nwipg0_all_move_transactions.TO_INTRAOPERATION_STEP,\nwipg0_all_move_transactions.TO_DEPARTMENT_CODE",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false
+				}
+			},
+			{
+				"name": "PAG0_Project_Parameters_Vsat",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false
+				}
+			},
+			{
+				"name": "wipg0_all_matrl_requirements",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select wipg0_all_matrl_requirements.ASSMCOMP$SV$PART_NUMBER,\n\twipg0_all_matrl_requirements.COMPONENT_COMMENTS,\n\twipg0_all_matrl_requirements.COMPONENT_DESCRIPTION,\n\twipg0_all_matrl_requirements.COMPONENT_QTY_PER_ASSEMBLY,\n\twipg0_all_matrl_requirements.COMPONENT_QUANTITY_ISSUED,\n\twipg0_all_matrl_requirements.COMPONENT_QUANTITY_OPEN,\n\twipg0_all_matrl_requirements.COMPONENT_QUANTITY_REQUIRED,\n\twipg0_all_matrl_requirements.COMPONENT_REQUIRED_DATE,\n\twipg0_all_matrl_requirements.COMPONENT_REVISION,\n\twipg0_all_matrl_requirements.COMPONENT_UNIT_COST,\n\twipg0_all_matrl_requirements.COMPONENT_UOM_CODE,\n\twipg0_all_matrl_requirements.JOB_DESCRIPTION,\n\twipg0_all_matrl_requirements.JOB_NAME,\n\twipg0_all_matrl_requirements.JOB_QUANTITY_COMPLETED,\n\twipg0_all_matrl_requirements.JOB_QUANTITY_SCHEDULED,\n\twipg0_all_matrl_requirements.ORGANIZATION_CODE,\n\twipg0_all_matrl_requirements.OPERATION_SEQUENCE_NUMBER,\n\twipg0_all_matrl_requirements.TASK_NUMBER,\n\twipg0_all_matrl_requirements.WIP_SUPPLY_TYPE \nfrom wipg0_all_matrl_requirements \nwhere (wipg0_all_matrl_requirements.JOB_STATUS = 'Released') \n\tor (wipg0_all_matrl_requirements.JOB_STATUS = 'Unreleased')",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false
+				}
+			}
+		],
+		"folder": {
+			"name": "Deepikapipelines"
+		},
+		"annotations": []
+	}
+}

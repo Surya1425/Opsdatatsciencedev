@@ -1,0 +1,584 @@
+{
+	"name": "CM_Spares_Model_Forecast_df",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_Excel_input",
+						"type": "DatasetReference"
+					},
+					"name": "CMinputcsv"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_AzSql",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "derivedColumn2"
+				},
+				{
+					"name": "derivedColumn3"
+				},
+				{
+					"name": "sort1"
+				},
+				{
+					"name": "window1"
+				},
+				{
+					"name": "window2"
+				},
+				{
+					"name": "select1"
+				},
+				{
+					"name": "filter1"
+				},
+				{
+					"name": "select2"
+				},
+				{
+					"name": "sort2"
+				},
+				{
+					"name": "window3"
+				},
+				{
+					"name": "derivedColumn4"
+				},
+				{
+					"name": "window4"
+				},
+				{
+					"name": "window7"
+				},
+				{
+					"name": "window8"
+				},
+				{
+					"name": "window9"
+				},
+				{
+					"name": "window10"
+				},
+				{
+					"name": "window11"
+				},
+				{
+					"name": "derivedColumn5"
+				},
+				{
+					"name": "derivedColumn6"
+				},
+				{
+					"name": "window6"
+				},
+				{
+					"name": "derivedColumn7"
+				},
+				{
+					"name": "derivedColumn8"
+				},
+				{
+					"name": "derivedColumn9"
+				},
+				{
+					"name": "derivedColumn10"
+				},
+				{
+					"name": "derivedColumn11"
+				},
+				{
+					"name": "window12"
+				},
+				{
+					"name": "derivedColumn12"
+				},
+				{
+					"name": "window5"
+				},
+				{
+					"name": "derivedColumn14"
+				},
+				{
+					"name": "window13"
+				},
+				{
+					"name": "derivedColumn15"
+				},
+				{
+					"name": "window14"
+				},
+				{
+					"name": "derivedColumn16"
+				},
+				{
+					"name": "window15"
+				},
+				{
+					"name": "derivedColumn17"
+				},
+				{
+					"name": "filter2"
+				},
+				{
+					"name": "filter3"
+				},
+				{
+					"name": "aggregate1"
+				},
+				{
+					"name": "join1"
+				},
+				{
+					"name": "select3"
+				},
+				{
+					"name": "derivedColumn19"
+				},
+				{
+					"name": "derivedColumn18"
+				},
+				{
+					"name": "aggregate2"
+				},
+				{
+					"name": "join2"
+				},
+				{
+					"name": "select4"
+				},
+				{
+					"name": "derivedColumn20"
+				},
+				{
+					"name": "sort3"
+				},
+				{
+					"name": "derivedColumn21"
+				},
+				{
+					"name": "window16"
+				},
+				{
+					"name": "select5"
+				}
+			],
+			"scriptLines": [
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> CMinputcsv",
+				"CMinputcsv derive({Period Month} = {Period Month},",
+				"          {Period Date} = toDate(concat({Period Month},'-01'))) ~> derivedColumn1",
+				"derivedColumn1 derive(Current = iif(addDays(lastDayOfMonth({Period Date}),2)>currentDate(),'Forecast','Actuals'),",
+				"          {Op Hours per Aircraft} = toDouble(15.7734)) ~> derivedColumn2",
+				"derivedColumn2 derive(op_hours = iif(Current=='Forecast',(toDouble({Average Aircraft in Service})*{Op Hours per Aircraft})*30, (op_hours)),",
+				"          {6mo_rolling_mtbur} = toDouble(iif(Current=='Forecast',iif({LRU Type}=='GM40','23842',iif({LRU Type}=='M3','25000',iif({LRU Type}=='S4','23125',\r",
+				"\r",
+				"iif({LRU Type}=='PSU','248545',iif({LRU Type}=='WAP','531765','0'))))),toString({6mo_rolling_mtbur}))),",
+				"          {Actuals SUM 8468140} = (Eng_Repair_Cost_8468140)+(Ops_Repair_Cost_8468140)+(Materials_Repair_Cost_8468140)+(Other_ODC_Repair_Cost_8468140)+(Overhead_Repair_Cost_8468140)) ~> derivedColumn3",
+				"filter1 sort(asc({Period Date}, true)) ~> sort1",
+				"sort1 window(over({LRU Type}),",
+				"     asc({LRU Type}, true),",
+				"     ID = rowNumber()) ~> window1",
+				"window1 window(over({LRU Type}),",
+				"     asc({LRU Type}, true),",
+				"     X5 = lag(op_hours,5,0.0),",
+				"          X4 = lag(op_hours,4,0.0),",
+				"          X3 = lag(op_hours,3,0.0),",
+				"          X2 = lag(op_hours,2,0.0),",
+				"          X1 = lag(op_hours,1,0.0)) ~> window2",
+				"derivedColumn3 select(mapColumn(",
+				"          {Period Month},",
+				"          {LRU Type},",
+				"          {Repair Cost Qty},",
+				"          {Avg_Repair Cost},",
+				"          Eng_Repair_Cost_8468140,",
+				"          Materials_Repair_Cost_8468140,",
+				"          Ops_Repair_Cost_8468140,",
+				"          Other_ODC_Repair_Cost_8468140,",
+				"          Overhead_Repair_Cost_8468140,",
+				"          {MAUC Avg Cost},",
+				"          {MAUC Target},",
+				"          {Spares Quantity},",
+				"          {Spares Deployed Cost},",
+				"          failures,",
+				"          op_hours,",
+				"          {6mo_rolling_op_hours},",
+				"          {6mo_rolling_failures},",
+				"          {6mo_rolling_mtbur},",
+				"          {MTBUR reality},",
+				"          {MTBUR contract},",
+				"          {Number of Aircraft in EIS},",
+				"          {Total Number of Aircraft},",
+				"          {Average Aircraft in Service},",
+				"          {Avg_Repair Cost by Month},",
+				"          {Repair Cost Qty by Month},",
+				"          {Repair Cost Target},",
+				"          Material_Spares_Deferral,",
+				"          ODC_Spares_Deferral,",
+				"          {Total Repair Cost SUM},",
+				"          {Period Date},",
+				"          Current,",
+				"          {Op Hours per Aircraft},",
+				"          {Actuals SUM 8468140}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 filter({Period Date}>=toDate(2018-04-01)) ~> filter1",
+				"derivedColumn4 select(mapColumn(",
+				"          {Period Month},",
+				"          {LRU Type},",
+				"          {Repair Cost Qty},",
+				"          {Avg_Repair Cost},",
+				"          Eng_Repair_Cost_8468140,",
+				"          Materials_Repair_Cost_8468140,",
+				"          Ops_Repair_Cost_8468140,",
+				"          Other_ODC_Repair_Cost_8468140,",
+				"          Overhead_Repair_Cost_8468140,",
+				"          {MAUC Avg Cost},",
+				"          {MAUC Target},",
+				"          {Spares Quantity},",
+				"          {Spares Deployed Cost},",
+				"          failures,",
+				"          op_hours,",
+				"          {6mo_rolling_op_hours},",
+				"          {6mo_rolling_failures},",
+				"          {6mo_rolling_mtbur},",
+				"          {MTBUR reality},",
+				"          {MTBUR contract},",
+				"          {Number of Aircraft in EIS},",
+				"          {Total Number of Aircraft},",
+				"          {Average Aircraft in Service},",
+				"          {Avg_Repair Cost by Month},",
+				"          {Repair Cost Qty by Month},",
+				"          {Repair Cost Target},",
+				"          Material_Spares_Deferral,",
+				"          ODC_Spares_Deferral,",
+				"          {Total Repair Cost SUM},",
+				"          {Period Date},",
+				"          Current,",
+				"          {Op Hours per Aircraft},",
+				"          {Actuals SUM 8468140},",
+				"          {Average 6 Month Rolling Op Hours} = X5",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select2",
+				"select2 sort(asc({Period Date}, true)) ~> sort2",
+				"sort2 window(over(Current,",
+				"          {LRU Type}),",
+				"     asc(Current, true),",
+				"     asc({LRU Type}, true),",
+				"     ID2 = rowNumber()) ~> window3",
+				"window2 derive({Average 6 Month Rolling Op Hours} = iif((ID)>5,(X5+X4+X3+X2+X1+op_hours)/6,\r",
+				"iif((ID)==5,(X4+X3+X2+X1+op_hours)/5,\r",
+				"iif((ID)==4,(X3+X2+X1+op_hours)/4,\r",
+				"iif((ID)==3,(X2+X1+op_hours)/3,\r",
+				"iif((ID)==2,(X1+op_hours)/2,op_hours)))))) ~> derivedColumn4",
+				"window3 window(over({LRU Type}),",
+				"     asc({LRU Type}, true),",
+				"     Y3 = lag(Eng_Repair_Cost_8468140,3,0.0),",
+				"          Y2 = lag(Eng_Repair_Cost_8468140,2,0.0),",
+				"          Y1 = lag(Eng_Repair_Cost_8468140,1,0.0)) ~> window4",
+				"derivedColumn6 window(over({LRU Type}),",
+				"     asc({LRU Type}, true),",
+				"     {Ops Avg 3 months3} = lag({Ops Avg 3 months},3,0),",
+				"          {Ops Avg 3 months2} = lag({Ops Avg 3 months},2,0),",
+				"          {Ops Avg 3 months1} = lag({Ops Avg 3 months},1,0)) ~> window7",
+				"derivedColumn7 window(over({LRU Type}),",
+				"     asc({LRU Type}, true),",
+				"     A3 = lag(Materials_Repair_Cost_8468140,3,0.0),",
+				"          A2 = lag(Materials_Repair_Cost_8468140,2,0.0),",
+				"          A1 = lag(Materials_Repair_Cost_8468140,1,0.0)) ~> window8",
+				"derivedColumn8 window(over({LRU Type}),",
+				"     asc({LRU Type}, true),",
+				"     {Materials Avg 3 months3} = lag({Materials Avg 3 months},3,0.0),",
+				"          {Materials Avg 3 months2} = lag({Materials Avg 3 months},2,0.0),",
+				"          {Materials Avg 3 months1} = lag({Materials Avg 3 months},1,0.0)) ~> window9",
+				"derivedColumn9 window(over({LRU Type}),",
+				"     asc({LRU Type}, true),",
+				"     B3 = lag(Other_ODC_Repair_Cost_8468140,3,0.0),",
+				"          B2 = lag(Other_ODC_Repair_Cost_8468140,2,0.0),",
+				"          B1 = lag(Other_ODC_Repair_Cost_8468140,1,0.0)) ~> window10",
+				"derivedColumn10 window(over({LRU Type}),",
+				"     asc({LRU Type}, true),",
+				"     {Other_ODC Avg 3 months3} = lag({Other_ODC Avg 3 months},3,0.0),",
+				"          {Other_ODC Avg 3 months2} = lag({Other_ODC Avg 3 months},2,0.0),",
+				"          {Other_ODC Avg 3 months1} = lag({Other_ODC Avg 3 months},1,0.0)) ~> window11",
+				"window4 derive({Eng Avg 3 months} = toDouble(0)) ~> derivedColumn5",
+				"window6 derive({Ops Avg 3 months} = toDouble(0)) ~> derivedColumn6",
+				"derivedColumn14 window(over({LRU Type}),",
+				"     asc({LRU Type}, true),",
+				"     Z3 = lag(Ops_Repair_Cost_8468140,3,0.0),",
+				"          Z2 = lag(Ops_Repair_Cost_8468140,2,0.0),",
+				"          Z1 = lag(Ops_Repair_Cost_8468140,1,0.0)) ~> window6",
+				"window7 derive({Ops Avg 3 months} = iif(ID2==1 && Current==\"Forecast\",Z3+Z2+Z1/3,\r",
+				"iif(ID2==2 && Current==\"Forecast\",toDouble(Z2+Z3+{Ops Avg 3 months1}/3),\r",
+				"iif(ID2==3&&Current==\"Forecast\",toDouble(Z3+{Ops Avg 3 months1}+{Ops Avg 3 months2}/3),\r",
+				"iif(ID2>3&&Current==\"Forecast\",toDouble({Ops Avg 3 months1}+{Ops Avg 3 months2}+{Ops Avg 3 months3}/3),toDouble(0)))))) ~> derivedColumn7",
+				"window8 derive({Materials Avg 3 months} = toDouble(0)) ~> derivedColumn8",
+				"window9 derive({Materials Avg 3 months} = iif(ID2==1 && Current==\"Forecast\",A3+A2+A1/3,\r",
+				"iif(ID2==2 && Current==\"Forecast\",toDouble(A2+A3+{Materials Avg 3 months1}/3),\r",
+				"iif(ID2==3&&Current==\"Forecast\",toDouble(Z3+{Materials Avg 3 months1}+{Materials Avg 3 months2}/3),\r",
+				"iif(ID2>3&&Current==\"Forecast\",toDouble({Materials Avg 3 months1}+{Materials Avg 3 months2}+{Materials Avg 3 months3}/3),toDouble(0)))))) ~> derivedColumn9",
+				"window10 derive({Other_ODC Avg 3 months} = toDouble(0)) ~> derivedColumn10",
+				"window11 derive({Other_ODC Avg 3 months} = iif(ID2==1 && Current==\"Forecast\",B3+B2+B1/3,\r",
+				"iif(ID2==2 && Current==\"Forecast\",toDouble(B2+B3+{Other_ODC Avg 3 months1}/3),\r",
+				"iif(ID2==3&&Current==\"Forecast\",toDouble(B3+{Other_ODC Avg 3 months2}+{Other_ODC Avg 3 months1}/3),\r",
+				"iif(ID2>3&&Current==\"Forecast\",toDouble({Other_ODC Avg 3 months1}+{Other_ODC Avg 3 months2}+{Other_ODC Avg 3 months3}/3),toDouble(0)))))) ~> derivedColumn11",
+				"derivedColumn11 window(over({LRU Type}),",
+				"     asc({LRU Type}, true),",
+				"     C3 = lag(Overhead_Repair_Cost_8468140,3,0.0),",
+				"          C2 = lag(Overhead_Repair_Cost_8468140,2,0.0),",
+				"          C1 = lag(Overhead_Repair_Cost_8468140,1,0.0)) ~> window12",
+				"window12 derive({Overhead Avg 3 months} = toDouble(0)) ~> derivedColumn12",
+				"derivedColumn5 window(over({LRU Type}),",
+				"     asc({LRU Type}, true),",
+				"     {Eng Avg 3 months1} = lag({Eng Avg 3 months},1,0),",
+				"          {Eng Avg 3 months2} = lag({Eng Avg 3 months},2,0),",
+				"          {Eng Avg 3 months3} = lag({Eng Avg 3 months},3,0)) ~> window5",
+				"window5 derive({Eng Avg 3 months} = iif(ID2==1 && Current==\"Forecast\",Y3+Y2+Y1/3,\r",
+				"iif(ID2==2 && Current==\"Forecast\",toDouble(Y2+Y3+{Eng Avg 3 months1}/3),\r",
+				"iif(ID2==3&&Current==\"Forecast\",toDouble(Y3+{Eng Avg 3 months1}+{Eng Avg 3 months2}/3),\r",
+				"iif(ID2>3&&Current==\"Forecast\",toDouble({Eng Avg 3 months1}+{Eng Avg 3 months2}+{Eng Avg 3 months3}/3),toDouble(0)))))) ~> derivedColumn14",
+				"derivedColumn12 window(over({LRU Type}),",
+				"     asc({LRU Type}, true),",
+				"     {Overhead Avg 3 months3} = lag({Overhead Avg 3 months},3,0.0),",
+				"          {Overhead Avg 3 months2} = lag({Overhead Avg 3 months},2,0.0),",
+				"          {Overhead Avg 3 months1} = lag({Overhead Avg 3 months},1,0.0)) ~> window13",
+				"window13 derive({Overhead Avg 3 months} = iif(ID2==1 && Current==\"Forecast\",C3+C2+C1/3,\r",
+				"iif(ID2==2 && Current==\"Forecast\",toDouble(C2+C3+{Overhead Avg 3 months1}/3),\r",
+				"iif(ID2==3&&Current==\"Forecast\",toDouble(C3+{Overhead Avg 3 months2}+{Overhead Avg 3 months1}/3),\r",
+				"iif(ID2>3&&Current==\"Forecast\",toDouble({Overhead Avg 3 months1}+{Overhead Avg 3 months2}+{Overhead Avg 3 months3}/3),toDouble(0)))))) ~> derivedColumn15",
+				"derivedColumn15 window(over({LRU Type}),",
+				"     asc({LRU Type}, true),",
+				"     E3 = lag({Actuals SUM 8468140},3,0.0),",
+				"          E2 = lag({Actuals SUM 8468140},2,0.0),",
+				"          E1 = lag({Actuals SUM 8468140},1,0.0)) ~> window14",
+				"window14 derive({Actuals Avg 3 months} = toDouble(0)) ~> derivedColumn16",
+				"derivedColumn16 window(over({LRU Type}),",
+				"     asc({LRU Type}, true),",
+				"     {Actuals Avg 3 months3} = lag({Actuals Avg 3 months},3,0.0),",
+				"          {Actuals Avg 3 months2} = lag({Actuals Avg 3 months},2,0.0),",
+				"          {Actuals Avg 3 months1} = lag({Actuals Avg 3 months},1,0.0)) ~> window15",
+				"window15 derive({Actuals Avg 3 months} = iif(ID2==1 && Current==\"Forecast\",E3+E2+E1/3,\r",
+				"iif(ID2==2 && Current==\"Forecast\",toDouble(E2+E3+{Actuals Avg 3 months1}/3),\r",
+				"iif(ID2==3&&Current==\"Forecast\",toDouble(E3+{Actuals Avg 3 months2}+{Actuals Avg 3 months1}/3),\r",
+				"iif(ID2>3&&Current==\"Forecast\",toDouble({Actuals Avg 3 months1}+{Actuals Avg 3 months2}+{Actuals Avg 3 months3}/3),toDouble(0)))))) ~> derivedColumn17",
+				"derivedColumn17 filter(Current==\"Actuals\") ~> filter2",
+				"filter2 filter({Period Date}>= toDate(subMonths(currentTimestamp(),7))) ~> filter3",
+				"filter3 aggregate(groupBy({LRU Type}),",
+				"     Avg_6mo_rolling_mtbur = avgIf({6mo_rolling_mtbur}!=toDouble(0),{6mo_rolling_mtbur})) ~> aggregate1",
+				"derivedColumn17, aggregate1 join(select2@{LRU Type} == aggregate1@{LRU Type},",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join1",
+				"join1 select(mapColumn(",
+				"          {Period Month},",
+				"          {LRU Type} = {select2@LRU Type},",
+				"          {Repair Cost Qty},",
+				"          {Avg_Repair Cost},",
+				"          Eng_Repair_Cost_8468140,",
+				"          Materials_Repair_Cost_8468140,",
+				"          Ops_Repair_Cost_8468140,",
+				"          Other_ODC_Repair_Cost_8468140,",
+				"          Overhead_Repair_Cost_8468140,",
+				"          {MAUC Avg Cost},",
+				"          {MAUC Target},",
+				"          {Spares Quantity},",
+				"          {Spares Deployed Cost},",
+				"          failures,",
+				"          op_hours,",
+				"          {6mo_rolling_op_hours},",
+				"          {6mo_rolling_failures},",
+				"          {6mo_rolling_mtbur},",
+				"          {MTBUR reality},",
+				"          {MTBUR contract},",
+				"          {Number of Aircraft in EIS},",
+				"          {Total Number of Aircraft},",
+				"          {Average Aircraft in Service},",
+				"          {Avg_Repair Cost by Month},",
+				"          {Repair Cost Qty by Month},",
+				"          {Repair Cost Target},",
+				"          Material_Spares_Deferral,",
+				"          ODC_Spares_Deferral,",
+				"          {Total Repair Cost SUM},",
+				"          {Period Date},",
+				"          Current,",
+				"          {Op Hours per Aircraft},",
+				"          {Actuals SUM 8468140},",
+				"          {Average 6 Month Rolling Op Hours},",
+				"          ID2,",
+				"          {Eng Avg 3 months},",
+				"          {Ops Avg 3 months},",
+				"          {Materials Avg 3 months},",
+				"          {Other_ODC Avg 3 months},",
+				"          {Overhead Avg 3 months},",
+				"          {Actuals Avg 3 months},",
+				"          {LRU Type},",
+				"          Avg_6mo_rolling_mtbur",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select3",
+				"select4 derive({Eng Average 3 Months} = {Eng Avg 3 months},",
+				"          {Ops Average 3 Months} = {Ops Avg 3 months},",
+				"          {Materials Average 3 Months} = {Materials Avg 3 months},",
+				"          {Other ODC Average 3 Months} = {Other_ODC Avg 3 months},",
+				"          {Overhead Average 3 Months} = {Overhead Avg 3 months},",
+				"          {Actuals Average 3 Months} = {Actuals Avg 3 months},",
+				"          {Eng Avg 3 months} = ({Eng Avg 3 months}/{Actuals Avg 3 months})*{Forecasted Repair Expense},",
+				"          {Ops Avg 3 months} = ({Ops Avg 3 months}/{Actuals Avg 3 months})*{Forecasted Repair Expense},",
+				"          {Materials Avg 3 months} = ({Materials Avg 3 months}/{Actuals Avg 3 months})*{Forecasted Repair Expense},",
+				"          {Other_ODC Avg 3 months} = ({Other_ODC Avg 3 months}/{Actuals Avg 3 months})*{Forecasted Repair Expense},",
+				"          {Overhead Avg 3 months} = ({Overhead Avg 3 months}/{Actuals Avg 3 months})*{Forecasted Repair Expense}) ~> derivedColumn19",
+				"select3 derive(failures = iif(Current==\"Forecast\", {Average 6 Month Rolling Op Hours}/Avg_6mo_rolling_mtbur,failures),",
+				"          {failures percent} = failures/{Average Aircraft in Service},",
+				"          {Avg_Repair Cost by Month} = iif(Current==\"Forecast\",{Repair Cost Target},{Avg_Repair Cost by Month}),",
+				"          {Repair Costs 8468140} = {Avg_Repair Cost by Month}*{failures}) ~> derivedColumn18",
+				"derivedColumn18 aggregate(groupBy({Period Month}),",
+				"     {Forecasted Repair Expense} = sum({Repair Costs 8468140})) ~> aggregate2",
+				"derivedColumn18, aggregate2 join(select3@{Period Month} == aggregate2@{Period Month},",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join2",
+				"join2 select(mapColumn(",
+				"          {Period Month} = select3@{Period Month},",
+				"          {LRU Type},",
+				"          {Repair Cost Qty},",
+				"          {Avg_Repair Cost},",
+				"          Eng_Repair_Cost_8468140,",
+				"          Materials_Repair_Cost_8468140,",
+				"          Ops_Repair_Cost_8468140,",
+				"          Other_ODC_Repair_Cost_8468140,",
+				"          Overhead_Repair_Cost_8468140,",
+				"          {MAUC Avg Cost},",
+				"          {MAUC Target},",
+				"          {Spares Quantity},",
+				"          {Spares Deployed Cost},",
+				"          failures,",
+				"          op_hours,",
+				"          {6mo_rolling_op_hours},",
+				"          {6mo_rolling_failures},",
+				"          {6mo_rolling_mtbur},",
+				"          {MTBUR reality},",
+				"          {MTBUR contract},",
+				"          {Number of Aircraft in EIS},",
+				"          {Total Number of Aircraft},",
+				"          {Average Aircraft in Service},",
+				"          {Avg_Repair Cost by Month},",
+				"          {Repair Cost Qty by Month},",
+				"          {Repair Cost Target},",
+				"          Material_Spares_Deferral,",
+				"          ODC_Spares_Deferral,",
+				"          {Total Repair Cost SUM},",
+				"          {Period Date},",
+				"          Current,",
+				"          {Op Hours per Aircraft},",
+				"          {Actuals SUM 8468140},",
+				"          {Average 6 Month Rolling Op Hours},",
+				"          ID2,",
+				"          {Eng Avg 3 months},",
+				"          {Ops Avg 3 months},",
+				"          {Materials Avg 3 months},",
+				"          {Other_ODC Avg 3 months},",
+				"          {Overhead Avg 3 months},",
+				"          {Actuals Avg 3 months},",
+				"          Avg_6mo_rolling_mtbur,",
+				"          {failures percent},",
+				"          {Repair Costs 8468140},",
+				"          {Period Month} = aggregate2@{Period Month},",
+				"          {Forecasted Repair Expense}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select4",
+				"derivedColumn19 derive(Eng_Repair_Cost_8468140 = iif(Current==\"Forecast\",{Eng Avg 3 months},Eng_Repair_Cost_8468140),",
+				"          Ops_Repair_Cost_8468140 = iif(Current==\"Forecast\",{Ops Avg 3 months},Ops_Repair_Cost_8468140),",
+				"          Materials_Repair_Cost_8468140 = iif(Current==\"Forecast\",{Materials Avg 3 months},Materials_Repair_Cost_8468140),",
+				"          Other_ODC_Repair_Cost_8468140 = iif(Current==\"Forecast\",{Other_ODC Avg 3 months},Other_ODC_Repair_Cost_8468140),",
+				"          Overhead_Repair_Cost_8468140 = iif(Current==\"Forecast\",{Overhead Avg 3 months},Overhead_Repair_Cost_8468140),",
+				"          {Actuals SUM 8468140} = {Eng_Repair_Cost_8468140}+{Ops_Repair_Cost_8468140}+{Materials_Repair_Cost_8468140}+{Other_ODC_Repair_Cost_8468140}+{Overhead_Repair_Cost_8468140}) ~> derivedColumn20",
+				"derivedColumn20 sort(asc({Period Date}, true)) ~> sort3",
+				"window16 derive({Spares Quantity} = toDouble(iif(Current==\"Forecast\",(iif({failures}-{Failures 4 Months Ago}<0,0,toInteger({failures}-{Failures 4 Months Ago}))),toInteger({Spares Quantity})))) ~> derivedColumn21",
+				"sort3 window(over({LRU Type}),",
+				"     asc({LRU Type}, true),",
+				"     {Failures 4 Months Ago} = lag(failures,4,0.0)) ~> window16",
+				"derivedColumn21 select(mapColumn(",
+				"          {Period Month},",
+				"          {LRU Type},",
+				"          {MAUC Target},",
+				"          failures,",
+				"          op_hours,",
+				"          {6mo_rolling_op_hours},",
+				"          {6mo_rolling_failures},",
+				"          {6mo_rolling_mtbur},",
+				"          {MTBUR reality},",
+				"          {MTBUR contract},",
+				"          {Number of Aircraft in EIS},",
+				"          {Total Number of Aircraft},",
+				"          {Average Aircraft in Service},",
+				"          {Avg_Repair Cost by Month},",
+				"          {Repair Cost Qty by Month},",
+				"          {Repair Cost Target},",
+				"          Material_Spares_Deferral,",
+				"          ODC_Spares_Deferral,",
+				"          {Total Repair Cost SUM},",
+				"          {Period Date},",
+				"          Current,",
+				"          {Op Hours per Aircraft},",
+				"          {Actuals SUM 8468140},",
+				"          {Average 6 Month Rolling Op Hours},",
+				"          Avg_6mo_rolling_mtbur,",
+				"          {failures percent},",
+				"          {Repair Costs 8468140},",
+				"          {Forecasted Repair Expense},",
+				"          {Eng Average 3 Months},",
+				"          {Ops Average 3 Months},",
+				"          {Materials Average 3 Months},",
+				"          {Other ODC Average 3 Months},",
+				"          {Overhead Average 3 Months},",
+				"          {Actuals Average 3 Months},",
+				"          {Failures 4 Months Ago},",
+				"          Eng_Repair_Cost_8468140,",
+				"          Ops_Repair_Cost_8468140,",
+				"          Materials_Repair_Cost_8468140,",
+				"          Other_ODC_Repair_Cost_8468140,",
+				"          Overhead_Repair_Cost_8468140,",
+				"          {Repair Cost Qty},",
+				"          {Avg_Repair Cost},",
+				"          {MAUC Avg Cost},",
+				"          {Spares Quantity},",
+				"          {Spares Deployed Cost}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select5",
+				"select5 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     partitionBy('hash', 1),",
+				"     preCommands: [],",
+				"     postCommands: []) ~> sink1"
+			]
+		}
+	}
+}

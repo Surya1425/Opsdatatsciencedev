@@ -1,0 +1,88 @@
+{
+	"name": "Budget_Version_History",
+	"properties": {
+		"folder": {
+			"name": "pte_project_cost"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference"
+					},
+					"name": "BudgetVersionHistory"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_csv_output",
+						"type": "DatasetReference"
+					},
+					"name": "sinkingBudgetHistory"
+				}
+			],
+			"transformations": [
+				{
+					"name": "selectingRequiredColumns"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          PROJECT_NUMBER as string,",
+				"          PROJECT_NAME as string,",
+				"          CURRENT_VERSION_FLAG as string,",
+				"          BUDGET_VERSION_NUMBER as integer,",
+				"          BUDGET_VERSION_NAME as string,",
+				"          QUANTITY as double,",
+				"          BUDGETED_RAW_COST as double,",
+				"          BUDGETED_BURDENED_COST as double,",
+				"          CURRENT_ORIGINAL_VERSION_FLAG as string,",
+				"          BUDGET_BASELINE_DATE as date,",
+				"          BUDGET_ENTRY_LEVEL as string,",
+				"          BUDGET_ENTRY_METHOD as string,",
+				"          BUDGET_STATUS as string,",
+				"          BUDGET_TYPE as string,",
+				"          BUDGET_VERSION_DESCRIPTION as string,",
+				"          BUDGETED_BURDENED_LABOR_COST as double,",
+				"          BUDGET_BURDENED_NONLABOR_COST as string,",
+				"          BUDGETED_LABOR_HOURS as double,",
+				"          BUDGETED_LABOR_RAW_COST as double,",
+				"          PROJECT_MANAGER_NAME as string,",
+				"          PROJECT_TYPE_CLASS as string,",
+				"          RESOURCE_NAME as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> BudgetVersionHistory",
+				"BudgetVersionHistory select(mapColumn(",
+				"          PROJECT_NUMBER,",
+				"          PROJECT_NAME,",
+				"          CURRENT_VERSION_FLAG,",
+				"          BUDGET_VERSION_NUMBER,",
+				"          BUDGET_VERSION_NAME,",
+				"          BUDGETED_BURDENED_COST,",
+				"          CURRENT_ORIGINAL_VERSION_FLAG,",
+				"          BUDGET_BASELINE_DATE,",
+				"          BUDGET_STATUS,",
+				"          BUDGET_TYPE,",
+				"          BUDGET_VERSION_DESCRIPTION,",
+				"          PROJECT_MANAGER_NAME",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectingRequiredColumns",
+				"selectingRequiredColumns sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionFileNames:['pte_Budget_History.csv'],",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> sinkingBudgetHistory"
+			]
+		}
+	}
+}

@@ -1,0 +1,16 @@
+{
+	"name": "ls-viasat-snowflake-dev",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"connectVia": {
+			"referenceName": "AZIR-adf-ops-datascience-5026-dev",
+			"type": "IntegrationRuntimeReference"
+		},
+		"description": "Snowflake Linked Service for - adf-ops-datascience-5026-dev",
+		"type": "Snowflake",
+		"typeProperties": {
+			"connectionString": "jdbc:snowflake://account.region.snowflakecomputing.com/?user=user&db=db&warehouse=wh"
+		},
+		"annotations": []
+	}
+}

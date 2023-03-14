@@ -1,0 +1,57 @@
+{
+	"name": "Master Pipeline M40 Watchlist",
+	"properties": {
+		"description": "Master Pipeline M40 Watchlist",
+		"activities": [
+			{
+				"name": "DS_Oracle_EBSPJD1_WIPG0_ALL_MATRL_REQUIREMENTS",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "DS_Oracle_EBSPJD1_WIPG0_ALL_MATRL_REQUIREMENTS",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "DF_GM40 Watchlist",
+				"description": "DF_GM40 Watchlist",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "DS_Oracle_EBSPJD1_WIPG0_ALL_MATRL_REQUIREMENTS",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "DF_GM40_Watchlist",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"folder": {
+			"name": "GM40_pipelines"
+		},
+		"annotations": []
+	}
+}

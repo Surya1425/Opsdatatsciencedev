@@ -1,0 +1,40 @@
+{
+	"name": "ds_csv_output",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_Ops_Datascience_5026_dev",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"storageURL": "https://sagtappsadfusrstrgv2dev.dfs.core.windows.net/"
+			}
+		},
+		"parameters": {
+			"container": {
+				"type": "string"
+			},
+			"filepath": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": {
+					"value": "@dataset().filepath",
+					"type": "Expression"
+				},
+				"fileSystem": {
+					"value": "@dataset().container",
+					"type": "Expression"
+				}
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}

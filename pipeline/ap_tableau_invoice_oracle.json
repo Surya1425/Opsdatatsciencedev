@@ -1,0 +1,95 @@
+{
+	"name": "ap_tableau_invoice_oracle",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "\nselect noetix_views.apg0_invoices.SOURCE \"Source\",\nnoetix_views.apg0_invoices.DOCUMENT_CATEGORY_CODE \"Document Category Code\",\nnoetix_views.apg0_invoices.DOCUMENT_CATEGORY_NAME \"Document Category Name\",\nSum(noetix_views.apg0_invoices.INVOICE_AMOUNT) \"Amount Invoiced\",\nSum(noetix_views.apg0_invoices.AMOUNT_PAID) \"Amount Paid\",\nSubStr(noetix_views.apg0_invoices.GL_DATE, 4, 11) \"GL Date\",\nnoetix_views.apg0_invoices.INVOICE_APPROVAL_STATUS \"Invoice Approval Status\",\nCount(Distinct noetix_views.apg0_invoices.INVOICE_NUMBER) \"# of Invoices\",\nnoetix_views.apg0_invoices.PAY_GROUP_LOOKUP_CODE \"Pay Group Lookup Code\",\nnoetix_views.apg0_invoices.PAYMENT_STATUS \"Payment Status\",\nnoetix_views.apg0_invoices.EXPENDITURE_ORGANIZATION_NAME \"Organization Name\",\nnoetix_views.apg0_invoices.EXPENDITURE_TYPE \"Expenditure Type\",\nnoetix_views.apg0_invoices.VENDOR_NAME \"Vendor Name\"\nfrom noetix_views.apg0_invoices\nwhere noetix_views.apg0_invoices.GL_DATE >= '01-Jan-2019'\ngroup by noetix_views.apg0_invoices.SOURCE, noetix_views.apg0_invoices.DOCUMENT_CATEGORY_CODE, noetix_views.apg0_invoices.DOCUMENT_CATEGORY_NAME, \nSubStr(noetix_views.apg0_invoices.GL_DATE, 4, 11), noetix_views.apg0_invoices.INVOICE_APPROVAL_STATUS, noetix_views.apg0_invoices.PAY_GROUP_LOOKUP_CODE, \nnoetix_views.apg0_invoices.PAYMENT_STATUS, noetix_views.apg0_invoices.EXPENDITURE_ORGANIZATION_NAME, noetix_views.apg0_invoices.EXPENDITURE_TYPE,\n noetix_views.apg0_invoices.VENDOR_NAME\n\n\n",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "apg0_invoice_oracle",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "apg_oracle_table",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Data flow1",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "Copy data1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "ap_tableau_invoice_df",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"folder": {
+			"name": "RAJSASHEKAR_PIPELINES/ap_invoice_tableau_push"
+		},
+		"annotations": []
+	}
+}

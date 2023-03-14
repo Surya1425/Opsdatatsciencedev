@@ -1,0 +1,15 @@
+{
+	"name": "OdbcTable1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_OrclODBC_XXXOPSBI_OIA_SVC",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "OdbcTable",
+		"schema": [],
+		"typeProperties": {
+			"tableName": "NOETIX_VIEWS.PAG0_TASKS"
+		}
+	}
+}

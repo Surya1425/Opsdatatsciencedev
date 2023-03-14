@@ -1,0 +1,226 @@
+{
+	"name": "PTE_PRODUCT_COST_MASTER_PIPELINE",
+	"properties": {
+		"activities": [
+			{
+				"name": "Oracle ebs query for Cost Center",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "Execute Copy_Data_From_Oracle",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "Oracle_ebs_query_for_cost_center",
+						"type": "DataFlowReference",
+						"datasetParameters": {
+							"ProjectExpenditureData": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "pte-project-cost/raw",
+								"filename": "Project Expenditure Data.csv"
+							},
+							"TotalBudgetByProjectNumber": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "pte-project-cost/raw",
+								"filename": "Total Budget by Project Number.csv"
+							},
+							"ProductLineByProjectNumber": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "pte-project-cost/raw",
+								"filename": "Product Line by Project Number.csv"
+							},
+							"TemplateNumberByProjectNumber": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "pte-project-cost/raw",
+								"filename": "Template Number by Project Number.csv"
+							},
+							"PAG0Tasks": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "pte-project-cost/raw",
+								"filename": "PAG0_TASKS.csv"
+							},
+							"FinalOutput": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "pte-project-cost/stage"
+							}
+						}
+					},
+					"integrationRuntime": {
+						"referenceName": "AZIR-adf-ops-datascience-5026-dev",
+						"type": "IntegrationRuntimeReference"
+					},
+					"traceLevel": "None",
+					"cacheSinks": {
+						"firstRowOnly": true
+					}
+				}
+			},
+			{
+				"name": "Oracle ebs query for OpenSales Orders",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "Execute Copy_Data_From_Oracle",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "oracle_ebs_query_for_OpenSales_Orders",
+						"type": "DataFlowReference",
+						"datasetParameters": {
+							"OpenSalesOrders": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "pte-project-cost/raw",
+								"filename": "Open sales order.csv"
+							},
+							"sinkingOutput": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "pte-project-cost/stage"
+							}
+						}
+					},
+					"integrationRuntime": {
+						"referenceName": "ir-AzureHosted-Ops-DataScience-5026-dev",
+						"type": "IntegrationRuntimeReference"
+					},
+					"traceLevel": "None",
+					"cacheSinks": {
+						"firstRowOnly": true
+					}
+				}
+			},
+			{
+				"name": "Oracle ebs query for Onhand Inventory",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "Execute Copy_Data_From_Oracle",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "oracle_ebs_query_for_Onhand_Inventory",
+						"type": "DataFlowReference",
+						"datasetParameters": {
+							"OnhandInventory": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "pte-project-cost/raw",
+								"filename": "Onhand Inventory.csv"
+							},
+							"sinkingOutput": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "pte-project-cost/stage"
+							}
+						}
+					},
+					"integrationRuntime": {
+						"referenceName": "ir-AzureHosted-Ops-DataScience-5026-dev",
+						"type": "IntegrationRuntimeReference"
+					},
+					"traceLevel": "None",
+					"cacheSinks": {
+						"firstRowOnly": true
+					}
+				}
+			},
+			{
+				"name": "Budget Version History",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "Execute Copy_Data_From_Oracle",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "Budget_Version_History",
+						"type": "DataFlowReference",
+						"datasetParameters": {
+							"BudgetVersionHistory": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "pte-project-cost/raw",
+								"filename": "Budget Version History.csv"
+							},
+							"sinkingBudgetHistory": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "pte-project-cost/stage"
+							}
+						}
+					},
+					"integrationRuntime": {
+						"referenceName": "ir-AzureHosted-Ops-DataScience-5026-dev",
+						"type": "IntegrationRuntimeReference"
+					},
+					"traceLevel": "None",
+					"cacheSinks": {
+						"firstRowOnly": true
+					}
+				}
+			},
+			{
+				"name": "Execute Copy_Data_From_Oracle",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pte_project_cost_COPY_From_Oracle_Pipeline",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
+		"folder": {
+			"name": "Service/Master_Pipelines"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-11-08T11:36:06Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

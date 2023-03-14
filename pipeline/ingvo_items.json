@@ -1,0 +1,95 @@
+{
+	"name": "ingvo_items",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select INVG0_Items_Vsat.ORGANIZATION_CODE,\nINVG0_Items_Vsat.ITEM_NUMBER,\nINVG0_Items_Vsat.ITEM_DESCRIPTION,\nINVG0_Items_Vsat.ITEM_CREATION_DATE,\nINVG0_Items_Vsat.PLANNING_MAKE_BUY_CODE,\nINVG0_Items_Vsat.BUYER_NAME,\nINVG0_Items_Vsat.PLANNER_CODE,\nINVG0_Items_Vsat.PREPROCESSING_LEAD_TIME,\nINVG0_Items_Vsat.PROCESSING_LEAD_TIME,\nINVG0_Items_Vsat.POSTPROCESSING_LEAD_TIME,\nINVG0_Items_Vsat.FIXED_LEAD_TIME,\nINVG0_Items_Vsat.CUM_MANUFACTURING_LEAD_TIME,\nINVG0_Items_Vsat.CUMULATIVE_TOTAL_LEAD_TIME,\nINVG0_Items_Vsat.PURCHASE_COMMOD,\nINVG0_Items_Vsat.UNIT_OF_MEASURE,\nINVG0_Items_Vsat.RECEIPT_ROUTING,\nINVG0_Items_Vsat.ITEM_STATUS_CODE,\nINVG0_Items_Vsat.ITEM_TYPE,\nINVG0_Items_Vsat.ITEMCATINV_ITEM_CATEGORY_KFF,\nINVG0_Items_Vsat.AVERAGE_COST,\nINVG0_Items_Vsat.MRP_PLANNING_METHOD,\nINVG0_Items_Vsat.ITEMS$AGILE_ITEM__PART__CATEGO,\nINVG0_Items_Vsat.WIP_SUPPLY_TYPE,\nINVG0_Items_Vsat.ITEMS$ITEM_SETUP_VERIFIED,\nINVG0_Items_Vsat.ITEMS$AGILE_ACCESS_RESTRICTION,\nINVG0_Items_Vsat.ITEMS$VMI_ITEM,\nINVG0_Items_Vsat.INVENTORY_PLANNING_METHOD_CODE,\nINVG0_Items_Vsat.ITEMCATPUR_CATEGORY_DESC,\nINVG0_Items_Vsat.MINIMUM_ORDER_QUANTITY,\nINVG0_Items_Vsat.ITEMS$TARGET_COST target_cost\nfrom INVG0_Items_Vsat\nwhere 1 = 1\n",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "INGV0_iTEMS_oracle_table",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "INGVO_ORACLE_COPY",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Data flow1",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "Copy data1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "INVG0_iTEMS_DF",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"folder": {
+			"name": "RAJSASHEKAR_PIPELINES/INGVO_ITEMS"
+		},
+		"annotations": []
+	}
+}

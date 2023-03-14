@@ -1,0 +1,37 @@
+{
+	"name": "ls_Oracle_Ops_Datascience_5026_dev",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"parameters": {
+			"host": {
+				"type": "string",
+				"defaultValue": "wdc1eboddev01.hq.corp.viasat.com"
+			},
+			"port": {
+				"type": "string",
+				"defaultValue": "2519"
+			},
+			"username": {
+				"type": "string",
+				"defaultValue": "XXXOPSBI_OIA_SVC"
+			},
+			"password": {
+				"type": "string",
+				"defaultValue": "XXXOPSBI_OIA_SVC"
+			},
+			"service_name": {
+				"type": "string",
+				"defaultValue": "EBSPJD1"
+			}
+		},
+		"annotations": [],
+		"type": "Oracle",
+		"typeProperties": {
+			"connectionString": "host=@{linkedService().host};port=@{linkedService().port};serviceName=@{linkedService().service_name};user id=@{linkedService().username};Password=@{linkedService().password};EnablePacketLogging=5;PacketLoggingFilePrefix=F:\\SHIR\\"
+		},
+		"connectVia": {
+			"referenceName": "AZIR-adf-ops-datascience-5026-dev",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

@@ -1,0 +1,37 @@
+{
+	"name": "ds_ORC",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_Oracle_Ops_Datascience_5026_dev",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"host": "wdc1eboddev01.hq.corp.viasat.com",
+				"port": "2519",
+				"username": "XXXOPSBI_OIA_SVC",
+				"password": "XXXOPSBI_OIA_SVC",
+				"service_name": "EBSPJD1"
+			}
+		},
+		"parameters": {
+			"schema": {
+				"type": "string"
+			},
+			"table": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "OracleTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": {
+				"value": "@dataset().schema",
+				"type": "Expression"
+			},
+			"table": {
+				"value": "@dataset().table",
+				"type": "Expression"
+			}
+		}
+	}
+}

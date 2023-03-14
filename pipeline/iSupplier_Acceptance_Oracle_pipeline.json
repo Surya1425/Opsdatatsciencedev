@@ -1,0 +1,44 @@
+{
+    "name": "iSupplier_Acceptance_Oracle_pipeline",
+    "properties": {
+        "activities": [
+            {
+                "name": "iSupplier_Acceptance_Data_Pipeline",
+                "type": "Copy",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "source": {
+                        "type": "OracleSource",
+                        "oracleReaderQuery": "\nselect * from (select pv.SEGMENT1 vendor_num, pv.VENDOR_NAME, decode(pv.ATTRIBUTE11, 1, 'None', 2, 'Acknowledge + ASN', 3, 'Acknowledgement Only') \nvendor_type, poh.SEGMENT1, poh.REVISION_NUM, poh.AUTHORIZATION_STATUS, decode(poh.CLOSED_DATE, null, decode(poh.ACCEPTANCE_REQUIRED_FLAG, 'D', \n'Requires Acknowledgement', 'N', 'Accepted'), 'Closed') acceptance_status, poh.ACCEPTANCE_REQUIRED_FLAG, poh.CREATION_DATE, poh.APPROVED_DATE, \npoh.ACCEPTANCE_DUE_DATE, poa.ACTION_DATE, poa.ACCEPTED_FLAG, poa.ACCEPTING_PARTY, poh.CLOSED_DATE, decode(sign(poh.CLOSED_DATE - poh.ACCEPTANCE_DUE_DATE), \n-1, 'Closed before due date', 1, 'Closed after due date') closed_timeframe, decode(poa.ACCEPTED_FLAG, 'Y', 'Y', 'N', 'Y', 'N') Accepted, poa.ACTION_DATE - trunc(poh.APPROVED_DATE) acceptance_time, \ndecode(sign(poa.ACTION_DATE - trunc(poh.APPROVED_DATE)), -1, 'Accepted on time', decode(sign(poa.ACTION_DATE - trunc(poh.APPROVED_DATE + 4)), -1, \n'Accepted on time', 0, 'Accepted on time', 1, 'Accepted late')) accepted_timeframe from ap.ap_suppliers pv, apps.po_headers_archive_all poh, \napps.po_acceptances poa where poh.VENDOR_ID = pv.VENDOR_ID and poh.PO_HEADER_ID = poa.PO_HEADER_ID(+) and poh.REVISION_NUM = poa.REVISION_NUM(+) and nvl(pv.ATTRIBUTE11, 1) <> 1 union select pv.SEGMENT1 vendor_num, \npv.VENDOR_NAME, decode(pv.ATTRIBUTE11, 1, 'None', 2, 'Acknowledge + ASN', 3, 'Acknowledgement Only') vendor_type, poh.SEGMENT1, poh.REVISION_NUM, poh.AUTHORIZATION_STATUS, decode(poh.CLOSED_DATE, \nnull, decode(poh.ACCEPTANCE_REQUIRED_FLAG, 'D', 'Requires Acknowledgement', 'N', 'Accepted'), 'Closed') acceptance_status, poh.ACCEPTANCE_REQUIRED_FLAG, poh.CREATION_DATE, poh.APPROVED_DATE, \npoh.ACCEPTANCE_DUE_DATE, poa.ACTION_DATE, poa.ACCEPTED_FLAG, poa.ACCEPTING_PARTY, poh.CLOSED_DATE, decode(sign(poh.CLOSED_DATE - poh.ACCEPTANCE_DUE_DATE), -1, 'Closed before due date', 1, 'Closed after due date') closed_timeframe, \ndecode(poa.ACCEPTED_FLAG, 'Y', 'Y', 'N', 'Y', 'N') Accepted, poa.ACTION_DATE - trunc(poh.APPROVED_DATE) acceptance_time, decode(sign(poa.ACTION_DATE - trunc(poh.APPROVED_DATE)), -1, 'Accepted on time', \ndecode(sign(poa.ACTION_DATE - trunc(poh.APPROVED_DATE + 4)), -1, 'Accepted on time', 0, 'Accepted on time', 1, 'Accepted late')) accepted_timeframe \nfrom ap.ap_suppliers pv, ap.ap_headers_all poh, ap.ap_acceptances poa where poh.VENDOR_ID = pv.VENDOR_ID and poh.PO_HEADER_ID = poa.PO_HEADER_ID(+) and poh.REVISION_NUM = poa.REVISION_NUM(+) and nvl(pv.ATTRIBUTE11, 1) <> 1)",
+                        "partitionOption": "None",
+                        "queryTimeout": "02:00:00"
+                    },
+                    "sink": {
+                        "type": "DelimitedTextSink",
+                        "storeSettings": {
+                            "type": "AzureBlobFSWriteSettings"
+                        },
+                        "formatSettings": {
+                            "type": "DelimitedTextWriteSettings",
+                            "quoteAllText": true,
+                            "fileExtension": ".txt"
+                        }
+                    },
+                    "enableStaging": false
+                }
+            }
+        ],
+        "folder": {
+            "name": "Deepikapipelines"
+        },
+        "annotations": []
+    }
+}

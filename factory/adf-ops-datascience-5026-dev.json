@@ -1,0 +1,23 @@
+{
+	"name": "adf-ops-datascience-5026-dev",
+	"properties": {
+		"encryption": {
+			"keyName": "key-adf-ops-datascience-5026-dev",
+			"vaultBaseUrl": "https://kv-adf-infra-1-dev.vault.azure.net/",
+			"keyVersion": "a269e03ed9b94354b470528e7fb05a7f",
+			"identity": {
+				"userAssignedIdentity": "/subscriptions/c890fa4e-0250-4596-9e05-aab88eefb263/resourceGroups/rg-ops-datascience-5026/providers/Microsoft.ManagedIdentity/userAssignedIdentities/mi-adf-ops-datascience-5026-dev"
+			}
+		}
+	},
+	"location": "eastus",
+	"identity": {
+		"type": "UserAssigned",
+		"userAssignedIdentities": {
+			"/subscriptions/c890fa4e-0250-4596-9e05-aab88eefb263/resourcegroups/rg-ops-datascience-5026/providers/Microsoft.ManagedIdentity/userAssignedIdentities/mi-adf-ops-datascience-5026-dev": {
+				"clientId": "5c52bd9d-c721-4647-998c-deddcb619ea5",
+				"principalId": "f1fb7d52-bfe3-4793-ad18-9c86c637c79c"
+			}
+		}
+	}
+}

@@ -1,0 +1,65 @@
+{
+	"name": "all_repair_orders_master_Pipeline",
+	"properties": {
+		"activities": [
+			{
+				"name": "Extract Transform Load",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "all_repair_orders_df",
+						"type": "DataFlowReference",
+						"datasetParameters": {
+							"CSD0": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "NoetixViews",
+								"filename": "CSDG0_Repair_Orders.csv"
+							},
+							"INVG0": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "NoetixViews",
+								"filename": "INVG0_Category_AMS_Category.csv"
+							},
+							"PAG0": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "NoetixViews",
+								"filename": "PAG0_Project_Class_Categories.csv"
+							},
+							"DailyData": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "all-repair-orders/output"
+							},
+							"HistoricalData": {
+								"schema": "ops-datascience-5026-dev",
+								"table": "all-repair-orders/output"
+							}
+						}
+					},
+					"integrationRuntime": {
+						"referenceName": "ir-AzureHosted-Ops-DataScience-5026-dev",
+						"type": "IntegrationRuntimeReference"
+					},
+					"traceLevel": "None",
+					"cacheSinks": {
+						"firstRowOnly": true
+					}
+				}
+			}
+		],
+		"folder": {
+			"name": "Service/Master_Pipelines"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-11-14T10:02:00Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,17 @@
+{
+	"name": "ls-viasat-salesforce-dev",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"connectVia": {
+			"referenceName": "AZIR-adf-ops-datascience-5026-dev",
+			"type": "IntegrationRuntimeReference"
+		},
+		"description": "Salesforce Linked Service for - viasat salesforce and adf-ops-datascience-5026-dev",
+		"type": "Web",
+		"typeProperties": {
+			"authenticationType": "Anonymous",
+			"url": "https://login.salesforce.com"
+		},
+		"annotations": []
+	}
+}

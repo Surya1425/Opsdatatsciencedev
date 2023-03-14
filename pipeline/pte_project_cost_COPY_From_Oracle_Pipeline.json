@@ -1,0 +1,504 @@
+{
+	"name": "pte_project_cost_COPY_From_Oracle_Pipeline",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data of pag0_project_classes_ToBlob",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "SELECT PB.PROJECT_NUMBER, sum(PB.BUDGETED_BURDENED_COST) BUDGETED_BURDENED_COST, PJ.PROJECT_DESCRIPTION, PJ.PROJECT_STATUS, PJ.PROJECT_NAME FROM pag0_budget_versions PB, (SELECT DISTINCT PROJECT_NUMBER, PROJECT_DESCRIPTION, PROJECT_STATUS, PROJECT_NAME, class_code FROM pag0_project_classes WHERE (class_category = 'CIP Cost Center Depr' and class_code = '5010') or (project_number = 'I700133' and class_code = 'Indirect'))PJ WHERE PB.PROJECT_NUMBER = PJ.PROJECT_NUMBER  and PJ.class_code = '5010' and PB.CURRENT_VERSION_FLAG = 'Y' group by PB.PROJECT_NUMBER, PJ.PROJECT_DESCRIPTION, PJ.PROJECT_STATUS, PJ.PROJECT_NAME",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_ORC",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema": ".",
+							"table": "."
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "ops-datascience-5026",
+							"filepath": "pte-project-cost/input",
+							"filename": "Total Budget by Project Number.csv"
+						}
+					}
+				]
+			},
+			{
+				"name": "Copy data pag0_class_categories_vsat_oBlob",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "SELECT pac.PROJECT_NUMBER, max(pac.PRODUCT_LINE) product_line, max(pac.SEGMENT) segment FROM pag0_class_categories_vsat pac group by pac.PROJECT_NUMBER",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_ORC",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema": ".",
+							"table": "."
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "ops-datascience-5026",
+							"filepath": "pte-project-cost/input",
+							"filename": "Product Line by Project Number.csv"
+						}
+					}
+				]
+			},
+			{
+				"name": "Copy data_pag0_projects_To_Blob",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select pag0_projects.PROJECT_NUMBER, max(pag0_projects.TEMPLATE_NUMBER) template_number, max(pag0_projects.PROJECT_COMPLETION_DATE) PROJECT_COMPLETION_DATE, max(pag0_projects.PROJECT_CLOSED_DATE) PROJECT_CLOSED_DATE, max(pag0_projects.PROJECT_START_DATE) PROJECT_START_DATE from pag0_projects group by pag0_projects.PROJECT_NUMBER",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_ORC",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema": ".",
+							"table": "."
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "ops-datascience-5026",
+							"filepath": "pte-project-cost/input",
+							"filename": "Template Number by Project Number.csv"
+						}
+					}
+				]
+			},
+			{
+				"name": "Copy data_PAG0",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select PA.PROJECT_NUMBER,\n\tPA.TASK_NUMBER,\n\tPA.TASK_NAME,\n\tPA.DIVISION,\n\tPA.EXPENDITURE_TYPE,\n\tPA.EXPENDITURE_CATEGORY,\n\tPA.EXPENDITURE_COMMENT,\n\tPA.ITEM_NUMBER,\n\tPA.ITEM_DESCRIPTION,\n\tPA.QUANTITY,\n\tPA.EXTERNAL_TRANSACTION_SOURCE,\n\tPA.SYSTEM_LINKAGE,\n\tPA.INCURRED_ORG,\n\tPA.PROVIDER_ORGANIZATION,\n\tPA.EMPLOYEE_NAME,\n\tPA.EMPLOYEE_FULL_NAME,\n\tPA.EMPLOYEE_ID,\n\tPA.PERIOD_NAME,\n\tPA.GL_DATE,\n\tPA.EXPENDITURE_ITEM_DATE,\n\tPA.EXPENDITURE_ENDING_DATE,\n\tPA.REGULAR_TIME,\n\tPA.BURDENED_COST BURDENED_COST_PC,\n\tPJ.PROJECT_DESCRIPTION,\n\tPJ.PROJECT_NAME,\n\tPJ.PROJECT_STATUS,\n\tPA.UNIT_OF_MEASURE,\n\tPA.EXP_ITEM_EXTERNAL_SYS_REF,\n\tPA.INCURRED_COST_CENTER,\n\tPA.COST_CENTER_DESC,\n\tPJ.CLASS_CODE,\n\tPJ.CLASS_CATEGORY \nfrom PAG0_ALL_EXPENDITURE_ITEMS PA, \n\t(\n\tselect distinct pag0_project_classes.PROJECT_NUMBER,\n\t\tpag0_project_classes.PROJECT_STATUS,\n\t\tpag0_project_classes.PROJECT_NAME,\n\t\tpag0_project_classes.CLASS_CODE,\n\t\tpag0_project_classes.PROJECT_DESCRIPTION,\n\t\tpag0_project_classes.CLASS_CATEGORY \n\tfrom pag0_project_classes \n\twhere (pag0_project_classes.CLASS_CODE = '5010' and pag0_project_classes.CLASS_CATEGORY = 'CIP Cost Center Depr') \n\t\tor (pag0_project_classes.PROJECT_NUMBER = 'I700133' and pag0_project_classes.CLASS_CODE = 'Indirect')\n\t) PJ \nwhere PJ.PROJECT_NUMBER = PA.PROJECT_NUMBER",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_ORC",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema": ".",
+							"table": "."
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "ops-datascience-5026",
+							"filepath": "pte-project-cost/input",
+							"filename": "Project Expenditure Data.csv"
+						}
+					}
+				]
+			},
+			{
+				"name": "OpenSalesQuery",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select OM.PROJECT_NUMBER,\n\tOM.PROJECT_NAME,\n\tOM.ORDER_STATUS,\n\tOM.ITEM_NUMBER,\n\tOM.ITEM_DESCRIPTION,\n\tOM.ORDER_NUMBER,\n\tOM.LINE_NUMBER,\n\tOM.LINE_QUANTITY,\n\tOM.OPEN_LINE_QUANTITY,\n\tOM.CUSTOMER_PO_NUMBER,\n\tOM.PROMISED_DATE,\n\tOM.LINE_CATEGORY_CODE,\n\tOM.HEADER_SHIP_FROM_ORG,\n\tOM.OM_OR_PC \nfrom OEOG0_OM_PC_ORDER_INFO_VSAT OM, \n\t(\n\tselect distinct pag0_project_classes.PROJECT_NUMBER,\n\t\tpag0_project_classes.CLASS_CODE \n\tfrom pag0_project_classes \n\twhere (pag0_project_classes.CLASS_CODE = '5010' and pag0_project_classes.CLASS_CATEGORY = 'CIP Cost Center Depr') \n\t\tor (pag0_project_classes.PROJECT_NUMBER = 'I700133' and pag0_project_classes.CLASS_CODE = 'Indirect')\n\t) PJ \nwhere OM.PROJECT_NUMBER = PJ.PROJECT_NUMBER \n\tand OM.ORDER_STATUS not in ('CLOSED', 'CANCELLED')",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_ORC",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema": ".",
+							"table": "."
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "ops-datascience-5026",
+							"filepath": "pte-project-cost/input",
+							"filename": "Open sales order.csv"
+						}
+					}
+				]
+			},
+			{
+				"name": "BudgetVersionHistoryQuery",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select pb.PROJECT_NUMBER,\n\tpb.PROJECT_NAME,\n\tpb.CURRENT_VERSION_FLAG,\n\tpb.BUDGET_VERSION_NUMBER,\n\tpb.BUDGET_VERSION_NAME,\n\tpb.QUANTITY,\n\tpb.BUDGETED_RAW_COST,\n\tpb.BUDGETED_BURDENED_COST,\n\tpb.CURRENT_ORIGINAL_VERSION_FLAG,\n\tpb.BUDGET_BASELINE_DATE,\n\tpb.BUDGET_ENTRY_LEVEL,\n\tpb.BUDGET_ENTRY_METHOD,\n\tpb.BUDGET_STATUS,\n\tpb.BUDGET_TYPE,\n\tpb.BUDGET_VERSION_DESCRIPTION,\n\tpb.BUDGETED_BURDENED_LABOR_COST,\n\tpb.BUDGET_BURDENED_NONLABOR_COST,\n\tpb.BUDGETED_LABOR_HOURS,\n\tpb.BUDGETED_LABOR_RAW_COST,\n\tpb.PROJECT_MANAGER_NAME,\n\tpb.PROJECT_TYPE_CLASS,\n\tpb.RESOURCE_NAME \nfrom pag0_budget_versions pb \nwhere pb.BUDGET_STATUS = 'Baselined'",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_ORC",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema": ".",
+							"table": "."
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "ops-datascience-5026",
+							"filepath": "pte-project-cost/input",
+							"filename": "Budget Version History.csv"
+						}
+					}
+				]
+			},
+			{
+				"name": "OnhandInventoryQuery",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select INV.PROJECT_NUM,\n\tINV.PROJECT_NAME,\n\tINV.ORGANIZATION_CODE,\n\tINV.SUBINVENTORY_CODE,\n\tINV.LOCATOR,\n\tINV.ITEM_NUM,\n\tINV.ITEM_DESCRIPTION,\n\tINV.PRIMARY_UNIT_OF_MEASURE,\n\tINV.ONHAND_QTY,\n\tINV.ITEM_COST,\n\tINV.EXTENDED_COST,\n\tINV.ITEM_STATUS,\n\tINV.ITEM_STATUS_CODE,\n\tINV.PROJ_MGR,\n\tINV.LOT_CREATION_DATE,\n\tINV.ITEM_TYPE,\n\tINV.COST_GROUP,\n\tINV.ORIG_DATE_RECEIVED \nfrom INVG0_Onhand_Quantities_Vsat INV, \n\t(\n\tselect distinct pag0_project_classes.PROJECT_NUMBER,\n\t\tpag0_project_classes.CLASS_CODE \n\tfrom pag0_project_classes \n\twhere (pag0_project_classes.CLASS_CODE = '5010' and pag0_project_classes.CLASS_CATEGORY = 'CIP Cost Center Depr') \n\t\tor (pag0_project_classes.PROJECT_NUMBER = 'I700133' and pag0_project_classes.CLASS_CODE = 'Indirect')\n\t) PJ \nwhere INV.PROJECT_NUM = PJ.PROJECT_NUMBER",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_ORC",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema": ".",
+							"table": "."
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "ops-datascience-5026",
+							"filepath": "pte-project-cost/input",
+							"filename": "Onhand Inventory.csv"
+						}
+					}
+				]
+			},
+			{
+				"name": "PAGO_TASKS",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OdbcSource",
+						"query": "select PAG0_TASKS.TASK_NUMBER,\n\tPAG0_TASKS.TASK_NAME,\n\tPAG0_TASKS.TASK_DESCRIPTION,\n\tPAG0_TASKS.PROJECT_NUMBER,\n\tPAG0_TASKS.PROJECT_NAME\nfrom PAG0_TASKS",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "OdbcTable1",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "ops-datascience-5026-dev",
+							"filepath": "pte_project_cost/raw",
+							"filename": "Project Expenditure Data.csv"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "Service/OracleCopy_Pipelines"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-11-08T11:55:55Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

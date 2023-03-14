@@ -1,0 +1,7 @@
+{
+	"name": "mep-StrgAcct-sagtappsadfusrstrgv2dev",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/c890fa4e-0250-4596-9e05-aab88eefb263/resourceGroups/rg-gt-adfshared-resources-1654/providers/Microsoft.Storage/storageAccounts/sagtappsadfusrstrgv2dev",
+		"groupId": "blob"
+	}
+}

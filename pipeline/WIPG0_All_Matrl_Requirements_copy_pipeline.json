@@ -1,0 +1,110 @@
+{
+    "name": "WIPG0_All_Matrl_Requirements_copy_pipeline",
+    "properties": {
+        "activities": [
+            {
+                "name": "PAG0_Project_Class_Categories",
+                "type": "Copy",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "source": {
+                        "type": "OracleSource",
+                        "partitionOption": "None",
+                        "queryTimeout": "02:00:00"
+                    },
+                    "sink": {
+                        "type": "DelimitedTextSink",
+                        "storeSettings": {
+                            "type": "AzureBlobStorageWriteSettings"
+                        },
+                        "formatSettings": {
+                            "type": "DelimitedTextWriteSettings",
+                            "quoteAllText": true,
+                            "fileExtension": ".txt"
+                        }
+                    },
+                    "enableStaging": false
+                }
+            },
+            {
+                "name": "WIPG0_All_Matrl_Requirements",
+                "type": "Copy",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "source": {
+                        "type": "OracleSource",
+                        "oracleReaderQuery": "select Noetix_Views.WIPG0_All_Matrl_Requirements.JOB_CREATION_DATE, \nNoetix_Views.WIPG0_All_Matrl_Requirements.ASSEMBLY_DESCRIPTION, \nNoetix_Views.WIPG0_All_Matrl_Requirements.ASSEMBLY$SV$PART_NUMBER, \nNoetix_Views.WIPG0_All_Matrl_Requirements.ASSEMBLY_PLANNER_CODE, \nNoetix_Views.WIPG0_All_Matrl_Requirements.ASSMCOMP$SV$PART_NUMBER, \nNoetix_Views.WIPG0_All_Matrl_Requirements.COMPONENT_DESCRIPTION, \nNoetix_Views.WIPG0_All_Matrl_Requirements.COMPONENT_PLANNER_CODE, \nNoetix_Views.WIPG0_All_Matrl_Requirements.COMPONENT_PLANNER_DESCRIPTION, \nNoetix_Views.WIPG0_All_Matrl_Requirements.COMPONENT_QTY_PER_ASSEMBLY, \nNoetix_Views.WIPG0_All_Matrl_Requirements.COMPONENT_QUANTITY_ISSUED, \nNoetix_Views.WIPG0_All_Matrl_Requirements.COMPONENT_QUANTITY_OPEN, \nNoetix_Views.WIPG0_All_Matrl_Requirements.COMPONENT_QUANTITY_REQUIRED, \nNoetix_Views.WIPG0_All_Matrl_Requirements.COMPONENT_REQUIRED_DATE, \nNoetix_Views.WIPG0_All_Matrl_Requirements.COMPONENT_REVISION, \nNoetix_Views.WIPG0_All_Matrl_Requirements.COMPONENT_UOM_CODE, \nNoetix_Views.WIPG0_All_Matrl_Requirements.JOB_CREATED_BY, \nNoetix_Views.WIPG0_All_Matrl_Requirements.JOB_FLEX_DELIVERY_KIT_TO, \nNoetix_Views.WIPG0_All_Matrl_Requirements.JOB_NAME, \nNoetix_Views.WIPG0_All_Matrl_Requirements.JOB_QUANTITY_COMPLETED, \nNoetix_Views.WIPG0_All_Matrl_Requirements.JOB_QUANTITY_SCHEDULED, \nNoetix_Views.WIPG0_All_Matrl_Requirements.JOB_RELEASED_DATE, \nNoetix_Views.WIPG0_All_Matrl_Requirements.JOB_SCHEDULED_COMPLETION_DT, \nNoetix_Views.WIPG0_All_Matrl_Requirements.JOB_START_DATE, \nNoetix_Views.WIPG0_All_Matrl_Requirements.JOB_STATUS, \nNoetix_Views.WIPG0_All_Matrl_Requirements.ORGANIZATION_CODE, \nNoetix_Views.WIPG0_All_Matrl_Requirements.PROJECT_NUMBER, \nNoetix_Views.WIPG0_All_Matrl_Requirements.ROUTING_EXIST, \nNoetix_Views.WIPG0_All_Matrl_Requirements.TASK_NUMBER, \nNoetix_Views.WIPG0_All_Matrl_Requirements.WIP_SUPPLY_TYPE, \nNoetix_Views.WIPG0_All_Matrl_Requirements.COMPONENT_UNIT_COST, \nNoetix_Views.WIPG0_All_Matrl_Requirements.ASSEMBLY_PLANNER_DESCRIPTION from Noetix_Views.WIPG0_All_Matrl_Requirements where Noetix_Views.WIPG0_All_Matrl_Requirements.JOB_CREATION_DATE >= '01-JAN-2015'",
+                        "partitionOption": "None",
+                        "queryTimeout": "02:00:00"
+                    },
+                    "sink": {
+                        "type": "DelimitedTextSink",
+                        "storeSettings": {
+                            "type": "AzureBlobStorageWriteSettings"
+                        },
+                        "formatSettings": {
+                            "type": "DelimitedTextWriteSettings",
+                            "quoteAllText": true,
+                            "fileExtension": ".txt"
+                        }
+                    },
+                    "enableStaging": false
+                }
+            },
+            {
+                "name": "INVG0_Onhand_Quantities_Vsat",
+                "type": "Copy",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "source": {
+                        "type": "OracleSource",
+                        "partitionOption": "None",
+                        "queryTimeout": "02:00:00"
+                    },
+                    "sink": {
+                        "type": "DelimitedTextSink",
+                        "storeSettings": {
+                            "type": "AzureBlobStorageWriteSettings"
+                        },
+                        "formatSettings": {
+                            "type": "DelimitedTextWriteSettings",
+                            "quoteAllText": true,
+                            "fileExtension": ".txt"
+                        }
+                    },
+                    "enableStaging": false
+                }
+            }
+        ],
+        "folder": {
+            "name": "Deepikapipelines"
+        },
+        "annotations": [],
+        "lastPublishTime": "2022-11-08T15:53:13Z"
+    },
+    "type": "Microsoft.DataFactory/factories/pipelines"
+}

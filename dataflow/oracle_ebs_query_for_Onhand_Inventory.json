@@ -1,0 +1,74 @@
+{
+	"name": "oracle_ebs_query_for_Onhand_Inventory",
+	"properties": {
+		"folder": {
+			"name": "pte_project_cost"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference"
+					},
+					"name": "OnhandInventory"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_csv_output",
+						"type": "DatasetReference"
+					},
+					"name": "sinkingOutput"
+				}
+			],
+			"transformations": [
+				{
+					"name": "Formulae"
+				},
+				{
+					"name": "filteringCProjectNumber"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          PROJECT_NUM as string,",
+				"          PROJECT_NAME as string,",
+				"          ORGANIZATION_CODE as short,",
+				"          SUBINVENTORY_CODE as string,",
+				"          LOCATOR as string,",
+				"          ITEM_NUM as string,",
+				"          ITEM_DESCRIPTION as string,",
+				"          PRIMARY_UNIT_OF_MEASURE as string,",
+				"          ONHAND_QTY as double,",
+				"          ITEM_COST as double,",
+				"          EXTENDED_COST as double,",
+				"          ITEM_STATUS as string,",
+				"          ITEM_STATUS_CODE as string,",
+				"          PROJ_MGR as string,",
+				"          LOT_CREATION_DATE as string,",
+				"          ITEM_TYPE as string,",
+				"          COST_GROUP as string,",
+				"          ORIG_DATE_RECEIVED as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> OnhandInventory",
+				"OnhandInventory derive(ITEM_COST = iif(SUBINVENTORY_CODE=='Intangible',toDouble(0),toDouble(ITEM_COST)),",
+				"          EXTENDED_COST = iif(SUBINVENTORY_CODE=='Intangible',toDouble(0),toDouble(EXTENDED_COST))) ~> Formulae",
+				"Formulae filter(regexMatch(PROJECT_NUM,'C') || PROJECT_NUM=='S000143') ~> filteringCProjectNumber",
+				"filteringCProjectNumber sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionFileNames:['pte_onhand_inventory.csv'],",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> sinkingOutput"
+			]
+		}
+	}
+}

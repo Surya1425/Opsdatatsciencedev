@@ -1,0 +1,37 @@
+{
+	"name": "Oracle_Audit_Pipeline",
+	"properties": {
+		"activities": [
+			{
+				"name": "Oracle_Audit",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "DF_Oracle_Audit",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"folder": {
+			"name": "ORACLE_AUDIT_pipeline"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-11-04T14:41:30Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

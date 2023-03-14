@@ -1,0 +1,320 @@
+{
+	"name": "DS_ORACLE_EBSPJD1",
+	"properties": {
+		"activities": [
+			{
+				"name": "CSIG0_TXN_ERRORS_PROCESSING_VS to ADLS",
+				"description": "CSIG0_TXN_ERRORS_PROCESSING_VS to ADLS",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"partitionOption": "None",
+						"convertDecimalToInteger": false,
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "A$MATERIAL_TRANSACTION_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "A$MATERIAL_TRANSACTION_ID",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "A$ORGANIZATION_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "A$ORGANIZATION_NAME",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "A$SOURCE_TYPE_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "A$SOURCE_TYPE_NAME",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "A$ZZ__________________________",
+									"type": "String"
+								},
+								"sink": {
+									"name": "A$ZZ__________________________",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ERROR_DATE",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "ERROR_DATE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ERROR_MESSAGE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ERROR_MESSAGE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ITEM_INSTANCE",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "ITEM_INSTANCE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ITEM_NUMBER",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ITEM_NUMBER",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LOT_NUMBER",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LOT_NUMBER",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MATERIAL_TRANSACTION_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "MATERIAL_TRANSACTION_ID",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ORGANIZATION_CODE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ORGANIZATION_CODE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ORGANIZATION_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ORGANIZATION_NAME",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "QTY",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "QTY",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SERIAL_NUMBER",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SERIAL_NUMBER",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SOURCE_GROUP_REF",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SOURCE_GROUP_REF",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SOURCE_GROUP_REF_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "SOURCE_GROUP_REF_ID",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SOURCE_HEADER_REF",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SOURCE_HEADER_REF",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SOURCE_HEADER_REF_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "SOURCE_HEADER_REF_ID",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SOURCE_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "SOURCE_ID",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SOURCE_LINE_REF",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SOURCE_LINE_REF",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SOURCE_LINE_REF_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "SOURCE_LINE_REF_ID",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SOURCE_TYPE_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SOURCE_TYPE_NAME",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "TRANSACTION_TYPE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "TRANSACTION_TYPE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "OracleDS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SERVICE_NOETIX_VIEWS_CSIG0_TXN_ERRORS_PROCESSING_VS",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "IBTI_pipelines"
+		},
+		"annotations": []
+	}
+}

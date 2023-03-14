@@ -1,0 +1,154 @@
+{
+	"name": "DS_Oracle_EBSPJD1_UNION_TABLES_QAPP",
+	"properties": {
+		"activities": [
+			{
+				"name": "DS_Oracle_EBSPJD1_UNION_TABLES",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select \n    'Supplier' as \"Type\",\n    'N/A' as \"Project\",\n    sup.Supplier_Name as \"Code\",\n    sup.Supplier_Number as \"Code Description\",\n    sup.Qapp_List as \"QAPP List\",\n    sup.Qa_Approver as \"QA Approver\",\n    sup.qa_created_by as \"Created By\",\n    sup.qa_creation_date as \"Creation Date\"\nfrom noetix_views.QAG0_QAPP_Supplier_Vsat sup\n\nUNION ALL\n\nselect \n    'Project' as \"Type\",\n    prj.project_number as \"Project Number\",\n    prj.commodity_code as \"Code\",\n    prj.commodity_code_desc as \"Code Description\",\n    prj.Qapp_List as \"QAPP List\",\n    prj.Qa_Approver as \"QA Approver\",\n    prj.qa_created_by as \"Created By\",\n    prj.qa_creation_date as \"Creation Date\"\nfrom noetix_views.QAG0_QAPP_Project_Vsat prj\n\nUNION ALL\n\nselect \n    'Part Number' as \"Type\",\n    'N/A' as \"Project Number\",\n    pn.part_number as \"Code\",\n    pn.part_description as \"Code Description\",\n    pn.Qapp_List as \"QAPP List\",\n    pn.Qa_Approver as \"QA Approver\",\n    pn.qa_created_by as \"Created By\",\n    pn.qa_creation_date as \"Creation Date\"\nfrom noetix_views.QAG0_QAPP_PN_Vsat pn\n\nUNION ALL\n\nselect \n    'Commodity Code' as \"Type\",\n    'N/A' as \"Project Number\",\n    cc.commodity_code as \"Code\",\n    cc.commodity_code_desc as \"Code Description\",\n    cc.Qapp_List as \"QAPP List\",\n    'N/A' as \"QA Approver\",\n    cc.qa_created_by as \"Created By\",\n    cc.qa_creation_date as \"Creation Date\"\nfrom noetix_views.QAG0_QAPP_CC_Vsat cc",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "Type",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Type",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Project",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Project",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Code",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Code",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Code Description",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Code Description",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "QAPP List",
+									"type": "String"
+								},
+								"sink": {
+									"name": "QAPP List",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "QA Approver",
+									"type": "String"
+								},
+								"sink": {
+									"name": "QA Approver",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Created By",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Created By",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Creation Date",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "Creation Date",
+									"type": "String",
+									"physicalType": "String"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_sup",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_union_tables",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "QAPP_pipelines"
+		},
+		"annotations": []
+	}
+}

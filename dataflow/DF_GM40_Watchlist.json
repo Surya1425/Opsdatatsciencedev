@@ -1,0 +1,2160 @@
+{
+	"name": "DF_GM40_Watchlist",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference"
+					},
+					"name": "Assemblies",
+					"description": "Assemblies"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference"
+					},
+					"name": "BomEplosions",
+					"description": "\\BOM Explosions"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference"
+					},
+					"name": "source3"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference"
+					},
+					"name": "source4"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference"
+					},
+					"name": "source5"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference"
+					},
+					"name": "source6"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_csv_output",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "select1"
+				},
+				{
+					"name": "select2"
+				},
+				{
+					"name": "select3"
+				},
+				{
+					"name": "select4"
+				},
+				{
+					"name": "select5"
+				},
+				{
+					"name": "join1"
+				},
+				{
+					"name": "select7"
+				},
+				{
+					"name": "filter1"
+				},
+				{
+					"name": "select8"
+				},
+				{
+					"name": "aggregate1"
+				},
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "union1"
+				},
+				{
+					"name": "sort1"
+				},
+				{
+					"name": "derivedColumn2"
+				},
+				{
+					"name": "surrogateKey1"
+				},
+				{
+					"name": "join2"
+				},
+				{
+					"name": "filter2"
+				},
+				{
+					"name": "select9"
+				},
+				{
+					"name": "sort2"
+				},
+				{
+					"name": "window1"
+				},
+				{
+					"name": "derivedColumn3"
+				},
+				{
+					"name": "derivedColumn4"
+				},
+				{
+					"name": "filter3"
+				},
+				{
+					"name": "select10"
+				},
+				{
+					"name": "derivedColumn5"
+				},
+				{
+					"name": "select11"
+				},
+				{
+					"name": "aggregate3"
+				},
+				{
+					"name": "aggregate4"
+				},
+				{
+					"name": "aggregate5"
+				},
+				{
+					"name": "join4"
+				},
+				{
+					"name": "join5"
+				},
+				{
+					"name": "select12"
+				},
+				{
+					"name": "select13"
+				},
+				{
+					"name": "filter4"
+				},
+				{
+					"name": "filter5"
+				},
+				{
+					"name": "select15"
+				},
+				{
+					"name": "select16"
+				},
+				{
+					"name": "join6"
+				},
+				{
+					"name": "derivedColumn6"
+				},
+				{
+					"name": "derivedColumn7"
+				},
+				{
+					"name": "derivedColumn8"
+				},
+				{
+					"name": "derivedColumn9"
+				},
+				{
+					"name": "filter6"
+				},
+				{
+					"name": "aggregate6"
+				},
+				{
+					"name": "join7"
+				},
+				{
+					"name": "derivedColumn10"
+				},
+				{
+					"name": "derivedColumn11"
+				},
+				{
+					"name": "filter7"
+				},
+				{
+					"name": "select17"
+				},
+				{
+					"name": "aggregate7"
+				},
+				{
+					"name": "join8"
+				},
+				{
+					"name": "select18"
+				},
+				{
+					"name": "aggregate8"
+				},
+				{
+					"name": "join9"
+				},
+				{
+					"name": "select19"
+				},
+				{
+					"name": "filter8"
+				},
+				{
+					"name": "select20"
+				},
+				{
+					"name": "filter9"
+				},
+				{
+					"name": "select21"
+				},
+				{
+					"name": "aggregate9"
+				},
+				{
+					"name": "derivedColumn12"
+				},
+				{
+					"name": "aggregate10"
+				},
+				{
+					"name": "select24"
+				},
+				{
+					"name": "select25"
+				},
+				{
+					"name": "filter12"
+				},
+				{
+					"name": "derivedColumn13"
+				},
+				{
+					"name": "derivedColumn14"
+				},
+				{
+					"name": "aggregate11"
+				},
+				{
+					"name": "select26"
+				},
+				{
+					"name": "filter13"
+				},
+				{
+					"name": "select27"
+				},
+				{
+					"name": "aggregate12"
+				},
+				{
+					"name": "aggregate13"
+				},
+				{
+					"name": "aggregate14"
+				},
+				{
+					"name": "select28"
+				},
+				{
+					"name": "select29"
+				},
+				{
+					"name": "join10"
+				},
+				{
+					"name": "derivedColumn15"
+				},
+				{
+					"name": "derivedColumn16"
+				},
+				{
+					"name": "join11"
+				},
+				{
+					"name": "select30"
+				},
+				{
+					"name": "derivedColumn17"
+				},
+				{
+					"name": "filter14"
+				},
+				{
+					"name": "select31"
+				},
+				{
+					"name": "union2"
+				},
+				{
+					"name": "select32"
+				},
+				{
+					"name": "join13"
+				},
+				{
+					"name": "select33"
+				},
+				{
+					"name": "select34"
+				},
+				{
+					"name": "join14"
+				},
+				{
+					"name": "join15"
+				},
+				{
+					"name": "derivedColumn18"
+				},
+				{
+					"name": "filter15"
+				},
+				{
+					"name": "union3"
+				},
+				{
+					"name": "select35"
+				},
+				{
+					"name": "select36"
+				},
+				{
+					"name": "join16"
+				},
+				{
+					"name": "filter16"
+				},
+				{
+					"name": "select37"
+				},
+				{
+					"name": "derivedColumn19"
+				},
+				{
+					"name": "filter17"
+				},
+				{
+					"name": "union4"
+				},
+				{
+					"name": "select38"
+				},
+				{
+					"name": "select39"
+				},
+				{
+					"name": "derivedColumn20"
+				},
+				{
+					"name": "select40"
+				},
+				{
+					"name": "derivedColumn21"
+				},
+				{
+					"name": "window2"
+				},
+				{
+					"name": "derivedColumn22"
+				},
+				{
+					"name": "select41"
+				},
+				{
+					"name": "window3"
+				},
+				{
+					"name": "derivedColumn23"
+				},
+				{
+					"name": "select42"
+				},
+				{
+					"name": "pivot1"
+				},
+				{
+					"name": "aggregate15"
+				},
+				{
+					"name": "derivedColumn24"
+				},
+				{
+					"name": "sort3"
+				},
+				{
+					"name": "derivedColumn25"
+				},
+				{
+					"name": "join17"
+				},
+				{
+					"name": "filter18"
+				},
+				{
+					"name": "join18"
+				},
+				{
+					"name": "filter19"
+				},
+				{
+					"name": "select43"
+				},
+				{
+					"name": "filter20"
+				},
+				{
+					"name": "derivedColumn26"
+				},
+				{
+					"name": "filter22"
+				},
+				{
+					"name": "derivedColumn27"
+				},
+				{
+					"name": "derivedColumn28"
+				},
+				{
+					"name": "filter23"
+				},
+				{
+					"name": "filter24"
+				},
+				{
+					"name": "aggregate16"
+				},
+				{
+					"name": "derivedColumn29"
+				},
+				{
+					"name": "filter25"
+				},
+				{
+					"name": "select44"
+				},
+				{
+					"name": "derivedColumn30"
+				},
+				{
+					"name": "union5"
+				},
+				{
+					"name": "union6"
+				},
+				{
+					"name": "select45"
+				},
+				{
+					"name": "sort4"
+				},
+				{
+					"name": "aggregate17"
+				},
+				{
+					"name": "select46"
+				},
+				{
+					"name": "derivedColumn31"
+				},
+				{
+					"name": "join19"
+				},
+				{
+					"name": "aggregate18"
+				},
+				{
+					"name": "derivedColumn32"
+				},
+				{
+					"name": "union7"
+				},
+				{
+					"name": "select47"
+				},
+				{
+					"name": "filter26"
+				},
+				{
+					"name": "select48"
+				},
+				{
+					"name": "join20"
+				},
+				{
+					"name": "filter27"
+				},
+				{
+					"name": "derivedColumn33"
+				},
+				{
+					"name": "select49"
+				},
+				{
+					"name": "select50"
+				},
+				{
+					"name": "union8"
+				},
+				{
+					"name": "sort5"
+				},
+				{
+					"name": "select51"
+				},
+				{
+					"name": "select52"
+				},
+				{
+					"name": "aggregate19"
+				},
+				{
+					"name": "join21"
+				},
+				{
+					"name": "derivedColumn34"
+				},
+				{
+					"name": "derivedColumn35"
+				},
+				{
+					"name": "select53"
+				},
+				{
+					"name": "select54"
+				},
+				{
+					"name": "filter28"
+				},
+				{
+					"name": "aggregate20"
+				},
+				{
+					"name": "derivedColumn36"
+				},
+				{
+					"name": "union9"
+				},
+				{
+					"name": "sort6"
+				},
+				{
+					"name": "derivedColumn37"
+				},
+				{
+					"name": "window4"
+				},
+				{
+					"name": "join22"
+				},
+				{
+					"name": "filter29"
+				},
+				{
+					"name": "select55"
+				},
+				{
+					"name": "derivedColumn38"
+				},
+				{
+					"name": "derivedColumn39"
+				},
+				{
+					"name": "sort7"
+				},
+				{
+					"name": "window5"
+				},
+				{
+					"name": "derivedColumn40"
+				},
+				{
+					"name": "derivedColumn41"
+				},
+				{
+					"name": "derivedColumn42"
+				},
+				{
+					"name": "select56"
+				},
+				{
+					"name": "filter30"
+				},
+				{
+					"name": "aggregate21"
+				},
+				{
+					"name": "aggregate22"
+				},
+				{
+					"name": "aggregate23"
+				},
+				{
+					"name": "join23"
+				},
+				{
+					"name": "select57"
+				},
+				{
+					"name": "aggregate24"
+				},
+				{
+					"name": "join24"
+				},
+				{
+					"name": "select58"
+				},
+				{
+					"name": "select59"
+				},
+				{
+					"name": "select60"
+				},
+				{
+					"name": "join25"
+				},
+				{
+					"name": "select61"
+				},
+				{
+					"name": "derivedColumn43"
+				},
+				{
+					"name": "select62"
+				},
+				{
+					"name": "select63"
+				}
+			],
+			"scriptLines": [
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> Assemblies",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> BomEplosions",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source3",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source4",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source5",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source6",
+				"Assemblies select(mapColumn(",
+				"          Assemblies",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"BomEplosions select(mapColumn(",
+				"          Assembly,",
+				"          Component,",
+				"          {Extended Quantity},",
+				"          Level,",
+				"          {Org Code},",
+				"          Path,",
+				"          QPA",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select2",
+				"source3 select(mapColumn(",
+				"          each(match(/* All input columns */true()),",
+				"               /* Input name */$$ = $$)",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select3",
+				"source4 select(mapColumn(",
+				"          {Subinv Room},",
+				"          {Subinventory Code},",
+				"          {Supplier Lot Number},",
+				"          {Task Num},",
+				"          {Prod Type},",
+				"          {Proj Mgr},",
+				"          {Project Division},",
+				"          {Project Name},",
+				"          {Project Num},",
+				"          {Project Type},",
+				"          {Purch Cat Code},",
+				"          {Receipt Date},",
+				"          {Receipt Number},",
+				"          {Resource Cost},",
+				"          {Serial Control Code},",
+				"          {Service Cat Code},",
+				"          {Subinv Custodian},",
+				"          {Allow Reservation},",
+				"          {Contract Number},",
+				"          {Cost Cat Code},",
+				"          {Cost Group},",
+				"          {Extended Cost},",
+				"          {Include In Atp},",
+				"          {Inv Cat Code},",
+				"          {Item Cost},",
+				"          {Item Description},",
+				"          {Item Num},",
+				"          {Item Rev},",
+				"          {Item Status},",
+				"          {Item Status Code},",
+				"          {Item Type},",
+				"          {Item Warranty Period},",
+				"          {Lots$Date Code},",
+				"          {Lots$Die Bin Number},",
+				"          {Lots$Die Wafer Number},",
+				"          {Lots$Ext �Lot Number},",
+				"          {Lots$Mfg Pn},",
+				"          {Lots$Packaging},",
+				"          {Lots$Prop Desc},",
+				"          {Lots$Prop Mfg},",
+				"          {Lots$Prop Price},",
+				"          {Lots$Prop Sn},",
+				"          Locator,",
+				"          {Locator Id},",
+				"          {Lot Control Code},",
+				"          {Lot Creation Date},",
+				"          {Lot Date Code},",
+				"          {Lot Description},",
+				"          {Lot Exp Date},",
+				"          {Lot Extended Price},",
+				"          {Lot First Txn Source},",
+				"          {Lot First Txn Type},",
+				"          {Lot Number},",
+				"          {Lot Status},",
+				"          {Make Buy Code},",
+				"          {Material Cost},",
+				"          {Material Overhead Cost},",
+				"          Nettable,",
+				"          {Onhand Qty},",
+				"          {Organization Code},",
+				"          {Orig Date Received},",
+				"          {Outside Processing Cost},",
+				"          {Overhead Cost},",
+				"          {Planning Cat Code},",
+				"          {Planning Group},",
+				"          {Primary Unit Of Measure},",
+				"          {Prod Line},",
+				"          {Repo Load Dttm},",
+				"          Qty",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select4",
+				"source5 select(mapColumn(",
+				"          {Assmcomp$Sv$Part Number} = {ASSMCOMP$SV$PART_NUMBER},",
+				"          {Component Comments} = COMPONENT_COMMENTS,",
+				"          {Component Description} = COMPONENT_DESCRIPTION,",
+				"          {Component Qty Per Assembly} = COMPONENT_QTY_PER_ASSEMBLY,",
+				"          {Component Quantity Issued} = COMPONENT_QUANTITY_ISSUED,",
+				"          {Component Quantity Open} = COMPONENT_QUANTITY_OPEN,",
+				"          {Component Quantity Required} = COMPONENT_QUANTITY_REQUIRED,",
+				"          {Component Required Date} = COMPONENT_REQUIRED_DATE,",
+				"          {Component Revision} = COMPONENT_REVISION,",
+				"          {Component Unit Cost} = COMPONENT_UNIT_COST,",
+				"          {Component Uom Code} = COMPONENT_UOM_CODE,",
+				"          {Job Description} = JOB_DESCRIPTION,",
+				"          {Job Name} = JOB_NAME,",
+				"          {Job Quantity Completed} = JOB_QUANTITY_COMPLETED,",
+				"          {Job Quantity Scheduled} = JOB_QUANTITY_SCHEDULED,",
+				"          {Organization Code} = ORGANIZATION_CODE,",
+				"          {Operation Sequence Number} = OPERATION_SEQUENCE_NUMBER,",
+				"          {Task Number} = TASK_NUMBER,",
+				"          {Wip Supply Type} = WIP_SUPPLY_TYPE,",
+				"          {Assembly$Sv$Part Number} = {ASSEMBLY$SV$PART_NUMBER},",
+				"          {Assembly Description} = ASSEMBLY_DESCRIPTION",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select5",
+				"derivedColumn6, derivedColumn7 join(derivedColumn6@SyntheticKey==derivedColumn7@SyntheticKey,",
+				"     joinType:'cross',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join1",
+				"join1 select(mapColumn(",
+				"          Assembly,",
+				"          Component,",
+				"          {Extended Quantity},",
+				"          Level,",
+				"          {Org Code},",
+				"          Path,",
+				"          QPA,",
+				"          Assemblies",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select7",
+				"select7 filter(contains(split(Assemblies,' '),split(Assembly,' '))) ~> filter1",
+				"filter1 select(mapColumn(",
+				"          Assembly,",
+				"          Component,",
+				"          {Extended Quantity},",
+				"          Level,",
+				"          {Org Code},",
+				"          Path,",
+				"          QPA,",
+				"          Assemblies",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select8",
+				"select8 aggregate(groupBy({Org Code},",
+				"          Assembly),",
+				"     each(match(name!='Org Code'&&name!='Assembly'), $$ = first($$))) ~> aggregate1",
+				"aggregate1 derive(Component = Assembly,",
+				"          Level = 0,",
+				"          Path = \"Top Level\") ~> derivedColumn1",
+				"derivedColumn1, select8 union(byName: true)~> union1",
+				"union1 sort(asc(Assembly, true),",
+				"     asc(Path, true)) ~> sort1",
+				"sort1 derive(Path = concat(Assembly, concat(' ', Path))) ~> derivedColumn2",
+				"derivedColumn2 keyGenerate(output(RecordID as long),",
+				"     startAt: 1L,",
+				"     stepValue: 1L) ~> surrogateKey1",
+				"surrogateKey1, select9 join(Component == {Item Number}",
+				"     && {Org Code} == Org,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join2",
+				"select3 filter(instr({Item Type},'reference item') == 0) ~> filter2",
+				"filter2 select(mapColumn(",
+				"          {Wip Supply Type},",
+				"          {Item Type},",
+				"          Org = {Organization Code},",
+				"          {Item Number},",
+				"          {Item Description},",
+				"          {Make/Buy} = {Planning Make Buy Code},",
+				"          {Fixed LT} = {Fixed Lead Time}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select9",
+				"join2 sort(asc(Org, true),",
+				"     asc(RecordID, true)) ~> sort2",
+				"derivedColumn3 window(BuyParentLevel2 = lag(toString(BuyParentLevel),1,0),",
+				"          {Make/Buy2} = lag(toString({Make/Buy}),1,0),",
+				"          Level2 = lag(toInteger(Level),1,0)) ~> window1",
+				"sort2 derive(BuyParentLevel = '') ~> derivedColumn3",
+				"window1 derive(BuyParentLevel = iif( toInteger(Level) ==0 && toString({Make/Buy}) == 'Buy' ,'0' ,\r",
+				"iif(!isNull(BuyParentLevel2) && toInteger(BuyParentLevel2) < toInteger(Level), toString(BuyParentLevel2),\r",
+				"iif( toString({Make/Buy2}) == 'Buy' && Level2 < toInteger(Level), toString(Level2), '')))) ~> derivedColumn4",
+				"select10 filter({Child of Buy} == \"No\"\r",
+				"&& \r",
+				"{Extended Quantity} > 0\r",
+				"&&\r",
+				"lower(toString({Item Type}))!= \"reference item\" \r",
+				"&& \r",
+				"toString(Org) == \"75\") ~> filter3",
+				"derivedColumn5 select(mapColumn(",
+				"          Assembly,",
+				"          Component,",
+				"          {Extended Quantity},",
+				"          Level,",
+				"          Path,",
+				"          QPA,",
+				"          RecordID,",
+				"          {Wip Supply Type},",
+				"          {Item Type},",
+				"          Org,",
+				"          {Item Description},",
+				"          {Make/Buy},",
+				"          {Fixed LT},",
+				"          {Child of Buy}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select10",
+				"derivedColumn4 derive({Child of Buy} = iif(Level>0 && !isNull(BuyParentLevel),\"Yes\",\"No\")) ~> derivedColumn5",
+				"filter3 select(mapColumn(",
+				"          Assembly,",
+				"          Component,",
+				"          {Extended Quantity},",
+				"          Level,",
+				"          Path,",
+				"          QPA,",
+				"          RecordID,",
+				"          {Wip Supply Type},",
+				"          {Item Type},",
+				"          Org,",
+				"          {Item Description},",
+				"          {Make/Buy},",
+				"          {Fixed LT},",
+				"          {Child of Buy}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select11",
+				"select11 aggregate(groupBy(Assembly,",
+				"          Component),",
+				"     each(match(name!='Assembly'&&name!='Component'), $$ = first($$))) ~> aggregate3",
+				"select11 aggregate(groupBy(Assembly,",
+				"          Component,",
+				"          Level),",
+				"     {Extended Quantity} = sum({Extended Quantity})) ~> aggregate4",
+				"aggregate4 aggregate(groupBy(Assembly,",
+				"          Component),",
+				"     Level = max(Level),",
+				"          {Total QPA} = max({Extended Quantity})) ~> aggregate5",
+				"aggregate5, select11 join(aggregate5@Assembly == select11@Assembly",
+				"     && aggregate5@Component == select11@Component",
+				"     && aggregate5@Level == select11@Level,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join4",
+				"aggregate5, aggregate3 join(aggregate5@Assembly == aggregate3@Assembly",
+				"     && aggregate5@Component == aggregate3@Component,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join5",
+				"join5 select(mapColumn(",
+				"          Assembly = aggregate5@Assembly,",
+				"          Component = aggregate5@Component,",
+				"          Right_Level = aggregate5@Level,",
+				"          {Total QPA},",
+				"          Right_Assembly = aggregate3@Assembly,",
+				"          Right_Component = aggregate3@Component,",
+				"          {Right_Extended Quantity} = {Extended Quantity},",
+				"          Level = aggregate3@Level,",
+				"          Path,",
+				"          QPA,",
+				"          RecordID,",
+				"          {Wip Supply Type},",
+				"          {Item Type},",
+				"          Org,",
+				"          {Item Description},",
+				"          {Make/Buy},",
+				"          {Fixed LT},",
+				"          {Child of Buy}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select12",
+				"join4 select(mapColumn(",
+				"          {Item #} = aggregate5@Component,",
+				"          Level = aggregate5@Level,",
+				"          {Total QPA},",
+				"          Right_Assembly = select11@Assembly,",
+				"          Right_Level = select11@Level,",
+				"          Path,",
+				"          {Wip Supply Type},",
+				"          {Item Description},",
+				"          {Make/Buy},",
+				"          {Fixed LT}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select13",
+				"select13 filter(lower({Wip Supply Type}) == 'Push') ~> filter4",
+				"select12 filter({Make/Buy} == \"Make\" &&",
+				"{Wip Supply Type} == \"Push\") ~> filter5",
+				"derivedColumn9 select(mapColumn(",
+				"          Source_Component = Component,",
+				"          Source_Right_Assembly = Right_Assembly,",
+				"          {Source_Fixed LT} = {Fixed LT},",
+				"          SyntheticKey",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select15",
+				"derivedColumn8 select(mapColumn(",
+				"          Assembly,",
+				"          Component,",
+				"          Right_Level,",
+				"          {Total QPA},",
+				"          Right_Assembly,",
+				"          Right_Component,",
+				"          {Right_Extended Quantity},",
+				"          Level,",
+				"          Path,",
+				"          QPA,",
+				"          RecordID,",
+				"          {Wip Supply Type},",
+				"          {Item Type},",
+				"          Org,",
+				"          {Item Description},",
+				"          {Make/Buy},",
+				"          {Fixed LT},",
+				"          {Child of Buy},",
+				"          SyntheticKey",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select16",
+				"select16, select15 join(select16@SyntheticKey==select15@SyntheticKey,",
+				"     joinType:'cross',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join6",
+				"select2 derive(SyntheticKey = 1) ~> derivedColumn6",
+				"select1 derive(SyntheticKey = 1) ~> derivedColumn7",
+				"filter5 derive(SyntheticKey = 1) ~> derivedColumn8",
+				"filter5 derive(SyntheticKey = 1) ~> derivedColumn9",
+				"join6 filter(instr(toString(split(Path,' ')),toString(split(Source_Component,' '))) !=0) ~> filter6",
+				"filter6 aggregate(groupBy(Assembly,",
+				"          Component,",
+				"          Level),",
+				"     {Total LT} = sum(toInteger({Source_Fixed LT}))) ~> aggregate6",
+				"derivedColumn11, derivedColumn10 join(derivedColumn11@SyntheticKey==derivedColumn10@SyntheticKey,",
+				"     joinType:'cross',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join7",
+				"filter4 derive(SyntheticKey = 1) ~> derivedColumn10",
+				"aggregate6 derive(SyntheticKey = 1) ~> derivedColumn11",
+				"join7 filter(instr(toString(split(Path,' ')),toString(split(Component,' '))) !=0 && Assembly == Right_Assembly) ~> filter7",
+				"filter7 select(mapColumn(",
+				"          Assembly,",
+				"          Component,",
+				"          Source_Level = aggregate6@Level,",
+				"          {Total LT},",
+				"          SyntheticKey = derivedColumn11@SyntheticKey,",
+				"          {Item #},",
+				"          Level = select13@Level,",
+				"          {Total QPA},",
+				"          Right_Assembly,",
+				"          Level = Right_Level,",
+				"          Path,",
+				"          {Wip Supply Type},",
+				"          {Item Description},",
+				"          {Make/Buy},",
+				"          {Fixed LT}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select17",
+				"select17 aggregate(groupBy({Item #},",
+				"          {Make/Buy},",
+				"          {Item Description}),",
+				"     Max_Source_Level = max(Source_Level)) ~> aggregate7",
+				"aggregate7, select17 join(aggregate7@{Item #} == select17@{Item #}",
+				"     && Max_Source_Level == Source_Level,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join8",
+				"join8 select(mapColumn(",
+				"          {Using Assembly} = Component,",
+				"          {Total LT},",
+				"          {Item #} = select17@{Item #},",
+				"          {Total QPA},",
+				"          {Item Description} = select17@{Item Description},",
+				"          {Make/Buy} = select17@{Make/Buy}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select18",
+				"select18 aggregate(groupBy({Item #},",
+				"          {Make/Buy},",
+				"          {Item Description}),",
+				"     each(match(name!='Item #'&&name!='Make/Buy'&&name!='Item Description'), $$ = first($$))) ~> aggregate8",
+				"select19, select20 join({Using Assembly} == {Item Number},",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join9",
+				"aggregate8 select(mapColumn(",
+				"          {Item #},",
+				"          {Make/Buy},",
+				"          {Item Description},",
+				"          {Using Assembly},",
+				"          {Total LT},",
+				"          {Total QPA}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select19",
+				"select3 filter(toInteger({Organization Code})==75) ~> filter8",
+				"filter8 select(mapColumn(",
+				"          {Wip Supply Type},",
+				"          {Buyer Name},",
+				"          {Item Number},",
+				"          {Item Description}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select20",
+				"select4 filter({Organization Code} == \"75\" &&\r",
+				"instr(toString(split(Locator,' ')), 'VMI-MTI') !=0 &&\r",
+				"instr(toString(split(Locator,' ')), 'AMRB') !=0 &&\r",
+				"instr(toString(split(Locator,' ')), 'QRTV') !=0 &&\r",
+				"instr(toString(split(Locator,' ')), 'ENGX') !=0 &&\r",
+				"instr(toString(split(Locator,' ')), 'MANOPS') !=0) ~> filter9",
+				"filter9 select(mapColumn(",
+				"          {Subinv Room},",
+				"          {Subinventory Code},",
+				"          {Supplier Lot Number},",
+				"          {Project Name},",
+				"          {Project Num},",
+				"          {Receipt Date},",
+				"          {Receipt Number},",
+				"          {Resource Cost},",
+				"          {Item Description},",
+				"          {Item Num},",
+				"          {Item Status},",
+				"          {Item Status Code},",
+				"          {Lots$Die Bin Number},",
+				"          {Lots$Die Wafer Number},",
+				"          {Lots$Ext �Lot Number},",
+				"          {Lots$Mfg Pn},",
+				"          {Lots$Packaging},",
+				"          Locator,",
+				"          {Make Buy Code},",
+				"          {Material Cost},",
+				"          {Material Overhead Cost},",
+				"          {Onhand Qty},",
+				"          {Orig Date Received},",
+				"          {Outside Processing Cost},",
+				"          {Overhead Cost},",
+				"          {Planning Group},",
+				"          {Repo Load Dttm}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select21",
+				"select21 aggregate(groupBy({Item Num}),",
+				"     {On-Hand Qty} = sum(toInteger({Onhand Qty}))) ~> aggregate9",
+				"select5 derive({Net Component Qty Issued} = toInteger({Component Quantity Issued}) - (toInteger({Component Qty Per Assembly}) * toInteger({Job Quantity Completed}))) ~> derivedColumn12",
+				"derivedColumn12 aggregate(groupBy({Assmcomp$Sv$Part Number}),",
+				"     {WIP Qty} = sum(toInteger({Net Component Qty Issued}))) ~> aggregate10",
+				"source6 select(mapColumn(",
+				"          {Alternate Bom Designator},",
+				"          {Alternate Routing Designator},",
+				"          Applied,",
+				"          {Avg Item Cost},",
+				"          {Bom Item Type},",
+				"          {Build In Wip Flag},",
+				"          {Build Sequence},",
+				"          {Buyer Name},",
+				"          {Cfm Routing Flag},",
+				"          {Component Revision},",
+				"          {Compression Days},",
+				"          {Days From Today},",
+				"          {Firm Planned Type},",
+				"          {First Unit Start Date},",
+				"          {Full Pegging},",
+				"          {Implement As Text},",
+				"          {Implement Date},",
+				"          {Implement Employee Id},",
+				"          {Implement Quantity Rate},",
+				"          {Implemented Quantity},",
+				"          {In Source Plan},",
+				"          {Inventory Item Id},",
+				"          {Item Description},",
+				"          {Item Mrp Plan Method},",
+				"          {Item Number},",
+				"          {Item Planning Cat Code},",
+				"          {Item Purchasable Flag},",
+				"          {Item Status Code},",
+				"          {Last Unit Completion Date},",
+				"          {Last Unit Start Date},",
+				"          {Line Code},",
+				"          {List Price},",
+				"          {Make Buy Code},",
+				"          {Mrp Action},",
+				"          {New Date},",
+				"          {New Quantity},",
+				"          {Old Dock Date},",
+				"          {Old Due Date},",
+				"          {Old Order Quantity},",
+				"          {Order Number},",
+				"          {Order Type},",
+				"          {Organization Code},",
+				"          {Organization Id},",
+				"          {Planner Code},",
+				"          {Planning Group},",
+				"          {Planning Group Quantity},",
+				"          {Po Price},",
+				"          {Process Days},",
+				"          {Project Num},",
+				"          {Quantity In Process},",
+				"          {Quantity Rate},",
+				"          {Release Errors},",
+				"          {Release Time Fence Code},",
+				"          {Repetitive Type},",
+				"          {Rescheduled Flag},",
+				"          {Schedule Group},",
+				"          {Snapshot Total Onhand Qty},",
+				"          {Source Organization Code},",
+				"          {Source Schedule},",
+				"          {Source Table},",
+				"          {Source Vendor Name},",
+				"          {Source Vendor Site Code},",
+				"          Status,",
+				"          {Status Code},",
+				"          {Sugg Dock Date},",
+				"          {Sugg Due Date},",
+				"          {Sugg Order Date},",
+				"          {Sugg Start Date},",
+				"          {Suggested Req Buyer},",
+				"          {Supply Avail Date},",
+				"          {Task Num},",
+				"          {Transaction Id},",
+				"          {Unit Number},",
+				"          {Using Assembly Item Num},",
+				"          {Wip Supply Type},",
+				"          {Suggested Buyer Name},",
+				"          {Repo Load Dttm}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select24",
+				"derivedColumn35 select(mapColumn(",
+				"          {Assmcomp$Sv$Part Number},",
+				"          {Component Comments},",
+				"          {Component Description},",
+				"          {Component Qty Per Assembly},",
+				"          {Component Quantity Issued},",
+				"          {Component Quantity Open},",
+				"          {Component Quantity Required},",
+				"          {Component Required Date},",
+				"          {Component Revision},",
+				"          {Component Unit Cost},",
+				"          {Component Uom Code},",
+				"          {Job Description},",
+				"          {Job Name},",
+				"          {Job Quantity Completed},",
+				"          {Job Quantity Scheduled},",
+				"          {Organization Code},",
+				"          {Operation Sequence Number},",
+				"          {Task Number},",
+				"          {Wip Supply Type},",
+				"          {Assembly$Sv$Part Number},",
+				"          {Assembly Description},",
+				"          SyntheticKey",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select25",
+				"select24 filter({Organization Code} == \"75\"\r",
+				"&&\r",
+				"(toInteger({Quantity Rate}) < 0)) ~> filter12",
+				"filter12 derive(Date = iif(isNull({Old Due Date}), {Sugg Due Date}, {Old Due Date} )) ~> derivedColumn13",
+				"derivedColumn13 derive(Month = iif( toDate(substring(toString(Date),1,7)+'-01') >= toDate(substring(toString(currentDate()),1,7)+'-01'),\r",
+				"toDate(substring(toString(Date),1,7)+'-01'), toDate(substring(toString(currentDate()),1,7)+'-01'))) ~> derivedColumn14",
+				"derivedColumn14 aggregate(groupBy({Item Number},",
+				"          Month),",
+				"     Demand = sum(toInteger({Quantity Rate}))) ~> aggregate11",
+				"aggregate11 select(mapColumn(",
+				"          {Item Number},",
+				"          Month,",
+				"          Demand",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select26",
+				"select26 filter(Month >= addMonths( toDate(substring(toString(currentDate()),1,7)+'-01') , -1) &&",
+				"Month <= addMonths( toDate(substring(toString(currentDate()),1,7)+'-01') , 2)) ~> filter13",
+				"filter13 select(mapColumn(",
+				"          {Item Number},",
+				"          Month,",
+				"          Demand",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select27",
+				"select27 aggregate(groupBy(Month),",
+				"     count = count({Item Number})) ~> aggregate12",
+				"select27 aggregate(groupBy({Item Number}),",
+				"     count = count({Item Number})) ~> aggregate13",
+				"select26 aggregate(groupBy({Item Number}),",
+				"     {Total Demand} = sum(toInteger(Demand))) ~> aggregate14",
+				"derivedColumn15 select(mapColumn(",
+				"          {Item Number},",
+				"          SyntheticKey",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select28",
+				"derivedColumn16 select(mapColumn(",
+				"          Month,",
+				"          SyntheticKey",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select29",
+				"select28, select29 join(select28@SyntheticKey==select29@SyntheticKey,",
+				"     joinType:'cross',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join10",
+				"aggregate13 derive(SyntheticKey = 1) ~> derivedColumn15",
+				"aggregate12 derive(SyntheticKey = 1) ~> derivedColumn16",
+				"select30, select27 join(select30@{Item Number} == select27@{Item Number}",
+				"     && select30@Month == select27@Month,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join11",
+				"join10 select(mapColumn(",
+				"          {Item Number},",
+				"          Month",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select30",
+				"filter14 derive(Demand = 0) ~> derivedColumn17",
+				"join11 filter(isNull(select27@{Item Number}) && isNull(select27@Month)) ~> filter14",
+				"derivedColumn17 select(mapColumn(",
+				"          {Item Number} = select27@{Item Number},",
+				"          Month = select27@Month,",
+				"          Demand",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select31",
+				"select31, select32 union(byName: true)~> union2",
+				"join11 select(mapColumn(",
+				"          {Item Number} = select27@{Item Number},",
+				"          Month = select27@Month,",
+				"          Demand",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select32",
+				"select34, union2 join({Item #} == union2@{Item Number},",
+				"     joinType:'left',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join13",
+				"join13 select(mapColumn(",
+				"          {Item #},",
+				"          {Make/Buy},",
+				"          {Item Description},",
+				"          {Using Assembly},",
+				"          {Total LT},",
+				"          {Total QPA},",
+				"          {Item Number} = select34@{Item Number},",
+				"          {Using Assy Description},",
+				"          {Item Number},",
+				"          Month,",
+				"          Demand",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select33",
+				"join9 select(mapColumn(",
+				"          {Item #},",
+				"          {Make/Buy},",
+				"          {Item Description},",
+				"          {Using Assembly},",
+				"          {Total LT},",
+				"          {Total QPA},",
+				"          {Wip Supply Type},",
+				"          {Buyer Name},",
+				"          {Item Number},",
+				"          {Using Assy Description} = select20@{Item Description}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select34",
+				"select33, union2 join({Item #} == union2@{Item Number},",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join14",
+				"join14, aggregate9 join({Item #} == {Item Num},",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join15",
+				"filter15 derive({On-hand Qty} = 0) ~> derivedColumn18",
+				"join15 filter(isNull({Item Num})) ~> filter15",
+				"select35, select36 union(byName: true)~> union3",
+				"derivedColumn18 select(mapColumn(",
+				"          {Item #},",
+				"          {Make/Buy},",
+				"          {Item Description},",
+				"          {Using Assembly},",
+				"          {Total LT},",
+				"          {Total QPA},",
+				"          {Item Number} = select33@{Item Number},",
+				"          {Using Assy Description},",
+				"          Month = select33@Month,",
+				"          Demand = select33@Demand,",
+				"          {Item Number} = union2@{Item Number},",
+				"          Month = union2@Month,",
+				"          Demand = union2@Demand,",
+				"          {On-hand Qty} = aggregate9@{On-Hand Qty},",
+				"          {On-hand Qty} = derivedColumn18@{On-hand Qty}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select35",
+				"join15 select(mapColumn(",
+				"          {Item #},",
+				"          {Make/Buy},",
+				"          {Item Description},",
+				"          {Using Assembly},",
+				"          {Total LT},",
+				"          {Total QPA},",
+				"          {Item Number} = select33@{Item Number},",
+				"          {Using Assy Description},",
+				"          Month = select33@Month,",
+				"          Demand = select33@Demand,",
+				"          {Item Number} = union2@{Item Number},",
+				"          Month = union2@Month,",
+				"          Demand = union2@Demand,",
+				"          {On-hand Qty} = {On-Hand Qty}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select36",
+				"union3, filter16 join(union3@{Item #} == select37@{Item #},",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join16",
+				"select37 filter({WIP Qty} > 0) ~> filter16",
+				"aggregate10 select(mapColumn(",
+				"          {Item #} = {Assmcomp$Sv$Part Number},",
+				"          {WIP Qty}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select37",
+				"filter17 derive({WIP Qty} = 0) ~> derivedColumn19",
+				"join16 filter(isNull(select37@{Item #})) ~> filter17",
+				"select39, select38 union(byName: true)~> union4",
+				"join16 select(mapColumn(",
+				"          {Item #} = union3@{Item #},",
+				"          {Make/Buy},",
+				"          {Item Description},",
+				"          {Using Assembly},",
+				"          {Total LT},",
+				"          {Total QPA},",
+				"          {Item Number},",
+				"          {Using Assy Description},",
+				"          Month,",
+				"          Demand,",
+				"          {On-hand Qty},",
+				"          {Item #} = select37@{Item #},",
+				"          {WIP Qty}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select38",
+				"derivedColumn19 select(mapColumn(",
+				"          {Item #} = union3@{Item #},",
+				"          {Make/Buy},",
+				"          {Item Description},",
+				"          {Using Assembly},",
+				"          {Total LT},",
+				"          {Total QPA},",
+				"          {Item Number},",
+				"          {Using Assy Description},",
+				"          Month,",
+				"          Demand,",
+				"          {On-hand Qty},",
+				"          {Item #} = select37@{Item #},",
+				"          {WIP Qty}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select39",
+				"union4 derive(each(match(name!='On-hand Qty'&&name!='WIP Qty'&&name!='Total LT'&&name!='Demand'), $$ = iif(isNull(toString($$)), '0' , toString($$)))) ~> derivedColumn20",
+				"derivedColumn20 select(mapColumn(",
+				"          {Item #},",
+				"          {Make/Buy},",
+				"          {Item Description},",
+				"          {Using Assembly},",
+				"          {Total QPA},",
+				"          {Item Number},",
+				"          {Using Assy Description},",
+				"          Month,",
+				"          Demand,",
+				"          {On-hand Qty},",
+				"          {WIP Qty}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select40",
+				"select40 derive({Total Qty Available} = {WIP Qty},",
+				"          {Record Group ID} = 0) ~> derivedColumn21",
+				"derivedColumn21 window(over({Item #}),",
+				"     asc({Item #}, true),",
+				"     {Record Group ID2} = lag(toInteger({Record Group ID}), 1, 0)) ~> window2",
+				"window2 derive({Record Group ID} = {Record Group ID2} + 1,",
+				"          {Running Total} = 0) ~> derivedColumn22",
+				"derivedColumn22 select(mapColumn(",
+				"          {Item #},",
+				"          {Make/Buy},",
+				"          {Item Description},",
+				"          {Using Assembly},",
+				"          {Total QPA},",
+				"          {Item Number},",
+				"          {Using Assy Description},",
+				"          Month,",
+				"          Demand,",
+				"          {On-hand Qty},",
+				"          {WIP Qty},",
+				"          {Total Qty Available},",
+				"          {Record Group ID},",
+				"          {Running Total}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select41",
+				"select41 window({Running Total2} = lag(toInteger({Running Total}), 1, 0)) ~> window3",
+				"window3 derive({Running Total} = iif({Record Group ID} == 1 ,{Total Qty Available}+Demand, {Running Total2}+Demand),",
+				"          {General Month} = iif( toDate(Month) == toDate(substring(toString(currentDate()),1,7)+'-01') , \"Current Month\" ,\r",
+				"iif( toDate(Month) == addMonths(toDate(substring(toString(currentDate()),1,7)+'-01'), 1), \"Current Month + 1\",\r",
+				"iif( toDate(Month) == addMonths(toDate(substring(toString(currentDate()),1,7)+'-01'), 2), \"Current Month + 2\", ''\r",
+				")))) ~> derivedColumn23",
+				"derivedColumn23 select(mapColumn(",
+				"          {Item #},",
+				"          {Make/Buy},",
+				"          {Item Description},",
+				"          {Using Assembly},",
+				"          {Total QPA},",
+				"          {Item Number},",
+				"          {Using Assy Description},",
+				"          Demand,",
+				"          {On-hand Qty},",
+				"          {WIP Qty},",
+				"          {Total Qty Available},",
+				"          {Running Total},",
+				"          Month = {General Month}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select42",
+				"select42 pivot(groupBy({Item #},",
+				"          {Item Description},",
+				"          {Make/Buy},",
+				"          {Total QPA},",
+				"          {Total Qty Available},",
+				"          {Using Assembly},",
+				"          {Using Assy Description},",
+				"          {WIP Qty},",
+				"          {On-hand Qty}),",
+				"     pivotBy(Month),",
+				"     {} = sum({Running Total}),",
+				"     columnNaming: '$N$V',",
+				"     lateral: true) ~> pivot1",
+				"select42 aggregate(groupBy({Item #}),",
+				"     {Max_Total Qty Available} = max({Total Qty Available}),",
+				"          Sum_Demand = sum(Demand)) ~> aggregate15",
+				"aggregate15 derive(Shortage = iif(({Max_Total Qty Available} + Sum_Demand) <0, 'YES','NO')) ~> derivedColumn24",
+				"pivot1 sort(asc({Item #}, true)) ~> sort3",
+				"sort3 derive(each(match(regexMatch(name,'Current')), $$ = iif( isNull(toString($$)), '0', toString($$)))) ~> derivedColumn25",
+				"derivedColumn25, derivedColumn24 join(pivot1@{Item #} == aggregate15@{Item #},",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join17",
+				"select44 filter(Shortage == \"YES\"\r",
+				"&&\r",
+				"Shortage == \"Buy\") ~> filter18",
+				"filter18, filter20 join({Item #} == {Item Number},",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join18",
+				"source6 filter({Organization Code} == \"75\"\r",
+				"&&\r",
+				"({Order Type} == \"Purchase order\"\r",
+				"||\r",
+				"{Order Type} == \"PO in receiving\"\r",
+				"||\r",
+				"{Order Type} == \"Purchase requisition\"\r",
+				"||\r",
+				"{Order Type} == \"Work order\"\r",
+				"||\r",
+				"{Order Type} == \"Intransit shipment\")) ~> filter19",
+				"filter19 select(mapColumn(",
+				"          {Item Number},",
+				"          {Mrp Action},",
+				"          {Old Dock Date},",
+				"          {Order Number},",
+				"          {Order Type},",
+				"          {Quantity Rate},",
+				"          {Sugg Dock Date}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select43",
+				"select43 filter(toDate(substring(toString({Sugg Dock Date}),1,7)+'-01') <=  addMonths(toDate(substring(toString(currentDate()),1,7)+'-01'), 2)\r",
+				"||\r",
+				"toDate(substring(toString({Old Dock Date}),1,7)+'-01') <=  addMonths(toDate(substring(toString(currentDate()),1,7)+'-01'), 2)) ~> filter20",
+				"join18 derive({Mrp Action} = iif( {Mrp Action} == \"Reschedule In\" ,\r",
+				"iif( minus(toDate({Old Dock Date}), toDate({Sugg Dock Date})) > 6 , \"Reschedule In\" ,'' ) ,{Mrp Action} ),",
+				"          {Sortable Date} = toDate({Old Dock Date}),",
+				"          {Sortable Old Date} = toDate({Old Dock Date}),",
+				"          {Old Dock Date} = concat(toString(month(toDate({Old Dock Date}))),concat(\"/\" , toString(month(toDate({Old Dock Date}))))),",
+				"          {Sugg Dock Date} = concat(toString(month(toDate({Sugg Dock Date}))),concat(\"/\" , toString(month(toDate({Sugg Dock Date})))))) ~> derivedColumn26",
+				"derivedColumn26 filter({Order Type} == 'Purchase Order') ~> filter22",
+				"filter22 derive(Message = iif( {Mrp Action} == \"Reschedule In\",\r",
+				"concatWS(' ', 'PO' , {Order Number},{Quantity Rate},'due',{Old Dock Date},'- Reschedule In',{Sugg Dock Date}),\r",
+				"concatWS( ' ', 'PO',{Order Number},{Quantity Rate},'due',{Old Dock Date}) )) ~> derivedColumn27",
+				"derivedColumn27 derive(Message = iif( {Sortable Old Date} <= currentDate() ,concat(Message,' - PAST DUE'),Message),",
+				"          {Quantity Rate} = toInteger({Quantity Rate})) ~> derivedColumn28",
+				"derivedColumn26 filter({Order Type} != 'Purchase Order') ~> filter23",
+				"filter23 filter({Order Type} == 'Work order') ~> filter24",
+				"filter24 aggregate(groupBy({Item #},",
+				"          {Item Description},",
+				"          {Make/Buy},",
+				"          {On-hand Qty},",
+				"          {WIP Qty},",
+				"          {Total Qty Available},",
+				"          Shortage,",
+				"          {Old Dock Date},",
+				"          {Using Assembly},",
+				"          {Using Assy Description},",
+				"          {Total QPA},",
+				"          {Sortable Date}),",
+				"     {Quantity Rate} = sum(toInteger({Quantity Rate}))) ~> aggregate16",
+				"filter25 derive(Message = iif( {Order Type} == \"PO in receiving\", concat({Quantity Rate},' in receiving'),\r",
+				"iif( {Order Type} == \"Purchase requisition\", concatWS(' ',\"Req\",{Order Number},{Quantity Rate},\"due\",{Old Dock Date}),\r",
+				"iif( {Order Type} == \"Purchase requisition\", concatWS(' ',\"WO\",{Order Number},{Quantity Rate},\"due\",{Old Dock Date}),\r",
+				"iif( {Order Type} == \"Intransit shipment\", concat({Quantity Rate},\" intransit\"),'')))),",
+				"          {Quantity Rate} = toInteger({Quantity Rate})) ~> derivedColumn29",
+				"filter23 filter({Order Type} != 'Work order') ~> filter25",
+				"join17 select(mapColumn(",
+				"          {Item #} = pivot1@{Item #},",
+				"          {Item Description},",
+				"          {Make/Buy},",
+				"          {Total QPA},",
+				"          {Total Qty Available},",
+				"          {Using Assembly},",
+				"          {Using Assy Description},",
+				"          {WIP Qty},",
+				"          {On-hand Qty},",
+				"          {Max_Total Qty Available},",
+				"          Sum_Demand,",
+				"          Shortage",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select44",
+				"aggregate16 derive(Message = concatWS(' ', 'WO Supply',toString({Quantity Rate}), 'due', toString({Old Dock Date})),",
+				"          {Quantity Rate} = toInteger({Quantity Rate})) ~> derivedColumn30",
+				"select62, derivedColumn29 union(byName: true)~> union5",
+				"union5, derivedColumn28 union(byName: true)~> union6",
+				"union6 select(mapColumn(",
+				"          {Item #},",
+				"          {Item Description},",
+				"          {Make/Buy},",
+				"          {On-hand Qty},",
+				"          {WIP Qty},",
+				"          {Total Qty Available},",
+				"          Shortage,",
+				"          {Old Dock Date},",
+				"          {Using Assembly},",
+				"          {Using Assy Description},",
+				"          {Total QPA},",
+				"          {Sortable Date},",
+				"          {Quantity Rate},",
+				"          Message,",
+				"          {Max_Total Qty Available},",
+				"          Sum_Demand,",
+				"          {Item Number},",
+				"          {Mrp Action},",
+				"          {Order Number},",
+				"          {Order Type},",
+				"          {Sugg Dock Date}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select45",
+				"select45 sort(asc({Item #}, true),",
+				"     asc({Sortable Date}, true)) ~> sort4",
+				"sort4 aggregate(groupBy({Item #},",
+				"          {Item Description},",
+				"          {Using Assembly},",
+				"          {Using Assy Description},",
+				"          {Make/Buy},",
+				"          {On-hand Qty},",
+				"          {WIP Qty},",
+				"          {Total Qty Available}),",
+				"     {Planner Comments} = collect(Message)) ~> aggregate17",
+				"sort4 select(mapColumn(",
+				"          {Item #},",
+				"          {Item Description},",
+				"          {Make/Buy},",
+				"          {On-hand Qty},",
+				"          {WIP Qty},",
+				"          {Total Qty Available},",
+				"          Shortage,",
+				"          {Old Dock Date},",
+				"          {Using Assembly},",
+				"          {Using Assy Description},",
+				"          {Total QPA},",
+				"          {Sortable Date},",
+				"          {Quantity Rate},",
+				"          Message,",
+				"          {Max_Total Qty Available},",
+				"          Sum_Demand,",
+				"          {Item Number},",
+				"          {Mrp Action},",
+				"          {Order Number},",
+				"          {Order Type},",
+				"          {Sugg Dock Date}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select46",
+				"aggregate17 derive({Planner Comments} = replace(replace(replace(toString({Planner Comments}),'[',''),']'),'\"','')) ~> derivedColumn31",
+				"derivedColumn31, select46 join(aggregate17@{Item #} == select46@{Item #}",
+				"     && aggregate17@{Item Description} == select46@{Item Description}",
+				"     && aggregate17@{Make/Buy} == select46@{Make/Buy}",
+				"     && aggregate17@{On-hand Qty} == select46@{On-hand Qty}",
+				"     && aggregate17@{WIP Qty} == select46@{WIP Qty}",
+				"     && aggregate17@{Total Qty Available} == select46@{Total Qty Available},",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join19",
+				"join19 aggregate(groupBy(aggregate17@{Item #},",
+				"          aggregate17@{Item Description},",
+				"          aggregate17@{Using Assembly},",
+				"          aggregate17@{Using Assy Description},",
+				"          aggregate17@{Make/Buy},",
+				"          aggregate17@{On-hand Qty},",
+				"          aggregate17@{WIP Qty},",
+				"          aggregate17@{Total Qty Available},",
+				"          {Planner Comments},",
+				"          {Total QPA}),",
+				"     each(match(name!='Item #'&&name!='Item Description'&&name!='Using Assembly'&&name!='Using Assy Description'&&name!='Make/Buy'&&name!='On-hand Qty'&&name!='WIP Qty'&&name!='Total Qty Available'&&name!='Planner Comments'&&name!='Total QPA'), $$ = first($$))) ~> aggregate18",
+				"aggregate18 derive({Planner Comments} = regexReplace({Planner Comments},',','\\n')) ~> derivedColumn32",
+				"select47, select48 union(byName: true)~> union7",
+				"derivedColumn32 select(mapColumn(",
+				"          {Item #},",
+				"          {Item Description},",
+				"          {Using Assembly},",
+				"          {Using Assy Description},",
+				"          {Make/Buy},",
+				"          {On-hand Qty},",
+				"          {WIP Qty},",
+				"          {Total Qty Available},",
+				"          {Planner Comments},",
+				"          {Total QPA},",
+				"          {Item Description},",
+				"          {Item Description},",
+				"          Shortage,",
+				"          {Old Dock Date},",
+				"          {Sortable Date},",
+				"          {Quantity Rate},",
+				"          Message,",
+				"          {Max_Total Qty Available},",
+				"          Sum_Demand,",
+				"          {Item Number},",
+				"          {Mrp Action},",
+				"          {Order Number},",
+				"          {Order Type},",
+				"          {Sugg Dock Date}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select47",
+				"join18 filter(isNull({Item Number})) ~> filter26",
+				"filter26 select(mapColumn(",
+				"          {Item #},",
+				"          {Item Description},",
+				"          {Make/Buy},",
+				"          {Total QPA},",
+				"          {Total Qty Available},",
+				"          {Using Assembly},",
+				"          {Using Assy Description},",
+				"          {WIP Qty},",
+				"          {On-hand Qty}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select48",
+				"union7, select20 join({Item #} == select20@{Item Number},",
+				"     joinType:'left',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join20",
+				"join20 filter(isNull(union7@{Item Number})) ~> filter27",
+				"filter27 derive({Total Demand} = 0) ~> derivedColumn33",
+				"join20 select(mapColumn(",
+				"          {Item #},",
+				"          {Item Description},",
+				"          {Using Assembly},",
+				"          {Using Assy Description},",
+				"          {Make/Buy},",
+				"          {On-hand Qty},",
+				"          {WIP Qty},",
+				"          {Total Qty Available},",
+				"          {Planner Comments},",
+				"          {Total QPA},",
+				"          Shortage,",
+				"          {Old Dock Date},",
+				"          {Sortable Date},",
+				"          {Quantity Rate},",
+				"          Message,",
+				"          {Max_Total Qty Available},",
+				"          Sum_Demand,",
+				"          {Item Number} = union7@{Item Number},",
+				"          {Mrp Action},",
+				"          {Order Number},",
+				"          {Order Type},",
+				"          {Sugg Dock Date},",
+				"          {Wip Supply Type},",
+				"          {Buyer Name},",
+				"          {Item Number} = select20@{Item Number},",
+				"          {Item Description} = select20@{Item Description}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select49",
+				"derivedColumn33 select(mapColumn(",
+				"          {Item #},",
+				"          {Item Description},",
+				"          {Using Assembly},",
+				"          {Using Assy Description},",
+				"          {Make/Buy},",
+				"          {On-hand Qty},",
+				"          {WIP Qty},",
+				"          {Total Qty Available},",
+				"          {Planner Comments},",
+				"          {Total QPA},",
+				"          Shortage,",
+				"          {Old Dock Date},",
+				"          {Sortable Date},",
+				"          {Quantity Rate},",
+				"          Message,",
+				"          {Max_Total Qty Available},",
+				"          Sum_Demand,",
+				"          {Item Number} = union7@{Item Number},",
+				"          {Mrp Action},",
+				"          {Order Number},",
+				"          {Order Type},",
+				"          {Sugg Dock Date},",
+				"          {Wip Supply Type},",
+				"          {Buyer Name},",
+				"          {Item Number} = select20@{Item Number},",
+				"          {Item Description} = select20@{Item Description},",
+				"          {Total Demand}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select50",
+				"select50, select49 union(byName: true)~> union8",
+				"union8 sort(asc({Item #}, true)) ~> sort5",
+				"sort5 select(mapColumn(",
+				"          {Item #},",
+				"          {Item Description},",
+				"          {Using Assembly},",
+				"          {Using Assy Description},",
+				"          {Make/Buy},",
+				"          {On-hand Qty},",
+				"          {WIP Qty},",
+				"          {Total Qty Available},",
+				"          {Planner Comments},",
+				"          {Total QPA},",
+				"          Shortage,",
+				"          {Old Dock Date},",
+				"          {Sortable Date},",
+				"          {Quantity Rate},",
+				"          Message,",
+				"          {Max_Total Qty Available},",
+				"          Sum_Demand,",
+				"          {Item Number},",
+				"          {Mrp Action},",
+				"          {Order Number},",
+				"          {Order Type},",
+				"          {Sugg Dock Date},",
+				"          {Wip Supply Type},",
+				"          {Buyer Name},",
+				"          {Total Demand}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select51",
+				"select51 select(mapColumn(",
+				"          PN = {Item #}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select52",
+				"select52 aggregate(groupBy(PN),",
+				"     each(match(name!='PN'), $$ = first($$))) ~> aggregate19",
+				"derivedColumn34, select25 join(derivedColumn34@SyntheticKey ==select25@SyntheticKey,",
+				"     joinType:'cross',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join21",
+				"aggregate19 derive(SyntheticKey = 1) ~> derivedColumn34",
+				"select5 derive(SyntheticKey = 1) ~> derivedColumn35",
+				"join21 select(mapColumn(",
+				"          {Item #} = PN,",
+				"          {Assmcomp$Sv$Part Number},",
+				"          {Component Comments},",
+				"          {Component Description},",
+				"          {Component Qty Per Assembly},",
+				"          {Component Quantity Issued},",
+				"          {Component Quantity Open},",
+				"          {Component Quantity Required},",
+				"          {Component Required Date},",
+				"          {Component Revision},",
+				"          {Component Unit Cost},",
+				"          {Component Uom Code},",
+				"          {Job Description},",
+				"          {Job Name},",
+				"          {Job Quantity Completed},",
+				"          {Job Quantity Scheduled},",
+				"          {Organization Code},",
+				"          {Operation Sequence Number},",
+				"          {Task Number},",
+				"          {Wip Supply Type},",
+				"          {Assembly$Sv$Part Number},",
+				"          {Assembly Description}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select53",
+				"BomEplosions select(mapColumn(",
+				"          Assembly,",
+				"          Component,",
+				"          {Extended Quantity},",
+				"          Level,",
+				"          {Org Code},",
+				"          Path,",
+				"          QPA",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select54",
+				"select54 filter({Org Code} == \"75\") ~> filter28",
+				"filter28 aggregate(groupBy({Org Code},",
+				"          Assembly),",
+				"     each(match(name!='Org Code'&&name!='Assembly'), $$ = first($$))) ~> aggregate20",
+				"aggregate20 derive(Component = Assembly,",
+				"          Level = 0,",
+				"          Path = \"Top Level\") ~> derivedColumn36",
+				"derivedColumn36, filter28 union(byName: true)~> union9",
+				"union9 sort(asc(Assembly, true),",
+				"     asc(Path, true)) ~> sort6",
+				"sort6 derive(Path = concatWS(' ',toString(Assembly), toString(Path))) ~> derivedColumn37",
+				"derivedColumn37 window(RecordID = rowNumber()) ~> window4",
+				"window4, select55 join(Component == {Item Number}",
+				"     && {Org Code} == {Org     },",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join22",
+				"source3 filter(! contains(split({Item Type},' '),\"reference item\")) ~> filter29",
+				"filter29 select(mapColumn(",
+				"          {Wip Supply Type},",
+				"          {Item Type},",
+				"          {Org     } = {Organization Code},",
+				"          {Item Number},",
+				"          {Item Description},",
+				"          {Make/Buy} = {Planning Make Buy Code},",
+				"          {Fixed LT} = {Fixed Lead Time},",
+				"          {Agile PC} = {Items$Agile Item �Part �Catego}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select55",
+				"join22 derive(Path = iif( {Wip Supply Type} == \"PHANTOM\", replace(concatWS('||',Path,Component),''), Path)) ~> derivedColumn38",
+				"derivedColumn38 derive(Path = replace(replace(Path, \"||1236722\", \"\"),\"||1256308\", \"\"),",
+				"          BuyParentLevel = 0) ~> derivedColumn39",
+				"derivedColumn39 sort(asc({Org     }, true),",
+				"     asc(RecordID, true)) ~> sort7",
+				"sort7 window(BuyParentLevel2 = lag(toString(BuyParentLevel),1,0),",
+				"          {Make/Buy2} = lag(toString(Level),1,0),",
+				"          Level2 = lag(toString(Level),1,0)) ~> window5",
+				"window5 derive(BuyParentLevel = iif(toInteger(Level)==0 && toString({Make/Buy})==\"Buy\",0,\r",
+				"iif(!isNull(toInteger(BuyParentLevel2)) && toInteger(BuyParentLevel2)<toInteger(Level), toInteger(BuyParentLevel2),\r",
+				"iif(toString({Make/Buy2})==\"Buy\" && toInteger(Level2)<toInteger(Level), toInteger(Level2), 000 )))) ~> derivedColumn40",
+				"derivedColumn40 derive(BuyParentLevel = replace(toString(BuyParentLevel), '000','')) ~> derivedColumn41",
+				"derivedColumn41 derive({Child of Buy} = iif(toInteger(Level)>0 && !isNull(BuyParentLevel),\"Yes\",\"No\")) ~> derivedColumn42",
+				"derivedColumn42 select(mapColumn(",
+				"          {Org Code},",
+				"          Assembly,",
+				"          Component,",
+				"          {Extended Quantity},",
+				"          Level,",
+				"          Path,",
+				"          QPA,",
+				"          RecordID,",
+				"          {Wip Supply Type},",
+				"          {Item Type},",
+				"          Org = {Org     },",
+				"          {Item Number},",
+				"          {Item Description},",
+				"          {Make/Buy},",
+				"          {Fixed LT},",
+				"          {Agile PC},",
+				"          {Child of Buy}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select56",
+				"select56 filter(({Child of Buy} == \"No\" \r",
+				"|| \r",
+				"Assembly == \"1369769\"\r",
+				"|| \r",
+				"Assembly == \"1354077\"\r",
+				"|| \r",
+				"Assembly == \"1369769\"\r",
+				"|| \r",
+				"Assembly == \"1369837\"\r",
+				"|| \r",
+				"Assembly == \"1369839\"\r",
+				"|| \r",
+				"Assembly == \"1369842\"\r",
+				"|| \r",
+				"Assembly == \"1383029\"\r",
+				"|| \r",
+				"Assembly == \"1349958\")\r",
+				"&& \r",
+				"toInteger({Extended Quantity}) > 0  \r",
+				"&& \r",
+				"lower({Item Type})!= \"reference item\" && {Org} == \"75\") ~> filter30",
+				"filter30 aggregate(groupBy(Assembly,",
+				"          Component),",
+				"     each(match(name!='Assembly'&&name!='Component'), $$ = first($$))) ~> aggregate21",
+				"filter30 aggregate(groupBy(Assembly,",
+				"          Component,",
+				"          Level),",
+				"     {Extended Quantity} = sum(toInteger({Extended Quantity}))) ~> aggregate22",
+				"aggregate22 aggregate(groupBy(Assembly,",
+				"          Component,",
+				"          Level),",
+				"     {Total QPA} = sum(toInteger({Extended Quantity}))) ~> aggregate23",
+				"aggregate23, aggregate21 join(aggregate23@Component == aggregate21@Component",
+				"     && aggregate23@Assembly == aggregate21@Assembly,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join23",
+				"select56 select(mapColumn(",
+				"          Component",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select57",
+				"select57 aggregate(groupBy(Component),",
+				"     each(match(name!='Component'), $$ = first($$))) ~> aggregate24",
+				"aggregate24, select58 join(aggregate24@Component == Assembly,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join24",
+				"join23 select(mapColumn(",
+				"          Assembly = aggregate23@Assembly,",
+				"          Component = aggregate23@Component,",
+				"          Level = aggregate23@Level,",
+				"          {Total QPA},",
+				"          Right_Assembly = aggregate21@Assembly,",
+				"          Right_Component = aggregate21@Component,",
+				"          {Org Code},",
+				"          {Extended Quantity},",
+				"          Right_Level = aggregate21@Level,",
+				"          Path,",
+				"          QPA,",
+				"          RecordID,",
+				"          {Wip Supply Type},",
+				"          {Item Type},",
+				"          Org,",
+				"          {Item Number},",
+				"          {Item Description},",
+				"          {Make/Buy},",
+				"          {Fixed LT},",
+				"          {Agile PC},",
+				"          {Child of Buy}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select58",
+				"join24 select(mapColumn(",
+				"          Assembly,",
+				"          Component = select58@Component,",
+				"          Level,",
+				"          {Total QPA},",
+				"          Right_Assembly,",
+				"          Right_Component,",
+				"          {Org Code},",
+				"          {Extended Quantity},",
+				"          Right_Level,",
+				"          Path,",
+				"          QPA,",
+				"          RecordID,",
+				"          {Wip Supply Type},",
+				"          {Item Type},",
+				"          Org,",
+				"          {Item Number},",
+				"          {Item Description},",
+				"          {Make/Buy},",
+				"          {Fixed LT},",
+				"          {Agile PC},",
+				"          {Child of Buy}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select59",
+				"aggregate19 select(mapColumn(",
+				"          PN",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select60",
+				"select60, select59 join(PN == Component,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join25",
+				"join25 select(mapColumn(",
+				"          Assembly,",
+				"          Component,",
+				"          Level,",
+				"          {Total QPA},",
+				"          Right_Assembly,",
+				"          Right_Component,",
+				"          {Org Code},",
+				"          {Extended Quantity},",
+				"          Right_Level,",
+				"          Path,",
+				"          QPA,",
+				"          RecordID,",
+				"          {Wip Supply Type},",
+				"          {Item Type},",
+				"          Org,",
+				"          {Item Number},",
+				"          {Item Description},",
+				"          {Make/Buy},",
+				"          {Fixed LT},",
+				"          {Agile PC},",
+				"          {Child of Buy}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select61",
+				"select61 derive({Next Level} = '') ~> derivedColumn43",
+				"derivedColumn30 select(mapColumn(",
+				"          {Item #},",
+				"          {Item Description},",
+				"          {Make/Buy},",
+				"          {On-hand Qty},",
+				"          {WIP Qty},",
+				"          {Total Qty Available},",
+				"          Shortage,",
+				"          {Old Dock Date},",
+				"          {Using Assembly},",
+				"          {Using Assy Description},",
+				"          {Total QPA},",
+				"          {Sortable Date},",
+				"          {Quantity Rate},",
+				"          Message",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select62",
+				"derivedColumn29 select(mapColumn(",
+				"          {Item #},",
+				"          {Item Description},",
+				"          {Make/Buy},",
+				"          {Total QPA},",
+				"          {Total Qty Available},",
+				"          {Using Assembly},",
+				"          {Using Assy Description},",
+				"          {WIP Qty},",
+				"          {On-hand Qty},",
+				"          {Max_Total Qty Available},",
+				"          Sum_Demand,",
+				"          Shortage,",
+				"          {Item Number},",
+				"          {Mrp Action},",
+				"          {Old Dock Date},",
+				"          {Order Number},",
+				"          {Order Type},",
+				"          {Quantity Rate},",
+				"          {Sugg Dock Date},",
+				"          {Sortable Date},",
+				"          {Sortable Old Date},",
+				"          Message",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select63",
+				"derivedColumn43 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
+			]
+		}
+	}
+}

@@ -1,0 +1,94 @@
+{
+	"name": "SuccessMetrics_QualityMetrics_DW_Master_Pipeline",
+	"properties": {
+		"activities": [
+			{
+				"name": "SuccessMetrics_QualityMetrics_DW_DF",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "SuccessMetrics_QualityMetrics_DW",
+						"type": "DataFlowReference",
+						"datasetParameters": {
+							"MissingReceivedDate": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "SuccessMetrics_QualtyMetrics_DW/raw",
+								"filename": "AMS_Success_Metrics_Quality_MissingReceivedDate.csv"
+							},
+							"OOWPrice": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "SuccessMetrics_QualtyMetrics_DW/raw",
+								"filename": "AMS_Success_Metrics_Quality_OOWPrice.csv"
+							},
+							"OverallExceptions": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "SuccessMetrics_QualtyMetrics_DW/raw",
+								"filename": "AMS_Success_Metrics_Quality_OverallExceptions.csv"
+							},
+							"ServiceCodes": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "SuccessMetrics_QualtyMetrics_DW/raw",
+								"filename": "AMS_Success_Metrics_Quality_ServiceCodes.csv"
+							},
+							"MissingJN": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "SuccessMetrics_QualtyMetrics_DW/raw",
+								"filename": "AMS_Success_Metrics_Quality_MissingJN.csv"
+							},
+							"RepairStatusReason": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "SuccessMetrics_QualtyMetrics_DW/raw",
+								"filename": "AMS_Success_Metrics_Quality_RepairStatusReason.csv"
+							},
+							"sink1": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "SuccessMetrics_QualtyMetrics_DW/output"
+							},
+							"sink2": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "SuccessMetrics_QualtyMetrics_DW/output"
+							},
+							"sink3": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "SuccessMetrics_QualtyMetrics_DW/output"
+							},
+							"sink4": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "SuccessMetrics_QualtyMetrics_DW/output"
+							},
+							"sink5": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "SuccessMetrics_QualtyMetrics_DW/output"
+							},
+							"sink6": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "SuccessMetrics_QualtyMetrics_DW/output"
+							}
+						}
+					},
+					"integrationRuntime": {
+						"referenceName": "ir-AzureHosted-Ops-DataScience-5026-dev",
+						"type": "IntegrationRuntimeReference"
+					},
+					"traceLevel": "None",
+					"cacheSinks": {
+						"firstRowOnly": true
+					}
+				}
+			}
+		],
+		"folder": {
+			"name": "Service/Master_Pipelines"
+		},
+		"annotations": []
+	}
+}

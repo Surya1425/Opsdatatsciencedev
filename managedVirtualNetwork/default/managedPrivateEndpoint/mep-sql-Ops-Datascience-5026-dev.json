@@ -1,0 +1,7 @@
+{
+	"name": "mep-sql-Ops-Datascience-5026-dev",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/c890fa4e-0250-4596-9e05-aab88eefb263/resourceGroups/rg-gt-adfshared-resources-1654/providers/Microsoft.Sql/servers/sqlsrv-gt-apps-adf-dev",
+		"groupId": "sqlServer"
+	}
+}

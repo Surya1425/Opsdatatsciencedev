@@ -1,0 +1,700 @@
+{
+	"name": "pteProjectCost_final_CopyOracle_",
+	"properties": {
+		"activities": [
+			{
+				"name": "HR Data",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "SELECT\n   ASG.EFFECTIVE_START_DATE Assignment_Effective_Strt_Date,\n   ASG.Effective_End_Date,\n   ASG.ASSIGNMENT_NUMBER Assignment_Number,\n   ASG.ASS_ATTRIBUTE3 Business_Title,\n   PEO.PERSON_ID Employee_ID,\n   PEO.EMPLOYEE_NUMBER Employee_Number,\n   PEO.FIRST_NAME First_Name,\n   PEO.FULL_NAME Full_Name,\n   PEO.LAST_NAME Last_Name,\n   PEOSP.EMAIL_ADDRESS Supervisor_Email_Address,\n   PEOSP.Employee_Number Supervisor_Employee_Number,\n   PEOSP.FIRST_NAME Supervisor_First_Name,\n   PEOSP.FULL_NAME Supervisor_Full_Name,\n   PEOSP.LAST_NAME Supervisor_Last_Name,\n\t ASG.ASS_ATTRIBUTE1 GLC\n  FROM\n       HR.PER_ALL_PEOPLE_F PEO,\n       HR.PER_ALL_ASSIGNMENTS_F ASG,\n       HR.HR_ALL_ORGANIZATION_UNITS ORG,\n       HR.HR_ALL_ORGANIZATION_UNITS_TL ORGL,\n       HR.HR_LOCATIONS_ALL LOCA,\n       HR.PER_ALL_PEOPLE_F PEOSP,\n       APPLSYS.fnd_lookup_values EMPCT\nWHERE\n   PEO.PERSON_ID = ASG.PERSON_ID\n   and ASG.ASSIGNMENT_TYPE = 'E'\n  and TRUNC (SYSDATE) BETWEEN PEO.EFFECTIVE_START_DATE AND PEO.EFFECTIVE_END_DATE\n   and ASG.PRIMARY_FLAG = 'Y'\n   and ASG.ORGANIZATION_ID = ORG.ORGANIZATION_ID\n   and ASG.LOCATION_ID = LOCA.LOCATION_ID (+)\n   and ORGL.ORGANIZATION_ID (+) = ORG.ORGANIZATION_ID\n   and ASG.SUPERVISOR_ID = PEOSP.PERSON_ID (+)\n   and TRUNC (SYSDATE) BETWEEN PEOSP.EFFECTIVE_START_DATE(+) AND PEOSP.EFFECTIVE_END_DATE(+)\n   and ASG.EMPLOYMENT_CATEGORY = EMPCT.LOOKUP_CODE (+)\n   and EMPCT.LOOKUP_TYPE (+) = 'EMP_CAT'",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_ORC",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "TransactionData",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select invg0_transactions.TRANSACTION_TYPE,\n\tinvg0_transactions.TRANSACTION_REFERENCE,\n\tinvg0_transactions.TRANSACTION_DATE,\n\tinvg0_transactions.TRANSACTION_QUANTITY,\n\tinvg0_transactions.ITEM_COST,\n\tinvg0_transactions.TRANSACTION_SOURCE,\n\tinvg0_transactions.LOCATOR_KFF \"locator\",\n\tinvg0_transactions.PROJECT_NUMBER,\n\tinvg0_transactions.ORGANIZATION_CODE,\n\tinvg0_transactions.LOC_XFER_KFF \"transfer locator\",\n\tinvg0_transactions.TRANSFER_SUBINVENTORY,\n\tinvg0_transactions.TRANSFER_TO_FROM,\n\tinvg0_transactions.CREATED_BY,\n\tinvg0_transactions.ITEM$SV$PART_NUMBER \"item number\",\n\tinvg0_transactions.ITEM_DESCRIPTION,\n\tinvg0_transactions.SUBINVENTORY \nfrom invg0_transactions \nwhere invg0_transactions.PROJECT_NUMBER = 'S000143'",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_ORC",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "BOMG0_CURRENT_STRUCTURED_BILLS",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select BOMG0_CURRENT_STRUCTURED_BILLS.TOPASSM$SV$PART_NUMBER,\n\tBOMG0_CURRENT_STRUCTURED_BILLS.TOP_ASSEMBLY_REVISION,\n\tBOMG0_CURRENT_STRUCTURED_BILLS.TOP_ASSEMBLY_ORG_CODE,\n\tBOMG0_CURRENT_STRUCTURED_BILLS.LEVEL_NUMBER,\n\tBOMG0_CURRENT_STRUCTURED_BILLS.ASSEMBLY$SV$PART_NUMBER SUB_ASSY_PART_NUMBER,\n\tBOMG0_CURRENT_STRUCTURED_BILLS.ASSMCOMP$SV$PART_NUMBER COMP_PART_NUMBER,\n\tBOMG0_CURRENT_STRUCTURED_BILLS.COMPONENT_DESCRIPTION,\n\tBOMG0_CURRENT_STRUCTURED_BILLS.COMPONENT_REVISION,\n\tBOMG0_CURRENT_STRUCTURED_BILLS.COMPONENT_STATUS_CODE,\n\tBOMG0_CURRENT_STRUCTURED_BILLS.COMP_MRP_PLANNING_METHOD,\n\tBOMG0_CURRENT_STRUCTURED_BILLS.COMP_PREPROCESSING_LEAD_TIME,\n\tBOMG0_CURRENT_STRUCTURED_BILLS.COMPONENT_PROCESSING_LEAD_TIME,\n\tBOMG0_CURRENT_STRUCTURED_BILLS.COMP_POSTPROCESSING_LEAD_TIME,\n\tBOMG0_CURRENT_STRUCTURED_BILLS.COMPONENT_QUANTITY RE_ORDER_POINT_QUANTITY,\n\tBOMG0_CURRENT_STRUCTURED_BILLS.COMPONENT_UNIT_COST MAUC,\n\tBOMG0_CURRENT_STRUCTURED_BILLS.COMPONENT_BUYER_NAME,\n\tBOMG0_CURRENT_STRUCTURED_BILLS.COMPONENT_MINIMUM_ORDER_QTY COMP_MIN_ORDER_QTY,\n\tBOMG0_CURRENT_STRUCTURED_BILLS.COMPONENT_MAXIMUM_ORDER_QTY COMP_MAX_ORDER_QTY,\n\tBOMG0_CURRENT_STRUCTURED_BILLS.COMPONENT_RECEIPT_ROUTING,\n\tBOMG0_CURRENT_STRUCTURED_BILLS.COMP_PLANNING_MAKE_BUY_CODE,\n\tBOMG0_CURRENT_STRUCTURED_BILLS.COMP_ITEM_TYPE \nfrom BOMG0_CURRENT_STRUCTURED_BILLS \nwhere BOMG0_CURRENT_STRUCTURED_BILLS.TOPASSM$SV$PART_NUMBER = 'PB-PTE-SS' \n\n\tand BOMG0_CURRENT_STRUCTURED_BILLS.LEVEL_NUMBER = 1 \n\tand BOMG0_CURRENT_STRUCTURED_BILLS.ASSEMBLY_CURRENT_REV_FLAG = 'Y' \n\tand BOMG0_CURRENT_STRUCTURED_BILLS.COST_TYPE = 'Average'",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_ORC",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "invg0_onhand_quantities_vsat",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select invg0_onhand_quantities_vsat.ORGANIZATION_CODE,\n\tinvg0_onhand_quantities_vsat.SUBINVENTORY_CODE,\n\tinvg0_onhand_quantities_vsat.LOCATOR,\n\tinvg0_onhand_quantities_vsat.ITEM_NUM,\n\tinvg0_onhand_quantities_vsat.ITEM_DESCRIPTION,\n\tinvg0_onhand_quantities_vsat.ONHAND_QTY,\n\tinvg0_onhand_quantities_vsat.ITEM_COST,\n\tinvg0_onhand_quantities_vsat.ITEM_TYPE,\n\tinvg0_onhand_quantities_vsat.MAKE_BUY_CODE,\n\tinvg0_onhand_quantities_vsat.SERIAL_CONTROL_CODE,\n\tinvg0_onhand_quantities_vsat.PROJECT_NUM,\n\tinvg0_onhand_quantities_vsat.PROJ_MGR,\n\tinvg0_onhand_quantities_vsat.TASK_NUM,\n\tinvg0_onhand_quantities_vsat.MATERIAL_COST,\n\tinvg0_onhand_quantities_vsat.MATERIAL_OVERHEAD_COST,\n\tinvg0_onhand_quantities_vsat.OUTSIDE_PROCESSING_COST,\n\tinvg0_onhand_quantities_vsat.RESOURCE_COST,\n\tinvg0_onhand_quantities_vsat.OVERHEAD_COST,\n\tinvg0_onhand_quantities_vsat.ITEM_STATUS,\n\tinvg0_onhand_quantities_vsat.ITEM_STATUS_CODE,\n\tinvg0_onhand_quantities_vsat.PLANNING_GROUP,\n\tinvg0_onhand_quantities_vsat.PRIMARY_UNIT_OF_MEASURE \nfrom invg0_onhand_quantities_vsat \nwhere invg0_onhand_quantities_vsat.PROJECT_NUM = 'S000143'",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_ORC",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "pteRisk_all_jobs",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select job.JOB_NAME,\n\tNVL(\n\t\t(\n\t\tselect djob.DESCRIPTION \n\t\tfrom wip.wip_discrete_jobs djob \n\t\twhere djob.WIP_ENTITY_ID = job.WIP_ENTITY_ID\n\t\t), ' ') job_description,\n\tjob.JOB_STATUS,\n\tjob.JOB_START_DATE,\n\tjob.JOB_RELEASED_DATE,\n\tjob.JOB_SCHEDULED_COMPLETION_DT,\n\tjob.PROJECT_NUMBER,\n\tjob.ASSEMBLY$SV$PART_NUMBER item_number,\n\tjob.ASSEMBLY_DESCRIPTION item_description \nfrom wipg0_all_jobs job \nwhere not job.JOB_STATUS like '%Closed%' \n\tand job.PROJECT_NUMBER = 'S000143'",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_ORC",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "PAG0_Project_Class_Categories",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select * from PAG0_Project_Class_Categories",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_ORC",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "INVG0_Items_Vsat",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "SELECT * FROM INVG0_Items_Vsat",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_ORC",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "pog0_req_dist_pos_vsat",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select pog0_req_dist_pos_vsat.ITEM_DESCRIPTION,\n\tpog0_req_dist_pos_vsat.REQUISITION_NUMBER \nfrom pog0_req_dist_pos_vsat \nwhere pog0_req_dist_pos_vsat.ITEM_DESCRIPTION is not NULL \n\tand pog0_req_dist_pos_vsat.AUTHORIZATION_STATUS = 'APPROVED' \n\tand pog0_req_dist_pos_vsat.REQ_ITEMCATPUR_KFF = 'CIP.PROJECT' \ngroup by pog0_req_dist_pos_vsat.ITEM_DESCRIPTION, pog0_req_dist_pos_vsat.REQUISITION_NUMBER",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_ORC",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "ProjectNo and Description",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select pag0_projects.PROJECT_NUMBER,\n\tmax(pag0_projects.PROJECT_DESCRIPTION) project_description,\n\tmax(pag0_projects.KEY_MEMBER_COST_CENTER) key_member_cost_center,\n\tmax(pag0_projects.TEMPLATE_NUMBER) template_number,\n\tmax(pag0_projects.PROJECT_STATUS) project_status \nfrom pag0_projects \ngroup by pag0_projects.PROJECT_NUMBER",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_ORC",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "pog0_req_dist_pos_vsat_copy1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "SELECT REQUISITION_NUMBER,ITEM_DESCRIPTION,AUTHORIZATION_STATUS,REQ_ITEMCATPUR_KFF FROM NOETIX_VIEWS.POG0_REQ_DIST_POS_VSAT\n",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_ORC",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "POG0_RECEIVING_INSPECTION_VSAT",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select * from POG0_RECEIVING_INSPECTION_VSAT",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_ORC",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "MRPG0_MRP_WORKBENCH_VSAT",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select * from MRPG0_MRP_WORKBENCH_VSAT",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_ORC",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "WIPG0_ALL_JOBS_copy1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select *  from NOETIX_VIEWS.WIPG0_ALL_JOBS",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_ORC",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "Service/OracleCopy_Pipelines"
+		},
+		"annotations": []
+	}
+}

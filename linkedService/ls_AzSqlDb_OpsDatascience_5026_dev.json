@@ -1,0 +1,28 @@
+{
+	"name": "ls_AzSqlDb_OpsDatascience_5026_dev",
+	"properties": {
+		"parameters": {
+			"domain": {
+				"type": "string",
+				"defaultValue": "sqlsrv-gt-apps-adf-dev.viasat-gt-dev.az.viasat.com"
+			},
+			"dbname": {
+				"type": "string",
+				"defaultValue": "sqldb-gt-apps-adf-dev"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=@{linkedService().domain};Initial Catalog=@{linkedService().dbname}",
+			"credential": {
+				"referenceName": "cred_Ops-DataScience-5026_dev",
+				"type": "CredentialReference"
+			}
+		},
+		"connectVia": {
+			"referenceName": "AZIR-adf-ops-datascience-5026-dev",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

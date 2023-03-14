@@ -1,0 +1,1629 @@
+{
+	"name": "DS_Oracle_EBSPJD1_WIPG0_ALL_MATRL_REQUIREMENTS",
+	"properties": {
+		"description": "WIPG0_ALL_MATRL_REQUIREMENTS",
+		"activities": [
+			{
+				"name": "DS_WIPG0_ALL_MATRL_REQUIREMENTS",
+				"description": "DS_WIPG0_ALL_MATRL_REQUIREMENTS",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "A$ASSEMBLY_DESCRIPTION",
+									"type": "String"
+								},
+								"sink": {
+									"name": "A$ASSEMBLY_DESCRIPTION",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "A$ASSEMBLY_PLANNER_CODE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "A$ASSEMBLY_PLANNER_CODE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "A$CHART_OF_ACCOUNTS_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "A$CHART_OF_ACCOUNTS_NAME",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "A$COMPONENT_DESCRIPTION",
+									"type": "String"
+								},
+								"sink": {
+									"name": "A$COMPONENT_DESCRIPTION",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "A$COMPONENT_PLANNER_CODE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "A$COMPONENT_PLANNER_CODE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "A$JOB_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "A$JOB_NAME",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "A$MASTER_ORGANIZATION_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "A$MASTER_ORGANIZATION_NAME",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "A$ORGANIZATION_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "A$ORGANIZATION_NAME",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "A$ZZ__________________________",
+									"type": "String"
+								},
+								"sink": {
+									"name": "A$ZZ__________________________",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ACCOUNT_CLASS_CODE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ACCOUNT_CLASS_CODE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSEMBLY$INVENTORY_ITEM_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "ASSEMBLY$INVENTORY_ITEM_ID",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSEMBLY$ORGANIZATION_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "ASSEMBLY$ORGANIZATION_ID",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSEMBLY$SV$PART_NUMBER",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSEMBLY$SV$PART_NUMBER",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSEMBLY_DESCRIPTION",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSEMBLY_DESCRIPTION",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSEMBLY_PLANNER_CODE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSEMBLY_PLANNER_CODE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSEMBLY_PLANNER_DESCRIPTION",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSEMBLY_PLANNER_DESCRIPTION",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSEMBLY_UOM_CODE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSEMBLY_UOM_CODE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSMCOMP$INVENTORY_ITEM_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "ASSMCOMP$INVENTORY_ITEM_ID",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSMCOMP$ORGANIZATION_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "ASSMCOMP$ORGANIZATION_ID",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSMCOMP$SV$PART_NUMBER",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSMCOMP$SV$PART_NUMBER",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSY$AGILE_ACCESS_RESTRICTION",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSY$AGILE_ACCESS_RESTRICTION",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSY$AGILE_ITEM__PART__CATEGOR",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSY$AGILE_ITEM__PART__CATEGOR",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSY$ASSET_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSY$ASSET_NAME",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSY$ASSET_NOMENCLATURE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSY$ASSET_NOMENCLATURE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSY$ASSET_VARIANT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSY$ASSET_VARIANT",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSY$BIN_QTY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSY$BIN_QTY",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSY$BUILD_IN_SOLUMINA_DATE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSY$BUILD_IN_SOLUMINA_DATE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSY$COMSEC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSY$COMSEC",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSY$CUI",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSY$CUI",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSY$COUNTRY_OF_ORIGIN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSY$COUNTRY_OF_ORIGIN",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSY$ESD_HANDLING",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSY$ESD_HANDLING",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSY$EXCLUDE_FROM_LEAD_TIME_UP",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSY$EXCLUDE_FROM_LEAD_TIME_UP",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSY$EXTERNAL_SYSTEMS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSY$EXTERNAL_SYSTEMS",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSY$INVOICE_UOM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSY$INVOICE_UOM",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSY$ITEM_NET_WEIGHT__LBS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSY$ITEM_NET_WEIGHT__LBS",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSY$ITEM_SETUP_VERIFIED",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSY$ITEM_SETUP_VERIFIED",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSY$LEAD_TIME_UPDATED",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSY$LEAD_TIME_UPDATED",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSY$LEGACY_SYSTEM_ITEM_NUMBER",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSY$LEGACY_SYSTEM_ITEM_NUMBER",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSY$MATERIAL_EXPIRATION_VALUE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSY$MATERIAL_EXPIRATION_VALUE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSY$MOISTURE_SENSITIVITY_LEVE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSY$MOISTURE_SENSITIVITY_LEVE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSY$NON_MRP_ACTIONABLE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSY$NON_MRP_ACTIONABLE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSY$REPLENISHMENT_TYPE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSY$REPLENISHMENT_TYPE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSY$RESERVED_PN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSY$RESERVED_PN",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSY$ST_APPLIES",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSY$ST_APPLIES",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSY$SPACE_FLIGHT_DELIVERABLE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSY$SPACE_FLIGHT_DELIVERABLE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSY$STORAGE_CONDITION",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSY$STORAGE_CONDITION",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSY$TARGET_COST",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSY$TARGET_COST",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSY$USE_AS_REQUIRED",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSY$USE_AS_REQUIRED",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSY$VMI_ITEM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSY$VMI_ITEM",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ASSY$WARRANTY_PERIOD",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ASSY$WARRANTY_PERIOD",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BILL_ALTERNATE_BOM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BILL_ALTERNATE_BOM",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BILL_REVISION",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BILL_REVISION",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BILL_REVISION_DATE",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "BILL_REVISION_DATE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BILL_REVISION_TIME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BILL_REVISION_TIME",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CHART_OF_ACCOUNTS_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CHART_OF_ACCOUNTS_NAME",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMP$AGILE_ACCESS_RESTRICTION",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COMP$AGILE_ACCESS_RESTRICTION",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMP$AGILE_ITEM__PART__CATEGOR",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COMP$AGILE_ITEM__PART__CATEGOR",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMP$ASSET_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COMP$ASSET_NAME",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMP$ASSET_NOMENCLATURE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COMP$ASSET_NOMENCLATURE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMP$ASSET_VARIANT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COMP$ASSET_VARIANT",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMP$BIN_QTY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COMP$BIN_QTY",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMP$BUILD_IN_SOLUMINA_DATE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COMP$BUILD_IN_SOLUMINA_DATE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMP$COMSEC",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COMP$COMSEC",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMP$CUI",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COMP$CUI",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMP$COUNTRY_OF_ORIGIN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COMP$COUNTRY_OF_ORIGIN",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMP$ESD_HANDLING",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COMP$ESD_HANDLING",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMP$EXCLUDE_FROM_LEAD_TIME_UP",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COMP$EXCLUDE_FROM_LEAD_TIME_UP",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMP$EXTERNAL_SYSTEMS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COMP$EXTERNAL_SYSTEMS",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMP$INVOICE_UOM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COMP$INVOICE_UOM",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMP$ITEM_NET_WEIGHT__LBS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COMP$ITEM_NET_WEIGHT__LBS",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMP$ITEM_SETUP_VERIFIED",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COMP$ITEM_SETUP_VERIFIED",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMP$LEAD_TIME_UPDATED",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COMP$LEAD_TIME_UPDATED",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMP$LEGACY_SYSTEM_ITEM_NUMBER",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COMP$LEGACY_SYSTEM_ITEM_NUMBER",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMP$MATERIAL_EXPIRATION_VALUE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COMP$MATERIAL_EXPIRATION_VALUE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMP$MOISTURE_SENSITIVITY_LEVE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COMP$MOISTURE_SENSITIVITY_LEVE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMP$NON_MRP_ACTIONABLE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COMP$NON_MRP_ACTIONABLE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMP$REPLENISHMENT_TYPE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COMP$REPLENISHMENT_TYPE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMP$RESERVED_PN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COMP$RESERVED_PN",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMP$ST_APPLIES",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COMP$ST_APPLIES",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMP$SPACE_FLIGHT_DELIVERABLE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COMP$SPACE_FLIGHT_DELIVERABLE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMP$STORAGE_CONDITION",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COMP$STORAGE_CONDITION",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMP$TARGET_COST",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COMP$TARGET_COST",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMP$USE_AS_REQUIRED",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COMP$USE_AS_REQUIRED",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMP$VMI_ITEM",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COMP$VMI_ITEM",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMP$WARRANTY_PERIOD",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COMP$WARRANTY_PERIOD",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMPONENT_COMMENTS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COMPONENT_COMMENTS",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMPONENT_DESCRIPTION",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COMPONENT_DESCRIPTION",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMPONENT_ISSUED_COST",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "COMPONENT_ISSUED_COST",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMPONENT_OPEN_COST",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "COMPONENT_OPEN_COST",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMPONENT_PLANNER_CODE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COMPONENT_PLANNER_CODE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMPONENT_PLANNER_DESCRIPTION",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COMPONENT_PLANNER_DESCRIPTION",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMPONENT_QTY_PER_ASSEMBLY",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "COMPONENT_QTY_PER_ASSEMBLY",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMPONENT_QUANTITY_ISSUED",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "COMPONENT_QUANTITY_ISSUED",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMPONENT_QUANTITY_OPEN",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "COMPONENT_QUANTITY_OPEN",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMPONENT_QUANTITY_REQUIRED",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "COMPONENT_QUANTITY_REQUIRED",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMPONENT_REQUIRED_COST",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "COMPONENT_REQUIRED_COST",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMPONENT_REQUIRED_DATE",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "COMPONENT_REQUIRED_DATE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMPONENT_REVISION",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COMPONENT_REVISION",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMPONENT_UOM_CODE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "COMPONENT_UOM_CODE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "COMPONENT_UNIT_COST",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "COMPONENT_UNIT_COST",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DEMAND_CLASS_CODE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DEMAND_CLASS_CODE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "FIRM_PLANNED_FLAG",
+									"type": "String"
+								},
+								"sink": {
+									"name": "FIRM_PLANNED_FLAG",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ITEM_REVISION",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "ITEM_REVISION",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "JOB_CLOSED_DATE",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "JOB_CLOSED_DATE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "JOB_COMPLETED_DATE",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "JOB_COMPLETED_DATE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "JOB_CREATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "JOB_CREATED_BY",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "JOB_CREATION_DATE",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "JOB_CREATION_DATE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "JOB_DESCRIPTION",
+									"type": "String"
+								},
+								"sink": {
+									"name": "JOB_DESCRIPTION",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "JOB_FLEX_DELIVERY_KIT_TO",
+									"type": "String"
+								},
+								"sink": {
+									"name": "JOB_FLEX_DELIVERY_KIT_TO",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "JOB_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "JOB_NAME",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "JOB_QUANTITY_COMPLETED",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "JOB_QUANTITY_COMPLETED",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "JOB_QUANTITY_SCHEDULED",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "JOB_QUANTITY_SCHEDULED",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "JOB_RELEASED_DATE",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "JOB_RELEASED_DATE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "JOB_SCHEDULED_COMPLETION_DT",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "JOB_SCHEDULED_COMPLETION_DT",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "JOB_START_DATE",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "JOB_START_DATE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "JOB_START_TIME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "JOB_START_TIME",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "JOB_STATUS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "JOB_STATUS",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "JOB_TYPE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "JOB_TYPE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LAST_UPDATE_DATE",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "LAST_UPDATE_DATE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LAST_UPDATE_DATE_EN",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "LAST_UPDATE_DATE_EN",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LAST_UPDATED_BY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LAST_UPDATED_BY",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LAST_UPDATED_BY_EN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LAST_UPDATED_BY_EN",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LOCATOR$CV$STOCK_LOCATOR_KFF",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LOCATOR$CV$STOCK_LOCATOR_KFF",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LOCATOR$INVENTORY_LOCATION_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "LOCATOR$INVENTORY_LOCATION_ID",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LOCATOR$ORGANIZATION_ID",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "LOCATOR$ORGANIZATION_ID",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "LOT_NUMBER",
+									"type": "String"
+								},
+								"sink": {
+									"name": "LOT_NUMBER",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MRP_NET_FLAG",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MRP_NET_FLAG",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "MASTER_ORGANIZATION_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "MASTER_ORGANIZATION_NAME",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "OPERATION_SEQUENCE_NUMBER",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "OPERATION_SEQUENCE_NUMBER",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ORGANIZATION_CODE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ORGANIZATION_CODE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ORGANIZATION_NAME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ORGANIZATION_NAME",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PRODUCTION_LINE_CODE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PRODUCTION_LINE_CODE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "PROJECT_NUMBER",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PROJECT_NUMBER",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ROUTING_EXIST",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ROUTING_EXIST",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SERIAL_NUMBER",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SERIAL_NUMBER",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "SUPPLY_SUBINVENTORY",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SUPPLY_SUBINVENTORY",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "TASK_NUMBER",
+									"type": "String"
+								},
+								"sink": {
+									"name": "TASK_NUMBER",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WIP_SUPPLY_TYPE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "WIP_SUPPLY_TYPE",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Z$$_________________________",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Z$$_________________________",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Z$INVG0_ITEMS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Z$INVG0_ITEMS",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Z$WIPG0_ALL_JOBS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Z$WIPG0_ALL_JOBS",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Z$WIPG0_ALL_MATRL_REQUIREMENTS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Z$WIPG0_ALL_MATRL_REQUIREMENTS",
+									"type": "String",
+									"physicalType": "String"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_WIPG0_ALL_MATRL_REQUIREMENTS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ORACLE_TO_ADLS_WIPG0_ALL_MATRL_REQUIREMENTS",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "GM40_pipelines"
+		},
+		"annotations": []
+	}
+}

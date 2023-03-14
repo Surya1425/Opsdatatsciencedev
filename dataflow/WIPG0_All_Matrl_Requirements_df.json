@@ -1,0 +1,313 @@
+{
+	"name": "WIPG0_All_Matrl_Requirements_df",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference"
+					},
+					"name": "inputoracle"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference"
+					},
+					"name": "inputinvgo2"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference"
+					},
+					"name": "inputpago3"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_csv_output",
+						"type": "DatasetReference"
+					},
+					"name": "outputwipgocsv"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_AzSql",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "replacecurrentfieldASSY"
+				},
+				{
+					"name": "selectinginputclum"
+				},
+				{
+					"name": "replacecurrentfieldwithspaces"
+				},
+				{
+					"name": "titlecasecurrentfield"
+				},
+				{
+					"name": "selectingtheclums"
+				},
+				{
+					"name": "aggregatingselect"
+				},
+				{
+					"name": "joiningselectclumsandaggregateclums"
+				},
+				{
+					"name": "joininginput13"
+				},
+				{
+					"name": "selectingtheclumsfromjoin"
+				},
+				{
+					"name": "selectinginput13clums"
+				},
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "select1"
+				},
+				{
+					"name": "select2"
+				}
+			],
+			"scriptLines": [
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> inputoracle",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> inputinvgo2",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> inputpago3",
+				"selectinginputclum select(mapColumn(",
+				"          each(match(true()),",
+				"               replace($$,'ASSY$','') = $$)",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> replacecurrentfieldASSY",
+				"inputoracle select(mapColumn(",
+				"          JOB_CREATION_DATE,",
+				"          ASSEMBLY_DESCRIPTION,",
+				"          {ASSEMBLY$SV$PART_NUMBER},",
+				"          ASSEMBLY_PLANNER_CODE,",
+				"          {ASSMCOMP$SV$PART_NUMBER},",
+				"          COMPONENT_DESCRIPTION,",
+				"          COMPONENT_PLANNER_CODE,",
+				"          COMPONENT_PLANNER_DESCRIPTION,",
+				"          COMPONENT_QTY_PER_ASSEMBLY,",
+				"          COMPONENT_QUANTITY_ISSUED,",
+				"          COMPONENT_QUANTITY_OPEN,",
+				"          COMPONENT_QUANTITY_REQUIRED,",
+				"          COMPONENT_REQUIRED_DATE,",
+				"          COMPONENT_REVISION,",
+				"          COMPONENT_UOM_CODE,",
+				"          JOB_CREATED_BY,",
+				"          JOB_FLEX_DELIVERY_KIT_TO,",
+				"          JOB_NAME,",
+				"          JOB_QUANTITY_COMPLETED,",
+				"          JOB_QUANTITY_SCHEDULED,",
+				"          JOB_RELEASED_DATE,",
+				"          JOB_SCHEDULED_COMPLETION_DT,",
+				"          JOB_START_DATE,",
+				"          JOB_STATUS,",
+				"          {Organization Code} = ORGANIZATION_CODE,",
+				"          {Project Number} = PROJECT_NUMBER,",
+				"          ROUTING_EXIST,",
+				"          TASK_NUMBER,",
+				"          WIP_SUPPLY_TYPE,",
+				"          COMPONENT_UNIT_COST,",
+				"          ASSEMBLY_PLANNER_DESCRIPTION",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectinginputclum",
+				"replacecurrentfieldASSY select(mapColumn(",
+				"          each(match(true()),",
+				"               replace($$,'_',' ') = $$)",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> replacecurrentfieldwithspaces",
+				"replacecurrentfieldwithspaces select(mapColumn(",
+				"          each(match(true()),",
+				"               initCap($$) = $$)",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> titlecasecurrentfield",
+				"derivedColumn1 select(mapColumn(",
+				"          {Job Creation Date},",
+				"          {Assembly Description},",
+				"          {Assembly$sv$part Number},",
+				"          {Assembly Planner Code},",
+				"          {Assmcomp$sv$part Number},",
+				"          {Component Description},",
+				"          {Component Planner Code},",
+				"          {Component Planner Description},",
+				"          {Component Qty Per Assembly},",
+				"          {Component Quantity Issued},",
+				"          {Component Quantity Open},",
+				"          {Component Quantity Required},",
+				"          {Component Required Date},",
+				"          {Component Revision},",
+				"          {Component Uom Code},",
+				"          {Job Created By},",
+				"          {Job Flex Delivery Kit To},",
+				"          {Job Name},",
+				"          {Job Quantity Completed},",
+				"          {Job Quantity Scheduled},",
+				"          {Job Released Date},",
+				"          {Job Scheduled Completion Dt},",
+				"          {Job Start Date},",
+				"          {Job Status},",
+				"          {Organization Code},",
+				"          {Project Number},",
+				"          {Routing Exist},",
+				"          {Task Number},",
+				"          {Wip Supply Type},",
+				"          {Assy Comp Avg Cost} = {Component Unit Cost},",
+				"          {Assembly Planner Description}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectingtheclums",
+				"select1 aggregate(groupBy({Organization Code},",
+				"          {Item Num},",
+				"          {Project Num}),",
+				"     {Sum_Onhand Qty} = sum(toInteger({Onhand Qty}))) ~> aggregatingselect",
+				"selectingtheclums, aggregatingselect join(selectingtheclums@{Organization Code} == aggregatingselect@{Organization Code}",
+				"     && {Assmcomp$sv$part Number} == {Item Num}",
+				"     && {Project Number} == {Project Num},",
+				"     joinType:'left',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> joiningselectclumsandaggregateclums",
+				"selectingtheclumsfromjoin, select2 join(selectingtheclumsfromjoin@{Project Number} == select2@{Project Number},",
+				"     joinType:'left',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> joininginput13",
+				"joiningselectclumsandaggregateclums select(mapColumn(",
+				"          {Job Creation Date},",
+				"          {Assembly Description},",
+				"          {Assembly$sv$part Number},",
+				"          {Assembly Planner Code},",
+				"          {Assmcomp$sv$part Number},",
+				"          {Component Description},",
+				"          {Component Planner Code},",
+				"          {Component Planner Description},",
+				"          {Component Qty Per Assembly},",
+				"          {Component Quantity Issued},",
+				"          {Component Quantity Open},",
+				"          {Component Quantity Required},",
+				"          {Component Required Date},",
+				"          {Component Revision},",
+				"          {Component Uom Code},",
+				"          {Job Created By},",
+				"          {Job Flex Delivery Kit To},",
+				"          {Job Name},",
+				"          {Job Quantity Completed},",
+				"          {Job Quantity Scheduled},",
+				"          {Job Released Date},",
+				"          {Job Scheduled Completion Dt},",
+				"          {Job Start Date},",
+				"          {Job Status},",
+				"          {Organization Code} = {selectingtheclums@Organization Code},",
+				"          {Project Number},",
+				"          {Routing Exist},",
+				"          {Task Number},",
+				"          {Wip Supply Type},",
+				"          {Assy Comp Avg Cost},",
+				"          {Assembly Planner Description},",
+				"          {Onhand Qty} = {Sum_Onhand Qty}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectingtheclumsfromjoin",
+				"joininginput13 select(mapColumn(",
+				"          {Job Creation Date},",
+				"          {Assembly Description},",
+				"          {Assembly$sv$part Number},",
+				"          {Assembly Planner Code},",
+				"          {Assmcomp$sv$part Number},",
+				"          {Component Description},",
+				"          {Component Planner Code},",
+				"          {Component Planner Description},",
+				"          {Component Qty Per Assembly},",
+				"          {Component Quantity Issued},",
+				"          {Component Quantity Open},",
+				"          {Component Quantity Required},",
+				"          {Component Required Date},",
+				"          {Component Revision},",
+				"          {Component Uom Code},",
+				"          {Job Created By},",
+				"          {Job Flex Delivery Kit To},",
+				"          {Job Name},",
+				"          {Job Quantity Completed},",
+				"          {Job Quantity Scheduled},",
+				"          {Job Released Date},",
+				"          {Job Scheduled Completion Dt},",
+				"          {Job Start Date},",
+				"          {Job Status},",
+				"          {Organization Code},",
+				"          {Project Number} = {selectingtheclumsfromjoin@Project Number},",
+				"          {Routing Exist},",
+				"          {Task Number},",
+				"          {Wip Supply Type},",
+				"          {Assy Comp Avg Cost},",
+				"          {Assembly Planner Description},",
+				"          {Onhand Qty},",
+				"          {Product Line Business Area},",
+				"          {Product Line}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectinginput13clums",
+				"titlecasecurrentfield derive({Workflow Publishing Data} = \"WIPG0_All_Matrl_Requirements.yxmd\",",
+				"          {Date Published} = currentTimestamp()-hours(8)) ~> derivedColumn1",
+				"inputinvgo2 select(mapColumn(",
+				"          {Item Num} = ITEM_NUM,",
+				"          {Onhand Qty} = ONHAND_QTY,",
+				"          {Organization Code} = ORGANIZATION_CODE,",
+				"          {Project Num} = PROJECT_NUM",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"inputpago3 select(mapColumn(",
+				"          {Product Line} = PRODUCT_LINE,",
+				"          {Product Line Business Area} = PRODUCT_LINE_BUSINESS_AREA,",
+				"          {Project Number} = PROJECT_NUMBER",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select2",
+				"selectinginput13clums sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionFileNames:['WIPG0_All_Matrl_Requirements.csv'],",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> outputwipgocsv",
+				"selectinginput13clums sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sink1"
+			]
+		}
+	}
+}

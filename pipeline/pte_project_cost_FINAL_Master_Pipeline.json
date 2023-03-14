@@ -1,0 +1,191 @@
+{
+	"name": "pte_project_cost_FINAL_Master_Pipeline",
+	"properties": {
+		"activities": [
+			{
+				"name": "Execute Copyoracle",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pteProjectCost_final_CopyOracle_",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "Risk Inventoy publish",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "Execute Copyoracle",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "Risk_Inventory_df",
+						"type": "DataFlowReference",
+						"datasetParameters": {
+							"invg0OnhandQuantitiesCustom": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "pte project cost final/raw",
+								"filename": "invg0_onhand_quantities_vsat_custom.csv"
+							},
+							"BOMBg0CurrentStructuredBills": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "pte project cost final/raw",
+								"filename": "BOMBG0 Current Structured Bills.csv"
+							},
+							"BombExplosions": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "Sharable",
+								"filename": "BOM Explosions.csv"
+							},
+							"PAG0ClassCategoriesVsat": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "NoetixViews",
+								"filename": "PAG0_Class_Categories_Vsat.csv"
+							},
+							"INVG0ItemsVsat": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "NoetixViews",
+								"filename": "INVG0_Items_Vsat.csv"
+							},
+							"TableauOutputSql": {
+								"schema": "ops-datascience-5026-dev",
+								"table": "pte_risk_inventory"
+							}
+						}
+					},
+					"integrationRuntime": {
+						"referenceName": "ir-AzureHosted-Ops-DataScience-5026-dev",
+						"type": "IntegrationRuntimeReference"
+					},
+					"traceLevel": "None",
+					"cacheSinks": {
+						"firstRowOnly": true
+					}
+				}
+			},
+			{
+				"name": "pte product cost final publish",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "Execute Copyoracle",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "pte_project_cost_final",
+						"type": "DataFlowReference"
+					},
+					"integrationRuntime": {
+						"referenceName": "ir-AzureHosted-Ops-DataScience-5026-dev",
+						"type": "IntegrationRuntimeReference"
+					},
+					"traceLevel": "None",
+					"cacheSinks": {
+						"firstRowOnly": true
+					}
+				}
+			},
+			{
+				"name": "Inventory Turn over publish",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "Execute Copyoracle",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "Inventory Turn Over_df",
+						"type": "DataFlowReference"
+					},
+					"integrationRuntime": {
+						"referenceName": "ir-AzureHosted-Ops-DataScience-5026-dev",
+						"type": "IntegrationRuntimeReference"
+					},
+					"traceLevel": "None",
+					"cacheSinks": {
+						"firstRowOnly": true
+					}
+				}
+			},
+			{
+				"name": "pte risk jobs",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "Execute Copyoracle",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "pte_risk_jobs_df",
+						"type": "DataFlowReference"
+					},
+					"integrationRuntime": {
+						"referenceName": "ir-AzureHosted-Ops-DataScience-5026-dev",
+						"type": "IntegrationRuntimeReference"
+					},
+					"traceLevel": "None",
+					"cacheSinks": {
+						"firstRowOnly": true
+					}
+				}
+			}
+		],
+		"folder": {
+			"name": "Service/Master_Pipelines"
+		},
+		"annotations": []
+	}
+}

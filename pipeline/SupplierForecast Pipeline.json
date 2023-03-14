@@ -1,0 +1,35 @@
+{
+	"name": "SupplierForecast Pipeline",
+	"properties": {
+		"activities": [
+			{
+				"name": "SupplierForecast",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "DF_SupplierForecast",
+						"type": "DataFlowReference",
+						"parameters": {
+							"Uniquerows": "'Treasury Account Symbol,Unit Meas Lookup Code,Unit Price,Unit Price Base,Unit Price Base Orig,Unit Price Orig,Vendor Name,Vendor Number,Vendor Site,Wip Entity Id,Acceptance Due Date,Acceptance Required Flag,Account Segment4,Accrue On Receipt Flag,Accrued Flag,Acctacrl$Cv$Accounting Kff,Acctacrl$Code Combination Id,Acctacrl$Qv$Balancing,Acctacrl$Qv$Cost Center,Acctacrl$Qv$Natural Account,Acctacrl$Segment Name List,Acctacrl$Structure Name,Acctbdgt$Cv$Accounting Kff,Acctbdgt$Code Combination Id,Acctbdgt$Qv$Balancing,Acctbdgt$Qv$Cost Center,Acctbdgt$Qv$Natural Account,Acctbdgt$Segment Name List,Acctbdgt$Structure Name,Acctchrg$Cv$Accounting Kff,Acctchrg$Code Combination Id,Acctchrg$Qv$Balancing,Acctchrg$Qv$Cost Center,Acctchrg$Qv$Natural Account,Acctchrg$Segment Name List,Acctchrg$Structure Name,Acctvar$Cv$Accounting Kff,Acctvar$Code Combination Id,Acctvar$Qv$Balancing,Acctvar$Qv$Cost Center,Acctvar$Qv$Natural Account,Acctvar$Segment Name List,Acctvar$Structure Name,Actual Unit Price,Actual Unit Price Base,Agreed Unit Price,Agreed Unit Price Base,Amount Billed,Amount Billed Base,Authorization Status,Award Class Current Contract,Award Class Po,Base Currency Code,Buyer Name,Buyer Number,Cancel Flag,Canceled Amount,Chart Of Accounts Name,Class Code,Closed Code,Closure Status,Code Description,Consigned Flag,Cost Center Segment3,Deliver To Loc Description,Deliver To Location,Deliver To Person,Deliver To Person Number,Delivered Amount,Destination Org Code,Destination Organization,Destination Subinventory,Destination Type Code,Distribution Creation Date,Distribution Id,Distribution Number,Division Segment2,Expenditure Item Date,Expenditure Organization,Expenditure Type,Fob Code,First Po Approval Date,Gl Cancelled Date,Gl Closed Date,Gl Encumbered Date,Government Trasnparency Clause,Hazard Class,Header Id,Item$Inventory Item Id,Item$Organization Id,Item$Sv$Part Number,Itemcat$Cv$Item Category Kff,Itemcat$Category Id,Item Description,Item First Purchase Date,Item Processing Lead Time,Item Revision,Item Type,Job Name,Last Receipt Date,Ledger Name,Line Id,Matching Type,Naics Code,Need By Date,Non Recoverable Tax,Note To Vendor,Open Value,Operating Unit Name,Ordered Amount,Orig Rev Promised Date,Pdstr$Ams   Arrived At Vendor,Pdstr$Ams   Hold End,Pdstr$Ams   Hold Start,Pdstr$Ams   In Warranty,Pdstr$Ams   Vendor Pn,Pdstr$Ams   Vendor Rma,Pdstr$Ams   Vendor Sn,Pdstr$Ams   Viasat Nmr,Pdstr$Ams   Viasat Parent Rma,Pdstr$Ams   Viasat Rtv Rma,Pdstr$Award Classification,Pdstr$Taxable,Pohdr$Agreement Missing Condit,Pohdr$Buyer Id,Pohdr$Competitively Bid,Pohdr$Compliance String,Pohdr$Custom Terms And Conditi,Pohdr$Incoterm Named Place,Pohdr$Po Business Size,Pohdr$Po Class,Pohdr$Po Naics Code,Pohdr$Po Rev Acknowledged,Pohdr$Po Summary,Pohdr$Po Type,Pohdr$Quote Location,Pohdr$Transport Method,Polin$Lead Time For Update,Polin$Life Cycle Status,Polin$Measurement   Test Equip,Polin$Order Line Number,Polin$Order Number,Polin$Other Info,Polin$Qapps String,Polin$Replace Serial Number,Polin$Serial Number,Polin$Supplier Rma,Po Currency Code,Po Header Creation Date,Po Line Creation Date,Po Line Location Id,Po Line Number,Po Line Open Flag,Po Line Type,Po Number,Po Rate,Po Rate Date,Po Rate Type,Po Revision Number,Po Type,Prev Rev Promised Date,Price Override,Project Name,Project Number,Promised Date,Purchase Order Distribution Id,Purchase Order Header Id,Purchase Order Line Id,Purchase Order Release Id,Quantity Billed,Quantity Cancelled,Quantity Delivered,Quantity Ordered,Quantity Shipped,Rate,Rate Date,Receipt Required Flag,Recoverable Tax,Recovery Rate,Release Approved Date,Release Approved Flag,Release Authorization Status,Release Cancel Date,Release Cancel Flag,Release Cancel Reason,Release Closed Code,Release Date,Release Hold Flag,Release Number,Release Revision Number,Release Type,Requisition Approval Date,Requisition Created By,Requisition Creation Date,Requisition Line Number,Requisition Number,Requisition On Line Flag,Reserved,Routing Name,Shipm$Date Receipt Sent To Riv,Shipm$Date Sent To River One,Shipm$Email Notifications Sent,Shipm$Justification,Shipm$Otd Date Format,Shipm$On Time Delivery Date,Shipm$Past Due Status Code,Set Of Books Name,Ship To Location,Ship To Org Code,Ship To Organization,Shipment Cancel Flag,Shipment Number,Shipment Type,Small Business Flag,Source Document Line,Source Document Number,Source Document Type,Sub Category Class Code,Sub Category Description,Supplier Item Po,Supplier Item Req,Supplier Name,Supplier Site Id,Task Name,Task Number,Tax Name,Total Tax'"
+						}
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"annotations": []
+	}
+}

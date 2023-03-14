@@ -1,0 +1,78 @@
+{
+	"name": "Duluth_Combined_Metrics_Master_Pipeline",
+	"properties": {
+		"activities": [
+			{
+				"name": "DuluthCombinedmetrics_df",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "Duluth_Combined_Metrics",
+						"type": "DataFlowReference",
+						"parameters": {
+							"UniqueRows": "\"Requested Date,Header Ship From Org,Ship From Location,Ship To Country,Ship To Customer Name,Ship To Location,Shipped Quantity,Sold To Customer Name,Task Number,Scheduled Ship Date,Order Type Name,Order Number,Customer Po Number,Head$Project Number,Order Created Date,Order Created By,Order Booked Date,Om Or Pc,Line Status,Line Ship From Org,Line Quantity,Head$Program Manager,Line Number,Line Creation Date,Item Number,Item Description,Bill To Customer Name,Order Status,Project Number,Org Onhand Quantity,Promised Date\"",
+							"UniqueRows2": "\"AMS Item Name,Avg Addl Funds,Business Area,Contract Number,Contract Warranty End Date,Customer Name,Customer Product Id,Customer Type,Estimate Approval Status,Incident Type,Instance Warranty End Date,Internal Order Flag,Inventory Organization Name,DRO Item Description,Item Instance Number,Item Instance Status,Item Lot Number,DRO Item Number,Item Revision,Item$Inventory Item Id,Item$Organization Id,Locator,Product Line,Project Number,Quantity In Wip,Receive Date,Received Quantity,Repair Currency Code,Repair Item Serial Number,Repair Item Uom,Repair Line Id,Repair Number,Repair Order Closed Date,Repair Order Creation Date,Repair Order Project,Repair Order Promised Date,Repair Order Task,Repair Owner Name,Repair Quantity,Repair Reason,Repair Status,Repair Type,Repair$Actual Complete Date,Repair$Actual Repair Price,Repair$Actual Start Date,Repair$Metric Completion Date,Repair$Program,Repair$Returning Platform,Repair$Service Affiliation,Repair$Ssl,Repair$Tail Number,Repair$Tat Adj,Repair$Tat Adj Reason,Repair$Vendor Name,Repair$Vendor RMA,report_date,Rma Order Number,Ship Date,Shipped Quantity,Sr Group Name,Sr Owner Name,Time In Hold Status,Time In Open Status,Time In Repair,Times Returned,Total Actual Amount,Total Estimate Amount,Unit Selling Price,Warehouse Code,Warranty Status\"",
+							"UniqueRows3": "\"Arrived at Vendor Date,Buyer Name,Closure Status,First Po Approval Date,On Time Delivery Date,Po Approved Date,Po Item Description,Po Line Creation Date,Po Line Number,Po Line Type,Po Number,Po Revision Number,Po Warranty Status,Promised Date,Quantity Shipped,Req Create Date,Requisition Approval Date,Requisition Created By,Requisition Line Number,Requisition Number,RTV Hold End Date,RTV Hold Start Date,RTV Supplier SN,Shipment Cancel Flag,Supplier Name,Task Number,Unit Price,Vendor Name,Vendor Pn,Vendor RMA,ViaSat NMR,ViaSat Parent RMA,ViaSat RMA\"",
+							"UniqueRows4": "\"Approval Date,Arrived at Vendor Date,Buyer Name,Closure Status,Po Approved Date,Po Item Description,Po Line Creation Date,Po Line Number,Po Line Type,RTV PO Number,Po Revision Number,Po Warranty Status,Preparer,Project Number,Promised Date,Quantity Shipped,Req Create Date,REQ Description,REQ Number,Requisition Approval Date,Requisition Created By,Requisition Creation Date,Requisition Line Number,Requisition Number,RTV Hold End Date,RTV Hold Start Date,RTV Supplier SN,Task Number,Unit Price,Vendor Name,Vendor Pn,Vendor RMA,ViaSat NMR,ViaSat Parent RMA,ViaSat RMA\""
+						}
+					},
+					"integrationRuntime": {
+						"referenceName": "ir-AzureHosted-Ops-DataScience-5026-dev",
+						"type": "IntegrationRuntimeReference"
+					},
+					"traceLevel": "None",
+					"cacheSinks": {
+						"firstRowOnly": true
+					}
+				}
+			},
+			{
+				"name": "DuluthCombniedMetricspt2",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "DuluthCombinedmetrics_df",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "Duluth_Combined_Metrics_pt2",
+						"type": "DataFlowReference"
+					},
+					"integrationRuntime": {
+						"referenceName": "ir-AzureHosted-Ops-DataScience-5026-dev",
+						"type": "IntegrationRuntimeReference"
+					},
+					"traceLevel": "None",
+					"cacheSinks": {
+						"firstRowOnly": true
+					}
+				}
+			}
+		],
+		"folder": {
+			"name": "Service/Master_Pipelines"
+		},
+		"annotations": []
+	}
+}

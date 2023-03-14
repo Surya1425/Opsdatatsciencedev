@@ -1,0 +1,24 @@
+{
+	"name": "ls_Ops_Datascience_5026_dev",
+	"properties": {
+		"parameters": {
+			"storageURL": {
+				"type": "string",
+				"defaultValue": "https://sagtappsadfusrstrgv2dev.dfs.core.windows.net/"
+			}
+		},
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "@{linkedService().storageURL}",
+			"credential": {
+				"referenceName": "cred_Ops-DataScience-5026_dev",
+				"type": "CredentialReference"
+			}
+		},
+		"connectVia": {
+			"referenceName": "AZIR-adf-ops-datascience-5026-dev",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

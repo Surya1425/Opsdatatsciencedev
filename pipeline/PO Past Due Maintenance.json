@@ -1,0 +1,55 @@
+{
+	"name": "PO Past Due Maintenance",
+	"properties": {
+		"activities": [
+			{
+				"name": "Data flow1",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "PO Past Due Maintenance",
+						"type": "DataFlowReference",
+						"datasetParameters": {
+							"output": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "PO Past Due maintenance/output"
+							}
+						},
+						"linkedServiceParameters": {
+							"Input": {
+								"linkedService": {
+									"storageURL": "https://sagtappsadfusrstrgv2dev.dfs.core.windows.net/"
+								}
+							}
+						}
+					},
+					"integrationRuntime": {
+						"referenceName": "AZIR-adf-ops-datascience-5026-dev",
+						"type": "IntegrationRuntimeReference"
+					},
+					"traceLevel": "None",
+					"runConcurrently": false,
+					"continueOnError": false,
+					"cacheSinks": {
+						"firstRowOnly": true
+					}
+				}
+			}
+		],
+		"folder": {
+			"name": "timpilpipeline"
+		},
+		"annotations": [],
+		"lastPublishTime": "2022-11-09T11:15:51Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

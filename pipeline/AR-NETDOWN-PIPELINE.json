@@ -1,0 +1,179 @@
+{
+	"name": "AR-NETDOWN-PIPELINE",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select ppa.SEGMENT1,\nppa.DESCRIPTION,\nppa.PROJECT_TYPE,\nppcv.CLASS_CATEGORY,\nppcv.CLASS_CODE\nfrom apps.pa_project_classes_v ppcv, apps.pa_projects_all ppa\nwhere ppa.PROJECT_ID = ppcv.PROJECT_ID\nand ppcv.CLASS_CATEGORY = 'Master Project'\n",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".csv"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "AR_NET_DOWN_ORACLE_PROJECTS_CONTAINER",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ar_net_down_oracle",
+						"type": "DatasetReference",
+						"parameters": {
+							"file_name": "MASTER_PROJECT.csv"
+						}
+					}
+				]
+			},
+			{
+				"name": "Copy data2",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select ppa.SEGMENT1,\nppa.DESCRIPTION,\nppa.PROJECT_TYPE,\nppcv.CLASS_CATEGORY,\nppcv.CLASS_CODE\nfrom apps.pa_project_classes_v ppcv, apps.pa_projects_all ppa\nwhere ppa.PROJECT_ID = ppcv.PROJECT_ID\nand ppcv.CLASS_CATEGORY = 'Related Project'\n",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".csv"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "AR_NET_DOWN_ORACLE_PROJECTS_CONTAINER",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ar_net_down_oracle",
+						"type": "DatasetReference",
+						"parameters": {
+							"file_name": "RELATED_PROJECT.csv"
+						}
+					}
+				]
+			},
+			{
+				"name": "Copy data3",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select ppa.SEGMENT1,\nppcv.CUSTOMER_NAME,\nppcv.CUSTOMER_NUMBER,\nppc.CLASS_CODE\nfrom apps.PA_PROJECT_CUSTOMERS_V ppcv, apps.pa_projects_all ppa, apps.pa_project_classes ppc\nwhere ppcv.PROJECT_ID(+) = ppa.PROJECT_ID\nand ppa.PROJECT_ID = ppc.PROJECT_ID\nand ppc.CLASS_CATEGORY = 'Product Line'\norder by ppa.SEGMENT1\n",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".csv"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "AR_NET_DOWN_ORACLE_PROJECTS_CONTAINER",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ar_net_down_oracle",
+						"type": "DatasetReference",
+						"parameters": {
+							"file_name": "PRODUCT_LINE.csv"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "AR_NETDOWN"
+		},
+		"annotations": []
+	}
+}

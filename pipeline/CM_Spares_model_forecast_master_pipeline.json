@@ -1,0 +1,37 @@
+{
+    "name": "CM_Spares_model_forecast_master_pipeline",
+    "properties": {
+        "activities": [
+            {
+                "name": "CM_Spares_model_forecast_pipeline",
+                "type": "ExecuteDataFlow",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "dataflow": {
+                        "referenceName": "CM_Spares_Model_Forecast_df",
+                        "type": "DataFlowReference"
+                    },
+                    "compute": {
+                        "coreCount": 8,
+                        "computeType": "General"
+                    },
+                    "traceLevel": "Fine"
+                }
+            }
+        ],
+        "folder": {
+            "name": "Deepikapipelines"
+        },
+        "annotations": [],
+        "lastPublishTime": "2022-11-12T20:42:14Z"
+    },
+    "type": "Microsoft.DataFactory/factories/pipelines"
+}

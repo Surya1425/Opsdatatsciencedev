@@ -1,0 +1,95 @@
+{
+	"name": "COUPA_COPY_ORACLE_TABLE",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "Select aia.INVOICE_NUM, aila.LINE_NUMBER, aida.DISTRIBUTION_LINE_NUMBER, pv.SEGMENT1 vendor#, pv.VENDOR_NAME, pvs.VENDOR_SITE_CODE, aia.CREATION_DATE, aia.INVOICE_DATE, aia.SOURCE, aia.INVOICE_AMOUNT, aia.INVOICE_CURRENCY_CODE, aila.LINE_TYPE_LOOKUP_CODE, aila.DESCRIPTION, aila.MATCH_TYPE, aila.PO_HEADER_ID, aila.PO_LINE_ID, aila.PO_LINE_LOCATION_ID, aila.PO_DISTRIBUTION_ID, pod.REQ_DISTRIBUTION_ID, prh.REQUISITION_HEADER_ID, Decode(prh.INTERFACE_SOURCE_CODE, 'MRP', 'MRP', Decode(prh.APPS_SOURCE_CODE, 'POR', 'iProc', Null, 'Manual', prh.APPS_SOURCE_CODE)) req_source, aida.DIST_CODE_COMBINATION_ID, aida.AMOUNT, gcc.SEGMENT1 || '.' || gcc.SEGMENT2 || '.' || gcc.SEGMENT3 || '.' || gcc.SEGMENT4 || '.' || gcc.SEGMENT5 || '.' || gcc.SEGMENT6 || '.' || gcc.SEGMENT7 || '.' || gcc.SEGMENT8 gl_code\n\nFrom apps.ap_invoices_all aia, apps.ap_invoice_lines_all aila, ap.ap_suppliers pv, ap.ap_supplier_sites_all pvs, apps.ap_invoice_distributions_all aida, apps.gl_code_combinations gcc, apps.po_distributions_all pod, apps.po_req_distributions_all prd, apps.po_requisition_lines_all prl, apps.po_requisition_headers_all prh\n\n\nWhere aia.INVOICE_ID = aila.INVOICE_ID And aia.VENDOR_ID = pv.VENDOR_ID And aia.VENDOR_SITE_ID = pvs.VENDOR_SITE_ID And aila.INVOICE_ID = aida.INVOICE_ID And aila.LINE_NUMBER = aida.INVOICE_LINE_NUMBER And aida.DIST_CODE_COMBINATION_ID = gcc.CODE_COMBINATION_ID And aila.PO_DISTRIBUTION_ID = pod.PO_DISTRIBUTION_ID(+) And pod.REQ_DISTRIBUTION_ID = prd.DISTRIBUTION_ID(+) And prd.REQUISITION_LINE_ID = prl.REQUISITION_LINE_ID(+) And prl.REQUISITION_HEADER_ID = prh.REQUISITION_HEADER_ID(+) And aia.CREATION_DATE >= '01-APR-2018' And aila.PO_HEADER_ID Is Not Null Order By 1, 2\n",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "COUPA_ORACLE_QUERY",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "coupa_oracle_outpur",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Data flow1",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "Copy data1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "coupa_dataflow",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"folder": {
+			"name": "RAJSASHEKAR_PIPELINES/coupa"
+		},
+		"annotations": []
+	}
+}

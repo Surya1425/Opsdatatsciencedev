@@ -1,0 +1,7 @@
+{
+	"name": "SHIR-Orcl-adf-ops-datascience-5026-dev",
+	"properties": {
+		"type": "SelfHosted",
+		"description": "Oracle Self Hosted Integration Runtime for - adf-ops-datascience-5026-dev"
+	}
+}

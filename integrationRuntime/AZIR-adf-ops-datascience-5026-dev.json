@@ -1,0 +1,22 @@
+{
+	"name": "AZIR-adf-ops-datascience-5026-dev",
+	"properties": {
+		"type": "Managed",
+		"description": "Azure Hosted IR to connect to SQL Server & Storage Account for-adf-ops-datascience-5026-dev",
+		"typeProperties": {
+			"computeProperties": {
+				"location": "East US",
+				"dataFlowProperties": {
+					"computeType": "General",
+					"coreCount": 8,
+					"timeToLive": 0,
+					"cleanup": true
+				}
+			}
+		},
+		"managedVirtualNetwork": {
+			"type": "ManagedVirtualNetworkReference",
+			"referenceName": "default"
+		}
+	}
+}

@@ -1,0 +1,193 @@
+{
+	"name": "DF_IB_Transaction_Errors",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference"
+					},
+					"name": "IBERROR"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_csv_output",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "select2"
+				},
+				{
+					"name": "aggregate1"
+				},
+				{
+					"name": "derivedColumn2"
+				},
+				{
+					"name": "filter1"
+				},
+				{
+					"name": "join1"
+				},
+				{
+					"name": "sort1"
+				},
+				{
+					"name": "select3"
+				},
+				{
+					"name": "join2"
+				},
+				{
+					"name": "select4"
+				},
+				{
+					"name": "derivedColumn3"
+				}
+			],
+			"scriptLines": [
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> IBERROR",
+				"IBERROR derive(NEW_ITEM_NUMBER = iif( isNull(ITEM_NUMBER),'Unknow',ITEM_NUMBER),",
+				"          SYSDATE = currentDate(),",
+				"          SVCPART_NUMBER = ITEM_NUMBER) ~> derivedColumn1",
+				"derivedColumn1 select(mapColumn(",
+				"          ERROR_DATE,",
+				"          ERROR_MESSAGE,",
+				"          ITEM_INSTANCE,",
+				"          LOT_NUMBER,",
+				"          MATERIAL_TRANSACTION_ID,",
+				"          ORGANIZATION_CODE,",
+				"          ORGANIZATION_NAME,",
+				"          QTY,",
+				"          SERIAL_NUMBER,",
+				"          SOURCE_GROUP_REF,",
+				"          SOURCE_GROUP_REF_ID,",
+				"          SOURCE_HEADER_REF,",
+				"          SOURCE_HEADER_REF_ID,",
+				"          SOURCE_ID,",
+				"          SOURCE_LINE_REF,",
+				"          SOURCE_LINE_REF_ID,",
+				"          SOURCE_TYPE_NAME,",
+				"          ITEM_NUMBER,",
+				"          TRANSACTION_TYPE,",
+				"          NEW_ITEM_NUMBER,",
+				"          SYSDATE,",
+				"          SVCPART_NUMBER",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select2",
+				"sort1 aggregate(groupBy(SVCPART_NUMBER),",
+				"     MIN_ERROR_DATE = min(ERROR_DATE)) ~> aggregate1",
+				"aggregate1 derive(v_MIN_ERROR_DATE = iif( isNull(MIN_ERROR_DATE),0,1),",
+				"          FIRST_ERROR = 'Yes') ~> derivedColumn2",
+				"derivedColumn2 filter(v_MIN_ERROR_DATE == 1) ~> filter1",
+				"IBERROR, filter1 join(ERROR_DATE == MIN_ERROR_DATE",
+				"     && ITEM_NUMBER == SVCPART_NUMBER,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join1",
+				"select2 sort(asc(SVCPART_NUMBER, true)) ~> sort1",
+				"join1 select(mapColumn(",
+				"          SVCPART_NUMBER,",
+				"          MIN_ERROR_DATE,",
+				"          FIRST_ERROR",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select3",
+				"IBERROR, select3 join(ERROR_DATE == MIN_ERROR_DATE",
+				"     && ITEM_NUMBER == SVCPART_NUMBER,",
+				"     joinType:'left',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join2",
+				"join2 select(mapColumn(",
+				"          ERROR_DATE,",
+				"          ERROR_MESSAGE,",
+				"          ITEM_INSTANCE,",
+				"          LOT_NUMBER,",
+				"          MATERIAL_TRANSACTION_ID,",
+				"          ORGANIZATION_CODE,",
+				"          ORGANIZATION_NAME,",
+				"          QTY,",
+				"          SERIAL_NUMBER,",
+				"          SOURCE_GROUP_REF,",
+				"          SOURCE_GROUP_REF_ID,",
+				"          SOURCE_HEADER_REF,",
+				"          SOURCE_HEADER_REF_ID,",
+				"          SOURCE_ID,",
+				"          SOURCE_LINE_REF,",
+				"          SOURCE_LINE_REF_ID,",
+				"          SOURCE_TYPE_NAME,",
+				"          ITEM_NUMBER,",
+				"          TRANSACTION_TYPE,",
+				"          FIRST_ERROR",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select4",
+				"select4 derive(v_first_error = iif(isNull(FIRST_ERROR), 'No', FIRST_ERROR),",
+				"          ERROR_GROUP = iif (ERROR_MESSAGE==\"Forward Synch\",\"Forward Synch. has not been performed for this Instance after Data Correction\",\r",
+				"iif (ERROR_MESSAGE==\"Installation Details not entered for the Non Serialized item\", \"Installation details for Non Serialized Item\",\r",
+				"iif (ERROR_MESSAGE==\"Invalid quantity specified. Negative quantities\" , \"Negative quantities are not allowed for this item. Check item definition\",\r",
+				"iif (ERROR_MESSAGE==\"No instance is found for the inventory location\" , \"No instance found for inventory location attributes\",\r",
+				"iif (ERROR_MESSAGE==\"Multiple active instances found for the item attributes provided\" , \"Multiple active instances found\",\r",
+				"iif (ERROR_MESSAGE==\"No instance is found for the inventory location attributes\" , \"No instance for item attributes\",\r",
+				"iif (ERROR_MESSAGE==\"One of the prior WIP material transaction\" , \"Prior WIP transaction identified by Transaction ID did not process in IB. Please check the error log and re-process the failed trxn first\",\r",
+				"iif (ERROR_MESSAGE==\"Shipment cannot be done because Negative quantities\" , \"Shipment cannot be done. Negative quantity is not allowed for Org\",\r",
+				"iif (ERROR_MESSAGE==\"cannot be expired. This instance has transactions with transaction date\" , \"Instance cannot be expired. Instance has transactions with transaction date\",\r",
+				"iif (ERROR_MESSAGE==\"The source item\" , \"The source item instance in IB does not exist. Please verify receipt trxns were successful\",\r",
+				"iif (ERROR_MESSAGE==\"This transaction will drive the instance quantities to negative\" , \"Negative balances are not allowed for this subinventory\",\r",
+				"iif (ERROR_MESSAGE==\"You cannot Update an Expired Instance\" , \"You cannot Update an Expired Instance. Instance needs to be un-expired\",\r",
+				"iif (ERROR_MESSAGE==\"You have Material Transaction_id\" , \"Material Transaction error prior to current transaction. You need to process that first\",\r",
+				"iif (ERROR_MESSAGE==\"Instance cannot be marked as Creation Complete\" , \"Instance cannot be marked as Creation Complete\",\r",
+				"iif (ERROR_MESSAGE==\"Item is revision controlled, and the revision number is missing\" , \"Item is revision controlled== and the revision number is missing\",\r",
+				"iif (ERROR_MESSAGE==\"Serialized Item with Status other , In Inventory, Out of Service, Installed, In Service or In Process already exists in Install Base\" , \"Serialized Item with Status other , In Inventory, Out of Service, Installed, In Service or In Process already exists in Install Base\",\r",
+				"iif (ERROR_MESSAGE==\"The Item is not Serial Controlled. You are trying to provide a Serial Number\" , \"The Item is not Serial Controlled. You are trying to provide a Serial Number\",\r",
+				"iif (ERROR_MESSAGE==\"Invalid or it does not exists in the Inventory Revisions Tables.Instance validation failed\" , \"The passed Inventory Revision is invalid or it does not exists in the Inventory Revisions Tables. Instance validation failed\",\r",
+				"iif (ERROR_MESSAGE==\"This customer item instance is currently in an Internal location INVENTORY\" , \"This customer item instance is currently in an Internal location INVENTORY\",\r",
+				"iif (ERROR_MESSAGE==\"This customer item instance is currently in an Internal location PROJECT\" , \"This customer item instance is currently in an Internal location PROJECT\",\r",
+				"iif (ERROR_MESSAGE==\"Unexpected error encountered while creating item instance from API\" , \"Unexpected error encountered while creating item instance from API\",\r",
+				"iif (ERROR_MESSAGE==\"You have encountered an unexpected error in CSI_INV_TXNSTUB_PUB.EXECUTE_TRX_DPL\" , \"You have encountered an unexpected error in CSI_INV_TXNSTUB_PUB.EXECUTE_TRX_DPL\",\r",
+				"iif (ERROR_MESSAGE==\"For Depot Repair Job involving part/serial number change, WIP Issue should be done prior to this transaction. Please process the WIP Issue transaction first before processing this transaction.\"\r",
+				", \"For Depot Repair Job involving part/serial number\",\r",
+				"iif (ERROR_MESSAGE==\"ORA-01086: savepoint 'ONE' never established in this session or is invalid\"\r",
+				", \"ORA-01086: savepoint 'ONE' never established in this session or is invalid\",\r",
+				"iif (ERROR_MESSAGE==\"Organization for Item validation can be changed only when the Item is in Inventory\"\r",
+				", \"Organization for Item validation can be changed only when the Item is in Inventory\",\r",
+				"iif (ERROR_MESSAGE==\"violates uniqueness with in Inventory items\"\r",
+				", \"Passed Serial Number violates uniqueness with in Inventory items\",\r",
+				"iif (ERROR_MESSAGE==\r",
+				"\"Serialized Item with Status other , IN_INVENTORY OR IN_TRANSIT already exists in Install Base.\",\r",
+				" \"Serialized Item with Status other , IN_INVENTORY OR IN_TRANSIT already exists in Install Base.\",\r",
+				"iif (ERROR_MESSAGE==\"is Invalid or it does not exists in the Inventory Revisions Tables.\" ,\r",
+				"\"The passed Inventory Revision is Invalid or it does not exists in the Inventory Revisions Tables.\",\r",
+				"iif (ERROR_MESSAGE==\"The replacement setup is invalid for instance_id\"\r",
+				", \"The replacement setup is invalid for instance_id\",\r",
+				"iif (ERROR_MESSAGE==\"The instance referenced already has a owner. If you are trying to update the owner information , please pass the instance party id.\", \r",
+				"\"The instance referenced already has a owner. If you are trying to update the owner information , please pass the instance party id\" ,\"IT Ticket Required\"))))))))))))))))))))))))))))))) ~> derivedColumn3",
+				"derivedColumn3 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionFileNames:['IB_Transaction_Errors'],",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> sink1"
+			]
+		}
+	}
+}

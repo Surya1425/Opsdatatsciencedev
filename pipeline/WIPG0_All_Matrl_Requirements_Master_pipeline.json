@@ -1,0 +1,57 @@
+{
+    "name": "WIPG0_All_Matrl_Requirements_Master_pipeline",
+    "properties": {
+        "activities": [
+            {
+                "name": "WIPG0_All_Matrl_Requirements_Df",
+                "type": "ExecuteDataFlow",
+                "dependsOn": [
+                    {
+                        "activity": "Wipg0_input_oracle_pipeline",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "dataflow": {
+                        "referenceName": "WIPG0_All_Matrl_Requirements_df",
+                        "type": "DataFlowReference"
+                    },
+                    "compute": {
+                        "coreCount": 8,
+                        "computeType": "General"
+                    },
+                    "traceLevel": "Fine"
+                }
+            },
+            {
+                "name": "Wipg0_input_oracle_pipeline",
+                "type": "ExecutePipeline",
+                "dependsOn": [],
+                "userProperties": [],
+                "typeProperties": {
+                    "pipeline": {
+                        "referenceName": "WIPG0_All_Matrl_Requirements_copy_pipeline",
+                        "type": "PipelineReference"
+                    },
+                    "waitOnCompletion": true
+                }
+            }
+        ],
+        "folder": {
+            "name": "Deepikapipelines"
+        },
+        "annotations": [],
+        "lastPublishTime": "2022-11-14T12:59:13Z"
+    },
+    "type": "Microsoft.DataFactory/factories/pipelines"
+}

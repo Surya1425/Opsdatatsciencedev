@@ -1,0 +1,87 @@
+{
+	"name": "RTV_Master_Pipeline",
+	"properties": {
+		"activities": [
+			{
+				"name": "Oracle Queries",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "RTVcopyOracle",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "RTV_DF",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "Oracle Queries",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "RTV",
+						"type": "DataFlowReference",
+						"parameters": {
+							"Uniquerows": "'AMS Item Name,Avg Addl Funds,Business Area,Contract Number,Contract Warranty End Date,Customer Name,Customer Product Id,Customer Type,Estimate Approval Status,Incident Type,Instance Warranty End Date,Internal Order Flag,Inventory Organisation Name,DRO Item Description,Item Instance Number,Item Insatnce Status,Item Lot Number,DRO Item Number,Item Revision,Item$Inventory Item Id,Item$Organisation Id,Locator,Product Line,Project Number,Quantity In Wip,Receive Date,Received Quantity,Repair Currency Code,Repair Item Serial Number,Repair Item Uom,Repair Line Id,Repair Number,Repair Order Closed Date,Repair Order Creation Date,Repair Order Project,Repair Order Promised Date,Repair Order Task,Repair Owner Name,Repair Quantity,Repair Reason,Repair Status,Repair Type,Repair$Actual Complete Date,Repair$Actual Repair Price,Repair$Actual Start Date,Repair$Metric Completion Date,Repair$Program,Repair$Returning Platform,Repair$Service Affliation,Repair$Ssl,Repair$Tail Number,Repair$Tat Adj,Repair$Tat Adj Reason,Repair$Vendor Name,Repair$Vendor RMA,report_date,Rma Order Number,Ship Date,Shipped Quantity,Sr group Name,Sr Owner Name,Time In Hold Status,Time In Open Status,Time In Repair,Times Returned,Total Actual Amount,Total Estimate Amount,Unit Selling Price,Warehouse Code,Warranty Status'",
+							"UniqueRowsForReports": "'3PL RTV Receipt Date,3PL RTV Ship Date,AMS Item Name,Approval Date,Arrived at Vendor Date,AWR Ship Date,Business Area,Buyer Name,Customer Name,First Po Approval Date,NMR Creation Date,Nmr Det Date Action Taken,Nmr Det Line Creation Date,Nmr Det Oper Name,Nmr Nmr Date Closed,Nmr Pn,Nmr Pn Desc,Nmr Sn,NMR STATUS,NMR_ORIGINATOR,Order Created By,Order Status,Organization Code,Parent NMR,Parent RMA Number,PO Closure Status,Po Line Creation Date,Po Line Number,Po Number,PO OTD,PO Promised Date,PO Unit Price,Product Line,Program,Project Number,Receive Date,Repair Item Number,Repair Item Serial Number,Repair Number,Repair Order Closed Date,Repair Order Promised Date,Repair Owner Name,Repair Reason,Repair Status,Repair$Actual Complete Date,Repair$Actual Start Date,Req Create Date,Requisition Line Number,Requisition Number,Rma Creation Date,RO Line Status,RTV NMR Number,Shipped from Vendor Date,Sr Owner Name,Task Number,Time In Repair,Vendor Age,Vendor Name,Vendor Turnaround Time'"
+						},
+						"datasetParameters": {
+							"container33": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "RTV Tableau Workflow/raw",
+								"filename": "container33.csv"
+							},
+							"ALLRTVDetails": {
+								"Sheet": "Sheet1",
+								"container": "ops-datascience-5026-dev",
+								"filepath": "Sharable",
+								"filename": "ALL_RTV_DETAILS.xlsx"
+							},
+							"sink1": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "RTV Tableau Workflow/output"
+							},
+							"sink2": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "RTV Tableau Workflow/output"
+							},
+							"TableauPublish": {
+								"schema": ".",
+								"table": "."
+							}
+						}
+					},
+					"integrationRuntime": {
+						"referenceName": "ir-AzureHosted-Ops-DataScience-5026-dev",
+						"type": "IntegrationRuntimeReference"
+					},
+					"traceLevel": "None",
+					"cacheSinks": {
+						"firstRowOnly": true
+					}
+				}
+			}
+		],
+		"folder": {
+			"name": "Service/Master_Pipelines"
+		},
+		"annotations": []
+	}
+}

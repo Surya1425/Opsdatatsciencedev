@@ -1,0 +1,161 @@
+{
+	"name": "pte_risk_jobs_df",
+	"properties": {
+		"folder": {
+			"name": "pte-project-cost-final"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference"
+					},
+					"name": "wipalljobs"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference"
+					},
+					"name": "INVG0ItemsVsatSnapshots"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_csv_output",
+						"type": "DatasetReference"
+					},
+					"name": "TABLEAUOUTPUTCSV"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_AzSql",
+						"type": "DatasetReference"
+					},
+					"name": "TableauOutputSql"
+				}
+			],
+			"transformations": [
+				{
+					"name": "RenamingCols"
+				},
+				{
+					"name": "leftjoin1"
+				},
+				{
+					"name": "selectingReqCOls"
+				},
+				{
+					"name": "DatePublishedCol"
+				},
+				{
+					"name": "selectingReqCol"
+				},
+				{
+					"name": "CastingFinalCols"
+				},
+				{
+					"name": "filter1"
+				}
+			],
+			"scriptLines": [
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     fileSystem: 'pte-project-cost-final',",
+				"     folderPath: 'input',",
+				"     fileName: 'wipg0_all_jobs.csv',",
+				"     columnDelimiter: ',',",
+				"     escapeChar: '\\\\',",
+				"     quoteChar: '\\\"',",
+				"     columnNamesAsHeader: true) ~> wipalljobs",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     wildcardPaths:['input/IVG0_items/*'],",
+				"     fileSystem: 'nmrs',",
+				"     columnDelimiter: ',',",
+				"     escapeChar: '\\\\',",
+				"     quoteChar: '\\\"',",
+				"     columnNamesAsHeader: true) ~> INVG0ItemsVsatSnapshots",
+				"wipalljobs select(mapColumn(",
+				"          {Job Name} = JOB_NAME,",
+				"          {Job Description} = JOB_DESCRIPTION,",
+				"          {Job Status} = JOB_STATUS,",
+				"          {Job Sched Start Date} = JOB_START_DATE,",
+				"          {Job Released Date} = JOB_RELEASED_DATE,",
+				"          {Job Sched Completion Date} = JOB_SCHEDULED_COMPLETION_DT,",
+				"          {Project Number} = PROJECT_NUMBER,",
+				"          {Item Number} = ITEM_NUMBER,",
+				"          {Item Description} = ITEM_DESCRIPTION",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> RenamingCols",
+				"filter1, selectingReqCol join({Item Number} == {ITEM$SV$PART_NUMBER},",
+				"     joinType:'left',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> leftjoin1",
+				"leftjoin1 select(mapColumn(",
+				"          {Job Name},",
+				"          {Job Description},",
+				"          {Job Status},",
+				"          {Job Sched Start Date},",
+				"          {Job Released Date},",
+				"          {Job Sched Completion Date},",
+				"          {Project Number},",
+				"          {Item Number},",
+				"          {Item Description},",
+				"          {Average Cost}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectingReqCOls",
+				"selectingReqCOls derive({Date Published} = toString(currentTimestamp()-hours(7),'yyyy-MM-dd HH:mm:ss')) ~> DatePublishedCol",
+				"INVG0ItemsVsatSnapshots select(mapColumn(",
+				"          ORGANIZATION_CODE = {Organization Code},",
+				"          {Average Cost},",
+				"          {ITEM$SV$PART_NUMBER} = {Item Number}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectingReqCol",
+				"DatePublishedCol cast(output(",
+				"          {Job Sched Start Date} as date,",
+				"          {Job Released Date} as date,",
+				"          {Job Sched Completion Date} as date,",
+				"          {Date Published} as timestamp",
+				"     ),",
+				"     errors: true) ~> CastingFinalCols",
+				"RenamingCols filter({Job Status} != \"'Closed'\" && {Project Number} == 'S000143') ~> filter1",
+				"CastingFinalCols sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionFileNames:['pte_risk_wip_jobs.csv'],",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1),",
+				"     format: 'delimited',",
+				"     fileSystem: 'pte-project-cost-final',",
+				"     folderPath: 'output',",
+				"     columnDelimiter: ',',",
+				"     escapeChar: '\\\\',",
+				"     quoteChar: '\\\"',",
+				"     columnNamesAsHeader: true) ~> TABLEAUOUTPUTCSV",
+				"CastingFinalCols sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> TableauOutputSql"
+			]
+		}
+	}
+}

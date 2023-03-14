@@ -1,0 +1,157 @@
+{
+	"name": "Inventory Turn Over_df",
+	"properties": {
+		"folder": {
+			"name": "pte-project-cost-final"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference"
+					},
+					"name": "TransactionData"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference"
+					},
+					"name": "InventorySnapshots"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_csv_output",
+						"type": "DatasetReference"
+					},
+					"name": "TableauOutput"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_AzSql",
+						"type": "DatasetReference"
+					},
+					"name": "TableauOutputSql"
+				}
+			],
+			"transformations": [
+				{
+					"name": "filteringTransactionQuantity"
+				},
+				{
+					"name": "filteringTransactionType"
+				},
+				{
+					"name": "Formulae1"
+				},
+				{
+					"name": "Summarise1"
+				},
+				{
+					"name": "filteringproject"
+				},
+				{
+					"name": "derivedColumn2"
+				},
+				{
+					"name": "Summarise2"
+				},
+				{
+					"name": "RightOuter1"
+				},
+				{
+					"name": "SelectAfterJoin"
+				},
+				{
+					"name": "DataCleansingTrims"
+				},
+				{
+					"name": "DataCleansingNulls"
+				},
+				{
+					"name": "filter4"
+				}
+			],
+			"scriptLines": [
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     container: 'pte-project-cost-final',",
+				"     folderPath: 'input',",
+				"     fileName: 'TransactionData.csv',",
+				"     columnDelimiter: ',',",
+				"     escapeChar: '\\\\',",
+				"     quoteChar: '\\\"',",
+				"     columnNamesAsHeader: true) ~> TransactionData",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     container: 'pte-project-cost-final',",
+				"     folderPath: 'input',",
+				"     fileName: 'Inventory Snapshot.xlsx',",
+				"     sheetName: 'Sheet1',",
+				"     firstRowAsHeader: true) ~> InventorySnapshots",
+				"TransactionData filter(TRANSACTION_QUANTITY < 0) ~> filteringTransactionQuantity",
+				"filteringTransactionQuantity filter(in([\r",
+				"\"Project Transfer\",\r",
+				"\"CBD Depot Issue\"\r",
+				",\"CBD-Risk Inv Issue\"\r",
+				",\"Miscellaneous issue\"\r",
+				",\"Miscellaneous Issue(RG Update)\"\r",
+				",\"MTL ISSUE\"\r",
+				",\"Sales order issue\"\r",
+				",\"WIP Issue\"\r",
+				",\"MAT. SCRAP ISSUE - NO PROJECT\"\r",
+				",\"MAT. ISSUE - NO PROJECT\"],TRANSACTION_TYPE\r",
+				")) ~> filteringTransactionType",
+				"filteringTransactionType derive(Month = toString(year(toDate(TRANSACTION_DATE)))+'-'+toString(month(toDate(TRANSACTION_DATE)))+'-'+'01',",
+				"          {Extended Cost} = abs(TRANSACTION_QUANTITY*ITEM_COST)) ~> Formulae1",
+				"Formulae1 aggregate(groupBy(Month),",
+				"     {Sum_Extended Cost_Txn} = sum({Extended Cost})) ~> Summarise1",
+				"InventorySnapshots filter({PROJECT} == \"S000143\") ~> filteringproject",
+				"filteringproject derive({Extended Cost} = ITEM_COST*TOTAL_QOH,",
+				"          Month = toString(year(Date))+'-'+toString(month(Date))+'-'+'01') ~> derivedColumn2",
+				"derivedColumn2 aggregate(groupBy(Month),",
+				"     {Sum_Extended Cost_Inv} = sum({Extended Cost})) ~> Summarise2",
+				"Summarise1, Summarise2 join(Summarise1@Month == Summarise2@Month,",
+				"     joinType:'right',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> RightOuter1",
+				"RightOuter1 select(mapColumn(",
+				"          Month = Summarise1@Month,",
+				"          {Sum_Extended Cost_Txn},",
+				"          {Sum_Extended Cost_Inv}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> SelectAfterJoin",
+				"SelectAfterJoin derive(each(match(type=='string'), $$ = trim($$)),",
+				"          each(match(type=='double'), $$ = toDouble(trim(toString($$))))) ~> DataCleansingTrims",
+				"DataCleansingTrims derive(each(match(type=='string'), $$ = iif(isNull($$),'',$$)),",
+				"          each(match(type=='double'), $$ = iif(isNull($$),toDouble(0),$$))) ~> DataCleansingNulls",
+				"DataCleansingNulls filter(Month >= \"2018-01-01\") ~> filter4",
+				"filter4 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> TableauOutput",
+				"filter4 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> TableauOutputSql"
+			]
+		}
+	}
+}

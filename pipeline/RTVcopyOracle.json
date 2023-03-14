@@ -1,0 +1,223 @@
+{
+	"name": "RTVcopyOracle",
+	"properties": {
+		"activities": [
+			{
+				"name": "CSDOracleQuery",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select CSDG0_REPAIR_ORDERS.APPROVAL_REQUIRED_FLAG, CSDG0_REPAIR_ORDERS.AUTOMATIC_RMA_PROCESS_FLAG, CSDG0_REPAIR_ORDERS.AVG_ADDL_FUNDS, CSDG0_REPAIR_ORDERS.BILL_TO_ADDRESS1, CSDG0_REPAIR_ORDERS.BILL_TO_ADDRESS2, CSDG0_REPAIR_ORDERS.BILL_TO_ADDRESS3, CSDG0_REPAIR_ORDERS.BILL_TO_CITY, CSDG0_REPAIR_ORDERS.BILL_TO_ADDRESS4, CSDG0_REPAIR_ORDERS.BILL_TO_COUNTRY, CSDG0_REPAIR_ORDERS.BILL_TO_COUNTY, CSDG0_REPAIR_ORDERS.BILL_TO_POSTAL_CODE, CSDG0_REPAIR_ORDERS.BILL_TO_STATE, CSDG0_REPAIR_ORDERS.CONTACT_PERSON_NAME, CSDG0_REPAIR_ORDERS.CONTACT_PERSON_NUMBER, CSDG0_REPAIR_ORDERS.CONTACT_PHONE, CSDG0_REPAIR_ORDERS.CONTACT_RELATIONSHIP, CSDG0_REPAIR_ORDERS.CONTACT_TYPE, CSDG0_REPAIR_ORDERS.CONTRACT_LINE_ID, CSDG0_REPAIR_ORDERS.CONTRACT_NUMBER, CSDG0_REPAIR_ORDERS.CONTRACT_WARRANTY_END_DATE, CSDG0_REPAIR_ORDERS.CUSTOMER_NAME, CSDG0_REPAIR_ORDERS.CUSTOMER_NUMBER, CSDG0_REPAIR_ORDERS.CUSTOMER_PHONE, CSDG0_REPAIR_ORDERS.CUSTOMER_PRODUCT_ID, CSDG0_REPAIR_ORDERS.CUSTOMER_TYPE, CSDG0_REPAIR_ORDERS.ESTIMATE_APPROVAL_STATUS, CSDG0_REPAIR_ORDERS.INCIDENT_TYPE, CSDG0_REPAIR_ORDERS.INSTALL_SITE_ADDRESS1, CSDG0_REPAIR_ORDERS.INSTALL_SITE_ADDRESS2, CSDG0_REPAIR_ORDERS.INSTALL_SITE_ADDRESS3, CSDG0_REPAIR_ORDERS.INSTALL_SITE_ADDRESS4, CSDG0_REPAIR_ORDERS.INSTALL_SITE_CITY, CSDG0_REPAIR_ORDERS.INSTALL_SITE_COUNTRY, CSDG0_REPAIR_ORDERS.INSTALL_SITE_COUNTY, CSDG0_REPAIR_ORDERS.INSTALL_SITE_STATE, CSDG0_REPAIR_ORDERS.INSTALL_SITE_POSTAL_CODE, CSDG0_REPAIR_ORDERS.INSTANCE_WARRANTY_END_DATE, CSDG0_REPAIR_ORDERS.INTERNAL_ORDER_FLAG, CSDG0_REPAIR_ORDERS.INVENTORY_ORGANIZATION_NAME, CSDG0_REPAIR_ORDERS.ITEM$INVENTORY_ITEM_ID, CSDG0_REPAIR_ORDERS.ITEM$ORGANIZATION_ID, CSDG0_REPAIR_ORDERS.ITEM$SV$PART_NUMBER, CSDG0_REPAIR_ORDERS.ITEM_DESCRIPTION, CSDG0_REPAIR_ORDERS.ITEM_INSTANCE_NUMBER, CSDG0_REPAIR_ORDERS.ITEM_INSTANCE_STATUS, CSDG0_REPAIR_ORDERS.ITEM_LOT_NUMBER, CSDG0_REPAIR_ORDERS.ITEM_REVISION, CSDG0_REPAIR_ORDERS.LOCATOR, CSDG0_REPAIR_ORDERS.PO_NUMBER, CSDG0_REPAIR_ORDERS.PRICE_LIST, CSDG0_REPAIR_ORDERS.PROBLEM_DESCRIPTION, CSDG0_REPAIR_ORDERS.QUANTITY_IN_WIP, CSDG0_REPAIR_ORDERS.RMA_LINE_NUMBER, CSDG0_REPAIR_ORDERS.RMA_ORDER_NUMBER, CSDG0_REPAIR_ORDERS.RECEIVED_QUANTITY, CSDG0_REPAIR_ORDERS.RECEIVE_DATE, CSDG0_REPAIR_ORDERS.REPAIR$AAR_ORDER_NUMBER, CSDG0_REPAIR_ORDERS.REPAIR$ACTUAL_COMPLETE_DATE, CSDG0_REPAIR_ORDERS.REPAIR$ACTUAL_REPAIR_PRICE, CSDG0_REPAIR_ORDERS.REPAIR$ACTUAL_START_DATE, CSDG0_REPAIR_ORDERS.REPAIR$COST_JUSTIFICATION, CSDG0_REPAIR_ORDERS.REPAIR$CUST_RL_ORIGINAL_FAILUR, CSDG0_REPAIR_ORDERS.REPAIR$ECD, CSDG0_REPAIR_ORDERS.REPAIR$CUST_RL_TRX_CONTEXT_VAL, CSDG0_REPAIR_ORDERS.REPAIR$CUSTOMER_RL_FILE_NAME, CSDG0_REPAIR_ORDERS.REPAIR$METRIC_COMPLETION_DATE, CSDG0_REPAIR_ORDERS.REPAIR$OUT_OF_SCOPE_REPAIR_EST, CSDG0_REPAIR_ORDERS.REPAIR$PROGRAM, CSDG0_REPAIR_ORDERS.REPAIR$RETURNING_PLATFORM, CSDG0_REPAIR_ORDERS.REPAIR$SSL, CSDG0_REPAIR_ORDERS.REPAIR$SERVICE_AFFILIATION, CSDG0_REPAIR_ORDERS.REPAIR$TAT_ADJ_REASON, CSDG0_REPAIR_ORDERS.REPAIR$TAT_ADJ, CSDG0_REPAIR_ORDERS.REPAIR$TAIL_NUMBER, CSDG0_REPAIR_ORDERS.REPAIR$VENDOR_NAME, CSDG0_REPAIR_ORDERS.REPAIR$VENDOR_RMA, CSDG0_REPAIR_ORDERS.REPAIR$VIASAT_ORDER_NUMBER, CSDG0_REPAIR_ORDERS.REPAIR_CURRENCY_CODE, CSDG0_REPAIR_ORDERS.REPAIR_ITEM_SERIAL_NUMBER, CSDG0_REPAIR_ORDERS.REPAIR_ITEM_UOM, CSDG0_REPAIR_ORDERS.REPAIR_LINE_ID, CSDG0_REPAIR_ORDERS.REPAIR_MODE_CODE, CSDG0_REPAIR_ORDERS.REPAIR_NUMBER, CSDG0_REPAIR_ORDERS.REPAIR_ORDER_CLOSED_DATE, CSDG0_REPAIR_ORDERS.REPAIR_ORDER_CREATION_DATE, CSDG0_REPAIR_ORDERS.REPAIR_ORDER_PROJECT, CSDG0_REPAIR_ORDERS.REPAIR_ORDER_PROMISED_DATE, CSDG0_REPAIR_ORDERS.REPAIR_ORDER_SPLIT_FLAG, CSDG0_REPAIR_ORDERS.REPAIR_ORDER_TASK, CSDG0_REPAIR_ORDERS.REPAIR_OWNER_NAME, CSDG0_REPAIR_ORDERS.REPAIR_REASON, CSDG0_REPAIR_ORDERS.REPAIR_PRIORITY, CSDG0_REPAIR_ORDERS.REPAIR_QUANTITY, CSDG0_REPAIR_ORDERS.REPAIR_STATUS, CSDG0_REPAIR_ORDERS.REPAIR_TYPE, CSDG0_REPAIR_ORDERS.REPAIR_TYPE_REFERENCE, CSDG0_REPAIR_ORDERS.SR_GROUP_NAME, CSDG0_REPAIR_ORDERS.SR_ITEM_SERIAL_NUMBER, CSDG0_REPAIR_ORDERS.SR_OPERATING_UNIT_NAME, CSDG0_REPAIR_ORDERS.SR_OWNER_NAME, CSDG0_REPAIR_ORDERS.SR_PROBLEM_SUMMARY, CSDG0_REPAIR_ORDERS.SR_SEVERITY, CSDG0_REPAIR_ORDERS.SR_STATUS, CSDG0_REPAIR_ORDERS.SALESFORCE_RMA, CSDG0_REPAIR_ORDERS.SERVICE_REQUEST_NUMBER, CSDG0_REPAIR_ORDERS.SHIP_DATE, CSDG0_REPAIR_ORDERS.SHIP_TO_ADDRESS1, CSDG0_REPAIR_ORDERS.SHIP_TO_ADDRESS2, CSDG0_REPAIR_ORDERS.SHIP_TO_ADDRESS3, CSDG0_REPAIR_ORDERS.SHIP_TO_ADDRESS4, CSDG0_REPAIR_ORDERS.SHIP_TO_COUNTRY, CSDG0_REPAIR_ORDERS.SHIP_TO_CITY, CSDG0_REPAIR_ORDERS.SHIP_TO_COUNTY, CSDG0_REPAIR_ORDERS.SHIP_TO_POSTAL_CODE, CSDG0_REPAIR_ORDERS.SHIP_TO_STATE, CSDG0_REPAIR_ORDERS.SHIPPED_QUANTITY, CSDG0_REPAIR_ORDERS.TIME_IN_HOLD_STATUS, CSDG0_REPAIR_ORDERS.SUBINVENTORY, CSDG0_REPAIR_ORDERS.TIME_IN_OPEN_STATUS, CSDG0_REPAIR_ORDERS.TIME_IN_REPAIR, CSDG0_REPAIR_ORDERS.TIMES_RETURNED, CSDG0_REPAIR_ORDERS.TOP_REPAIR_NOTES, CSDG0_REPAIR_ORDERS.TOTAL_ACTUAL_AMOUNT, CSDG0_REPAIR_ORDERS.TOTAL_ESTIMATE_AMOUNT, CSDG0_REPAIR_ORDERS.UNIT_SELLING_PRICE, CSDG0_REPAIR_ORDERS.WARRANTY_STATUS, CSDG0_REPAIR_ORDERS.WAREHOUSE_CODE from CSDG0_REPAIR_ORDERS\n",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "OracleDS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "RTVCSDOracleOut",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "IVGOracleQuery",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select invg0_category_ams_category.CAT$CUSTOM_COMMODITY_CODE, invg0_category_ams_category.CAT$WEB_ENABLED_Y_N, invg0_category_ams_category.CATEGORY_DESCRIPTION, invg0_category_ams_category.CHART_OF_ACCOUNTS_NAME, invg0_category_ams_category.ITEM$AGILE_ACCESS_RESTRICTION, invg0_category_ams_category.ITEM$AGILE_ITEM__PART__CATEGOR, invg0_category_ams_category.ORGANIZATION_NAME, invg0_category_ams_category.ORGANIZATION_CODE, invg0_category_ams_category.ORGANIZATION, invg0_category_ams_category.MASTER_ORGANIZATION_NAME, invg0_category_ams_category.ITEM_TYPE, invg0_category_ams_category.ITEM_STATUS_CODE, invg0_category_ams_category.ITEM_STATUS, invg0_category_ams_category.ITEM_DESCRIPTION, invg0_category_ams_category.ITEMCAT$SV$AMS, invg0_category_ams_category.ITEMCAT$CATEGORY_ID, invg0_category_ams_category.ITEM$SV$PART_NUMBER, invg0_category_ams_category.ITEM$ORGANIZATION_ID, invg0_category_ams_category.ITEM$INVENTORY_ITEM_ID, invg0_category_ams_category.ITEM$WARRANTY_PERIOD, invg0_category_ams_category.ITEM$VMI_ITEM, invg0_category_ams_category.ITEM$STORAGE_CONDITION, invg0_category_ams_category.ITEM$ST_APPLIES, invg0_category_ams_category.ITEM$RESERVED_PN, invg0_category_ams_category.ITEM$REPLENISHMENT_TYPE, invg0_category_ams_category.ITEM$NON_MRP_ACTIONABLE, invg0_category_ams_category.ITEM$MATERIAL_EXPIRATION_VALUE, invg0_category_ams_category.ITEM$LEGACY_SYSTEM_ITEM_NUMBER, invg0_category_ams_category.ITEM$LEAD_TIME_UPDATED, invg0_category_ams_category.ITEM$ITEM_SETUP_VERIFIED, invg0_category_ams_category.ITEM$ITEM_NET_WEIGHT__LBS, invg0_category_ams_category.ITEM$INVOICE_UOM, invg0_category_ams_category.ITEM$EXCLUDE_FROM_LEAD_TIME_UP, invg0_category_ams_category.ITEM$COUNTRY_OF_ORIGIN, invg0_category_ams_category.ITEM$COMSEC, invg0_category_ams_category.ITEM$BIN_QTY, invg0_category_ams_category.ITEM$ASSET_VARIANT, invg0_category_ams_category.ITEM$ASSET_NOMENCLATURE, invg0_category_ams_category.ITEM$ASSET_NAME from invg0_category_ams_category\n",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "OracleDS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "RTVIVGOracleOut",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "CSD2forContainer33",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select csdg0_oe_repair_rma_orders_vsa.ACTION_CODE, csdg0_oe_repair_rma_orders_vsa.ACTION_DESCRIPTION, csdg0_oe_repair_rma_orders_vsa.ACTION_TYPE, csdg0_oe_repair_rma_orders_vsa.ACTUAL_SHIPMENT_DATE, csdg0_oe_repair_rma_orders_vsa.CUSTOMER_NAME, csdg0_oe_repair_rma_orders_vsa.ORDER_NUMBER, csdg0_oe_repair_rma_orders_vsa.PO_NUMBER, csdg0_oe_repair_rma_orders_vsa.ITEM$SV$PART_NUMBER, csdg0_oe_repair_rma_orders_vsa.ITEM_DESCRIPTION, csdg0_oe_repair_rma_orders_vsa.ORDERED_DATE, csdg0_oe_repair_rma_orders_vsa.RECEIVED_QUANTITY, csdg0_oe_repair_rma_orders_vsa.REPAIR_LINE_ID, csdg0_oe_repair_rma_orders_vsa.REPAIR_NUMBER, csdg0_oe_repair_rma_orders_vsa.REPAIR_ORDER_CREATION_DATE, csdg0_oe_repair_rma_orders_vsa.REPAIR_ORDER_PROMISED_DATE, csdg0_oe_repair_rma_orders_vsa.REPAIR_QUANTITY, csdg0_oe_repair_rma_orders_vsa.REPAIR_STATUS, csdg0_oe_repair_rma_orders_vsa.REPAIR_TYPE, csdg0_oe_repair_rma_orders_vsa.SR_OWNER_NAME, csdg0_oe_repair_rma_orders_vsa.SALES_ORDER_STATUS, csdg0_oe_repair_rma_orders_vsa.WAREHOUSE_CODE, csdg0_oe_repair_rma_orders_vsa.LINE_CATEGORY_CODE From csdg0_oe_repair_rma_orders_vsa where cast(csdg0_oe_repair_rma_orders_vsa.REPAIR_ORDER_CREATION_DATE As Date) >= '01-JAN-18'",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "OracleDS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "RTVCSD2OutputOracle",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "PAG0",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select * from NOETIX_VIEWS.PAG0_CLASS_CATEGORIES_VSAT",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "OracleDS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "RTVPAG0OutputOracle",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "Service/OracleCopy_Pipelines"
+		},
+		"annotations": []
+	}
+}

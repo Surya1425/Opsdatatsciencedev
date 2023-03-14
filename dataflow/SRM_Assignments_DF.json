@@ -1,0 +1,125 @@
+{
+	"name": "SRM_Assignments_DF",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_Excel_input",
+						"type": "DatasetReference"
+					},
+					"name": "inputsrm",
+					"description": "Add source datase"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_csv_output",
+						"type": "DatasetReference"
+					},
+					"name": "SRMAssignmentscsv"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_AzSql",
+						"type": "DatasetReference"
+					},
+					"name": "SRMTableaucsv"
+				}
+			],
+			"transformations": [
+				{
+					"name": "filteringsupplierclum",
+					"description": "Add expression for the filte"
+				},
+				{
+					"name": "grouping",
+					"description": "Add aggregate column"
+				},
+				{
+					"name": "removedummyclum"
+				},
+				{
+					"name": "formulaSBNtype"
+				},
+				{
+					"name": "Toordermultiplerows"
+				},
+				{
+					"name": "formuladataclum"
+				},
+				{
+					"name": "selectallclums"
+				},
+				{
+					"name": "derivedColumn1"
+				}
+			],
+			"scriptLines": [
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> inputsrm",
+				"inputsrm filter(not(isNull({Supplier Name}))) ~> filteringsupplierclum",
+				"filteringsupplierclum aggregate(groupBy({Supplier Group Name},",
+				"          {Assigned Segment},",
+				"          {SBR Type},",
+				"          SRM),",
+				"     {Supplier Name} = count()) ~> grouping",
+				"grouping select(mapColumn(",
+				"          {Supplier Group Name},",
+				"          {Assigned Segment},",
+				"          {SBR Type},",
+				"          SRM",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> removedummyclum",
+				"removedummyclum derive({SBR Group} = 'Core') ~> formulaSBNtype",
+				"formulaSBNtype select(mapColumn(",
+				"          {SBR Group},",
+				"          {SBR Type},",
+				"          {Supplier Segment} = {Assigned Segment},",
+				"          {Supplier Name} = {Supplier Group Name},",
+				"          SRM",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> Toordermultiplerows",
+				"Toordermultiplerows derive({Date published} = currentTimestamp()) ~> formuladataclum",
+				"formuladataclum select(mapColumn(",
+				"          {SBR Group},",
+				"          {SBR Type},",
+				"          {Supplier Segment},",
+				"          {Supplier Name},",
+				"          SRM,",
+				"          {Data publisher} = {Date published}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectallclums",
+				"selectallclums derive({Workflow Publishing Data} = \"SRM Assignments.yxmd\") ~> derivedColumn1",
+				"formuladataclum sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionFileNames:['SRM Assignments.csv'],",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> SRMAssignmentscsv",
+				"derivedColumn1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     partitionBy('hash', 1),",
+				"     preCommands: [],",
+				"     postCommands: []) ~> SRMTableaucsv"
+			]
+		}
+	}
+}

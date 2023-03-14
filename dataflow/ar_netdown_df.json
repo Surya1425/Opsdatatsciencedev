@@ -1,0 +1,543 @@
+{
+	"name": "ar_netdown_df",
+	"properties": {
+		"folder": {
+			"name": "ar-netdown-df"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "AR_NETDOWN_PRODUCT",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				},
+				{
+					"dataset": {
+						"referenceName": "AR_NETDOWN_MASTER",
+						"type": "DatasetReference"
+					},
+					"name": "source2"
+				},
+				{
+					"dataset": {
+						"referenceName": "AR_NETDOWN_RELATED",
+						"type": "DatasetReference"
+					},
+					"name": "source3"
+				},
+				{
+					"dataset": {
+						"referenceName": "GRANDMASTEREXCEPTIONS",
+						"type": "DatasetReference"
+					},
+					"name": "source4"
+				},
+				{
+					"dataset": {
+						"referenceName": "sgment_mapping",
+						"type": "DatasetReference"
+					},
+					"name": "source5"
+				},
+				{
+					"dataset": {
+						"referenceName": "ARINPUT",
+						"type": "DatasetReference"
+					},
+					"name": "source6"
+				},
+				{
+					"dataset": {
+						"referenceName": "UBSC",
+						"type": "DatasetReference"
+					},
+					"name": "source7"
+				},
+				{
+					"dataset": {
+						"referenceName": "IntercompanyExclusions",
+						"type": "DatasetReference"
+					},
+					"name": "source8"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "filter1"
+				},
+				{
+					"name": "join1"
+				},
+				{
+					"name": "join2"
+				},
+				{
+					"name": "select1"
+				},
+				{
+					"name": "select2"
+				},
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "derivedColumn2"
+				},
+				{
+					"name": "join3"
+				},
+				{
+					"name": "select3"
+				},
+				{
+					"name": "select4"
+				},
+				{
+					"name": "join4"
+				},
+				{
+					"name": "union1"
+				},
+				{
+					"name": "select5"
+				},
+				{
+					"name": "sort1"
+				},
+				{
+					"name": "derivedColumn3"
+				},
+				{
+					"name": "filter2"
+				},
+				{
+					"name": "select6"
+				},
+				{
+					"name": "derivedColumn4"
+				},
+				{
+					"name": "join5"
+				},
+				{
+					"name": "select7"
+				},
+				{
+					"name": "derivedColumn5"
+				},
+				{
+					"name": "aggregate1"
+				},
+				{
+					"name": "window1"
+				},
+				{
+					"name": "filter3"
+				},
+				{
+					"name": "select8"
+				},
+				{
+					"name": "derivedColumn6"
+				},
+				{
+					"name": "join6"
+				},
+				{
+					"name": "select9"
+				},
+				{
+					"name": "derivedColumn7"
+				},
+				{
+					"name": "aggregate2"
+				},
+				{
+					"name": "join7"
+				},
+				{
+					"name": "join8"
+				},
+				{
+					"name": "select10"
+				},
+				{
+					"name": "select11"
+				},
+				{
+					"name": "derivedColumn8"
+				},
+				{
+					"name": "select12"
+				},
+				{
+					"name": "derivedColumn9"
+				},
+				{
+					"name": "derivedColumn10"
+				},
+				{
+					"name": "derivedColumn11"
+				},
+				{
+					"name": "derivedColumn12"
+				},
+				{
+					"name": "derivedColumn13"
+				},
+				{
+					"name": "derivedColumn14"
+				},
+				{
+					"name": "split1"
+				},
+				{
+					"name": "filter4"
+				},
+				{
+					"name": "derivedColumn15"
+				},
+				{
+					"name": "filter5"
+				},
+				{
+					"name": "join9"
+				},
+				{
+					"name": "join10"
+				},
+				{
+					"name": "notoinedrows"
+				},
+				{
+					"name": "join11"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          SEGMENT1 as string,",
+				"          CUSTOMER_NAME as string,",
+				"          CUSTOMER_NUMBER as integer,",
+				"          CLASS_CODE as short",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source(output(",
+				"          SEGMENT1 as string,",
+				"          DESCRIPTION as string,",
+				"          PROJECT_TYPE as string,",
+				"          CLASS_CATEGORY as string,",
+				"          CLASS_CODE as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source2",
+				"source(output(",
+				"          SEGMENT1 as string,",
+				"          DESCRIPTION as string,",
+				"          PROJECT_TYPE as string,",
+				"          CLASS_CATEGORY as string,",
+				"          CLASS_CODE as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source3",
+				"source(output(",
+				"          PROJECT as string,",
+				"          CUSTOMER_NAME as string,",
+				"          CUSTOMER_NUMBER as double,",
+				"          GrandMaster as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source4",
+				"source(output(",
+				"          Segment as string,",
+				"          {Sub-Segment} as string,",
+				"          BU as string,",
+				"          Ledger as double,",
+				"          Loc as double,",
+				"          Division as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source5",
+				"source(output(",
+				"          Customer as string,",
+				"          {Customer Nbr} as double,",
+				"          {Invoice Nbr} as string,",
+				"          {Days past Inv} as double,",
+				"          {Outstanding Amount} as double,",
+				"          {Project  } as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source6",
+				"source(output(",
+				"          PROJECT as string,",
+				"          {DIV } as string,",
+				"          OM as string,",
+				"          {LEDGER ID} as string,",
+				"          {PA AMOUNT} as double,",
+				"          GL_12301 as double,",
+				"          GL_24102 as double,",
+				"          {CUST NUMBER} as double,",
+				"          CUSTOMER as string,",
+				"          BaselineDate as string,",
+				"          UBUE_NET as string,",
+				"          {Period } as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source7",
+				"source(output(",
+				"          {Intercompany Entity Name} as string,",
+				"          {Customer #} as double,",
+				"          {Interco?} as string,",
+				"          {Custom Project} as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source8",
+				"source2 filter(contains(split(CLASS_CATEGORY, ' '),#item=='Master')) ~> filter1",
+				"source1, filter1 join(source1@SEGMENT1 == source2@SEGMENT1,",
+				"     joinType:'left',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join1",
+				"select1, source3 join(select1@SEGMENT1 == source3@SEGMENT1,",
+				"     joinType:'left',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join2",
+				"join1 select(mapColumn(",
+				"          SEGMENT1 = source1@SEGMENT1,",
+				"          CUSTOMER_NAME,",
+				"          CUSTOMER_NUMBER,",
+				"          CLASS_CODE = source1@CLASS_CODE,",
+				"          Master = source2@CLASS_CODE",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"join2 select(mapColumn(",
+				"          PROJECT = select1@SEGMENT1,",
+				"          CUSTOMER_NAME,",
+				"          CUSTOMER_NUMBER,",
+				"          CLASS_CODE = select1@CLASS_CODE,",
+				"          Master,",
+				"          Related = source3@CLASS_CODE",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select2",
+				"select2 derive(GrandMaster = iif(isNull(Master) && isNull(Related),PROJECT , iif(isNull(Master), Related, Master))) ~> derivedColumn1",
+				"source4 derive(PROJECT = iif(length(PROJECT) == 1 , '000000' + PROJECT,iif(length(PROJECT) == 2 , '00000' + PROJECT,iif(length(PROJECT) == 3 , '0000' + PROJECT,iif(length(PROJECT)==4,'000' + PROJECT,iif(length(PROJECT)==5, '00' + PROJECT,iif(length(PROJECT)==6, '0' + PROJECT,PROJECT)))))),",
+				"          GrandMaster = iif(length(GrandMaster) == 1 , '000000' +GrandMaster ,iif(length(GrandMaster) == 2 , '00000' + GrandMaster,iif(length(GrandMaster) == 3 , '0000' + GrandMaster,iif(length(GrandMaster)==4,'000' + GrandMaster,iif(length(GrandMaster)==5, '00' + GrandMaster,iif(length(GrandMaster)==6, '0' + GrandMaster,GrandMaster))))))) ~> derivedColumn2",
+				"derivedColumn2, derivedColumn1 join(derivedColumn2@PROJECT == select2@PROJECT,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join3",
+				"join3 select(mapColumn(",
+				"          PROJECT = derivedColumn2@PROJECT,",
+				"          CUSTOMER_NAME = source4@CUSTOMER_NAME,",
+				"          CUSTOMER_NUMBER = source4@CUSTOMER_NUMBER,",
+				"          GrandMaster = derivedColumn2@GrandMaster,",
+				"          NEWTAB_PROJECT = select2@PROJECT,",
+				"          NEWTAB_CUSTOMER_NAME = select2@CUSTOMER_NAME,",
+				"          NEWTAB_CUSTOMER_NUMBER = select2@CUSTOMER_NUMBER,",
+				"          CLASS_CODE,",
+				"          Master,",
+				"          Related,",
+				"          NEWTAB_GrandMaster = derivedColumn1@GrandMaster",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select3",
+				"select3 select(mapColumn(",
+				"          PROJECT,",
+				"          CUSTOMER_NAME,",
+				"          CUSTOMER_NUMBER,",
+				"          GrandMaster,",
+				"          CLASS_CODE,",
+				"          Master,",
+				"          Related",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select4",
+				"derivedColumn2, derivedColumn1 join(derivedColumn2@PROJECT == select2@PROJECT,",
+				"     joinType:'right',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join4",
+				"select5, select4 union(byName: true)~> union1",
+				"join4 select(mapColumn(",
+				"          PROJECT = derivedColumn2@PROJECT,",
+				"          CUSTOMER_NAME = source4@CUSTOMER_NAME,",
+				"          CUSTOMER_NUMBER = source4@CUSTOMER_NUMBER,",
+				"          GrandMaster = derivedColumn2@GrandMaster,",
+				"          CLASS_CODE,",
+				"          Master,",
+				"          Related",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select5",
+				"union1 sort(asc(GrandMaster, true),",
+				"     asc(CUSTOMER_NAME, true)) ~> sort1",
+				"source5 derive(Division = iif(length(Division) == 1 , '00' + Division,iif(length(Division) == 2 , '0' + Division,Division))) ~> derivedColumn3",
+				"derivedColumn3 filter(not(isNull(Division))) ~> filter2",
+				"select4 select(mapColumn(",
+				"          GrandMaster,",
+				"          CUSTOMER_NUMBER",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select6",
+				"source6 derive({Project  } = replace({Project  }, 'PROJECT', 'GrandMaster')) ~> derivedColumn4",
+				"derivedColumn4, select6 join({Customer Nbr} == CUSTOMER_NUMBER,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join5",
+				"join5 select(mapColumn(",
+				"          Customer,",
+				"          {Customer Nbr},",
+				"          {Invoice Nbr},",
+				"          {Days past Inv},",
+				"          {Outstanding Amount},",
+				"          {Project  },",
+				"          GrandMaster",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select7",
+				"select7 derive(GrandMaster = iif(isNull(GrandMaster),{Project  } ,GrandMaster )) ~> derivedColumn5",
+				"derivedColumn5 aggregate(groupBy(GrandMaster),",
+				"     {Sum_Outstanding Amount} = sum({Outstanding Amount})) ~> aggregate1",
+				"sort1 window(over(GrandMaster),",
+				"     asc(GrandMaster, true),",
+				"     row_number = rowNumber()) ~> window1",
+				"window1 filter(row_number==1) ~> filter3",
+				"filter3 select(mapColumn(",
+				"          CUSTOMER_NAME,",
+				"          CUSTOMER_NUMBER,",
+				"          GrandMaster,",
+				"          CLASS_CODE",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select8",
+				"source7 derive(PROJECT = replace(PROJECT, 'PROJECT', 'GrandMaster')) ~> derivedColumn6",
+				"derivedColumn6, select6 join({CUST NUMBER} == CUSTOMER_NUMBER,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join6",
+				"join6 select(mapColumn(",
+				"          PROJECT,",
+				"          {DIV },",
+				"          OM,",
+				"          {LEDGER ID},",
+				"          {PA AMOUNT},",
+				"          GL_12301,",
+				"          GL_24102,",
+				"          {CUST NUMBER},",
+				"          CUSTOMER,",
+				"          BaselineDate,",
+				"          UBUE_NET,",
+				"          {Period },",
+				"          GrandMaster",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select9",
+				"select9 derive(GrandMaster = iif(isNull(GrandMaster),PROJECT ,GrandMaster )) ~> derivedColumn7",
+				"derivedColumn7 aggregate(groupBy(GrandMaster),",
+				"     GL_12301 = sum(GL_12301),",
+				"          GL_24102 = sum(GL_24102)) ~> aggregate2",
+				"aggregate1, select8 join(aggregate1@GrandMaster == select8@GrandMaster,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join7",
+				"select10, aggregate2 join({GrandMaster AR} == GrandMaster,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join8",
+				"join7 select(mapColumn(",
+				"          {GrandMaster AR} = aggregate1@GrandMaster,",
+				"          {Sum_Outstanding Amount},",
+				"          CUSTOMER_NAME,",
+				"          CUSTOMER_NUMBER,",
+				"          {GrandMaster } = select8@GrandMaster,",
+				"          CLASS_CODE",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select10",
+				"join8 select(mapColumn(",
+				"          {GrandMaster AR},",
+				"          {Sum_Outstanding Amount},",
+				"          CUSTOMER_NAME,",
+				"          CUSTOMER_NUMBER,",
+				"          {GrandMaster },",
+				"          CLASS_CODE,",
+				"          {GrandMaster UBUE} = GrandMaster,",
+				"          GL_12301,",
+				"          GL_24102",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select11",
+				"select11 derive({Sum_Outstanding Amount} = iif(isNull({Sum_Outstanding Amount}), toDecimal(0),toDecimal({Sum_Outstanding Amount})),",
+				"          GL_12301 = iif(isNull(GL_12301), toDecimal(0),toDecimal(GL_12301)),",
+				"          GL_24102 = iif(isNull(GL_24102), toDecimal(0), toDecimal(GL_24102))) ~> derivedColumn8",
+				"derivedColumn8 select(mapColumn(",
+				"          {GrandMaster AR},",
+				"          {Sum_Outstanding Amount},",
+				"          CUSTOMER_NAME,",
+				"          CUSTOMER_NUMBER,",
+				"          {GrandMaster },",
+				"          CLASS_CODE,",
+				"          {GrandMaster UBUE},",
+				"          sum_GL_12301 = GL_12301,",
+				"          sum_GL_24102 = GL_24102",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select12",
+				"select12 derive({Unbilled Netdown} = iif(round(sum_GL_12301,1)==0 || round(sum_GL_24102,1)==0 || isNull(sum_GL_12301)|| isNull(sum_GL_24102), \"N/A\", iif({GrandMaster } ==\"WB00108\"|| {GrandMaster }==\"WB00109\"|| {GrandMaster }==\"4101015\", \"N/A\", iif(sum_GL_24102>0, \"Deferral GL24102\", iif(abs(sum_GL_24102) > abs(sum_GL_12301), \"Unbilled GL12301\", \"Deferral GL24102\"))))) ~> derivedColumn9",
+				"derivedColumn9 derive({Unbilled Netdown 12304} = iif({Unbilled Netdown}==\"N/A\", toDecimal(0), iif({Unbilled Netdown}==\"Unbilled GL12301\", toDecimal(-sum_GL_12301), toDecimal(sum_GL_24102)))) ~> derivedColumn10",
+				"derivedColumn10 derive({Deferral NetDown24108} = {Unbilled Netdown 12304}*-1,",
+				"          {Remaining Defferral After} = iif(abs(sum_GL_24102)>abs(sum_GL_12301), sum_GL_12301+sum_GL_24102, toDecimal(0))) ~> derivedColumn11",
+				"derivedColumn11 derive({AR Billed Netdown} = iif(round({Sum_Outstanding Amount},1)<=0 || round({Remaining Defferral After},1)>=0 || isNull({Sum_Outstanding Amount}),\"N/A\",iif({GrandMaster }==\"2626590\"||{GrandMaster }==\"WB00108\"||{GrandMaster }==\"WB00109\"|| {GrandMaster }==\"4101015\", \"N/A\", iif(abs({Remaining Defferral After})>abs({Sum_Outstanding Amount}), \"Billed AR\", \"Deferral\")))) ~> derivedColumn12",
+				"derivedColumn12 derive({AR NetDown 12207} = iif({AR Billed Netdown}==\"N/A\", toDecimal(0), iif({AR Billed Netdown}==\"Billed AR\",-{Sum_Outstanding Amount},{Remaining Defferral After}))) ~> derivedColumn13",
+				"derivedColumn13 derive({Defferal Net Down 24108} = {AR NetDown 12207}*-1) ~> derivedColumn14",
+				"derivedColumn14 split((isNull({Sum_Outstanding Amount})||{Sum_Outstanding Amount}==0) && (isNull(sum_GL_12301)|| sum_GL_12301==0) &&   (isNull(sum_GL_24102)||sum_GL_24102==0)\r",
+				",",
+				"     disjoint: true) ~> split1@(adf, adffailure)",
+				"select12 filter({Sum_Outstanding Amount}<0) ~> filter4",
+				"filter4 derive({Dr Acc#12202} = -{Sum_Outstanding Amount},",
+				"          {Dr Acc#21240} = {Sum_Outstanding Amount}) ~> derivedColumn15",
+				"source8 filter(contains(split({Interco?}, ' '),#item=='Y')) ~> filter5",
+				"derivedColumn15, filter5 join(CUSTOMER_NUMBER == {Customer #},",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join9",
+				"split1@adffailure, filter5 join(CUSTOMER_NUMBER == {Customer #},",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join10",
+				"derivedColumn15, filter5 join(CUSTOMER_NUMBER != {Customer #},",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> notoinedrows",
+				"split1@adffailure, filter5 join(CUSTOMER_NUMBER != {Customer #},",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join11"
+			]
+		}
+	}
+}

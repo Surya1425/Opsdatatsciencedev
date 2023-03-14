@@ -1,0 +1,17 @@
+{
+	"name": "DtaSet-strgblob-sagtappsadfusrstrgv2dev",
+	"properties": {
+		"description": "Dataset for - adf-ops-datascience-5026-dev and sagtappsadfusrstrgv2dev",
+		"linkedServiceName": {
+			"referenceName": "ls-strgblob-sagtappsadfusrstrgv2dev",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureBlob",
+		"typeProperties": {
+			"fileName": "",
+			"folderPath": ""
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

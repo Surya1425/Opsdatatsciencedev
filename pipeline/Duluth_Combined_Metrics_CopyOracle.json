@@ -1,0 +1,328 @@
+{
+	"name": "Duluth_Combined_Metrics_CopyOracle",
+	"properties": {
+		"activities": [
+			{
+				"name": "Order Management",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select rma.ORDER_NUMBER, rma.SERIAL_NUMBER, rma.PROJECT_NUMBER, rma.RMA_RECEIVED_DATE, rma.WAREHOUSE, rma.ACTUAL_SHIPMENT_DATE, rma.CUSTOMER, rma.ORDER_TYPE, rma.HEAD$PROGRAM_MANAGER, rma.ORDER_STATUS, rma.CUST_PO_NUMBER, rma.CREATED_BY, rma.HEAD$PROJECT_NUMBER, rma.ITEM$SV$PART_NUMBER, rma.ITEM_DESCRIPTION, rma.ORDER_DATE, rma.QUANTITY, rma.TASK_NUMBER from OEOG0_RMA_Line_Details_Vsat rma where rma.ORGANIZATION_CODE in ('75', '76') and TO_DATE(rma.ORDER_DATE) >= TO_DATE('2013-01-01', 'yyyy-mm-dd')",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "OracleDS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "pte_project_cost",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "OEOG0 SHIPMENTS",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select TO_DATE(OEOG0_SHIPMENTS_BY_MO_VSAT.SHIP_DATE) as SHIP_DATE, OEOG0_SHIPMENTS_BY_MO_VSAT.ORDER_NUMBER from OEOG0_SHIPMENTS_BY_MO_VSAT where TO_DATE(OEOG0_SHIPMENTS_BY_MO_VSAT.SHIP_DATE) >= TO_DATE('2017-01-01', 'yyyy-mm-dd')",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "OracleDS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "pte_project_cost",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "POG0EndToEndVsat",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select TO_DATE(OEOG0_SHIPMENTS_BY_MO_VSAT.SHIP_DATE) as SHIP_DATE, OEOG0_SHIPMENTS_BY_MO_VSAT.ORDER_NUMBER from OEOG0_SHIPMENTS_BY_MO_VSAT where TO_DATE(OEOG0_SHIPMENTS_BY_MO_VSAT.SHIP_DATE) >= TO_DATE('2017-01-01', 'yyyy-mm-dd')",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "EBSPJD1_Oracle_ds",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "pte_project_cost",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "POG0 All Line Vsat",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "OracleTable1",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "pte_project_cost",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "QAResults1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select \nDISTINCT\nba.description as Business_Area\n, to_date(SUBSTR (NDET.CHARACTER24, 1, 10), 'YYYY/MM/DD') as Nmr_Det_Date_Action_Taken\n, case when MP.organization_code = '75' then NDET.COMMENT4 else NDET.COMMENT2 end as Nmr_Det_Desc_Of_Def\n, case when MP.organization_code = '75' then NDET.COMMENT5 else NDET.COMMENT3 end as Nmr_Det_Action_Taken\n, case when MP.organization_code = '10' then NDET.CHARACTER34 else NDET.CHARACTER14 end as Nmr_Det_Dispo\n, party.party_name as nmr_customer\n, to_date(NDET.DATE_CLOSED, 'DD-MON-YY') as Nmr_Det_Date_Closed\n, to_date(NDET.CREATION_DATE, 'DD-MON-YY') as Nmr_Det_Line_Creation_Date\n, case when MP.organization_code = '10' then NDET.CHARACTER42 else NDET.CHARACTER22 end as Nmr_Det_Oper_Name\n, case when MP.organization_code in ('75') then NDET.COMMENT3 else NDET.COMMENT1 end as Nmr_Det_Sn\n, NMR.COMMENT3 as Nmr_Sn\n, to_date(NMR.DATE_CLOSED, 'DD-MON-YY') as Nmr_Date_Closed\n, NMR.SEQUENCE1 as Nmr_No\n, case when MP.organization_code in ('10', '15', '16') then NMR.CHARACTER17 else NMR.CHARACTER19 end as Nmr_Parent_Nmr\n, case when MP.organization_code = '60' then null\n       when MP.organization_code = '16' then NMR.CHARACTER52\n       else NMR.CHARACTER49 end as NMR_Parent_Sn\n, NMR.CHARACTER5 as  Nmr_Pgm\n, MSI.segment1 as Nmr_Pn\n, NMR.CHARACTER1 as Nmr_Pn_Desc\n, case when MP.organization_code in ('10', '15', '16') then NMR.CHARACTER27 else NMR.CHARACTER11 end as Nmr_Po_Receipt_Date\n, PPA.SEGMENT1 as Nmr_Project_No\n, NMR.rma_header_id as NMR_RMA_Number\n, PO.VENDOR_NAME as Nmr_Supplier\n, NMR.CHARACTER10 as Nmr_Warranty\n, MP.ORGANIZATION_CODE as Organization_Code\n, ppa.segment1 as project_number\n, Repair_Line_ID.repair_line_id as Repair_Line_ID\n, to_date(OH.CREATION_DATE, 'DD-MON-YY') as RMA_Creation_Date\n, case when MP.organization_code = '10' then NDET.CHARACTER30 else NDET.CHARACTER10 end as Nmr_Det_Repair_Action\n, case when MP.organization_code in ('10', '15', '16') then NMR.CHARACTER11 else NMR.CHARACTER12 end as Nmr_Rma_Line_No\n, NDET.CHARACTER61 AS Failure_Cause_code\n, case when MP.organization_code in ('08', '14', '30', '60', '75', '76') then NMR.CHARACTER20\n       when MP.organization_code in ('15', '16') then NMR.CHARACTER18\n       when MP.organization_code in ('18') then NMR.CHARACTER25\n       end as Nmr_Originator\n, to_date(NMR.DATE_OPENED, 'DD-MON-YY') as NMR_Creation_Date\n, case when MP.organization_code in ('16') then NMR.CHARACTER81\n       when MP.organization_code in ('60') then null\n       else NMR.CHARACTER69\n       end as Salesforce_Number\n, case when MP.organization_code in ('16', '30') then NMR.CHARACTER39 else NMR.CHARACTER40 end as Failure_Site\n, case when MP.organization_code in ('08', '14', '30', '60', '75', '76') then NMR.CHARACTER27\n       when MP.organization_code in ('15', '16') then NMR.CHARACTER25\n       when MP.organization_code in ('10') then NMR.CHARACTER24\n       end as Report_Symptom\n, case when MP.organization_code in ('08', '10', '14', '15', '60', '75', '76') then TO_DATE (SUBSTR (NMR.CHARACTER29, 1, 10), 'YYYY/MM/DD')\n       when MP.organization_code in ('16') then TO_DATE (SUBSTR (NMR.CHARACTER28, 1, 10), 'YYYY/MM/DD')\n       when MP.organization_code in ('30') then TO_DATE (SUBSTR (NMR.CHARACTER14, 1, 10), 'YYYY/MM/DD')  \n       end as Failure_Date   \n       \n--, TO_CHAR (line.line_number)\n, nmr.character11        \n, NMR.rma_header_id\n\nfrom\nQA.QA_RESULTS NMR\ninner join QA.QA_RESULTS NDET on ndet.organization_id = nmr.organization_id \n                              AND ndet.SEQUENCE1 = nmr.SEQUENCE1\n                              and ndet.plan_id <> nmr.plan_id\nleft outer join AR.HZ_CUST_ACCOUNTS HCA on hca.CUST_ACCOUNT_ID = nmr.customer_id\nleft outer join AR.HZ_PARTIES PARTY on party.party_id = hca.party_id\nleft outer join INV.MTL_SYSTEM_ITEMS_B MSI on msi.inventory_item_id = nmr.item_id\n                                          and msi.organization_id = nmr.organization_id\nleft outer join AP.AP_SUPPLIERS PO on po.vendor_id = nmr.vendor_id -- AP.AP_SUPPLIERS PO (slows down query)\ninner join INV.MTL_PARAMETERS MP on mp.organization_id = nmr.organization_id\nleft outer join PA.PA_PROJECTS_ALL PPA on ppa.project_id = nmr.project_id\nleft outer join ONT.OE_ORDER_HEADERS_ALL OH on oh.header_id = ndet.rma_header_id\ninner join QA.QA_PLANS QP on QP.PLAN_ID = nmr.plan_id\ninner join QA.QA_PLANS QPDET on qpdet.plan_id = ndet.plan_id\n\nouter apply\n          (SELECT --cpt.repair_line_id \n           case when mp.organization_code in ('10', '15', '16') and TO_CHAR (line.line_number) = nmr.character11 then cpt.repair_line_id \n                when mp.organization_code in ('08', '14', '30', '60', '75' ,'76') and TO_CHAR (line.line_number) = nmr.character12 then cpt.repair_line_id \n                end as repair_line_id \n           FROM\n           csd.csd_product_transactions cpt\n           ,ont.oe_order_lines_all line   \n           , INV.MTL_PARAMETERS MP           \n           WHERE                     \n           order_header_id = nmr.rma_header_id \n          -- and to_char(case when nmr.organization_id in ('10', '15', '16') then nmr.character11    \n          --     when  nmr.organization_id in ('08', '14', '30', '60', '75' ,'76') then nmr.character12 end) =   TO_CHAR (line.line_number)      \n           AND (TO_CHAR (line.line_number) = nmr.character12 or TO_CHAR (line.line_number) = nmr.character11)          \n           AND line.line_id = cpt.order_line_id\n           AND line.header_id = nmr.rma_header_id\n           and mp.organization_id = nmr.organization_id\n           AND action_type = 'RMA'                   \n           AND ROWNUM = 1\n           ) Repair_Line_ID\n           \nouter apply\n         (SELECT description    \n          FROM qa.qa_char_value_lookups   \n          WHERE\n          short_code = NMR.CHARACTER5\n          AND char_id = 860         \n          AND ROWNUM = 1)   BA         \n\nwhere \n--rownum = 1\n--and \n( NMR.status IS NULL or NMR.status = 2 )\nand ( NDET.status IS NULL or NDET.status = 2 )\nand ((MP.organization_code = '08'\n         and qp.NAME = 'NMR 08'\n         and qpdet.name = 'NMR DET 08')\n     or (MP.organization_code = '10'\n         and qp.NAME = 'NMR 10'\n         and qpdet.name = 'NMR DET 10')\n     or (MP.organization_code = '14'\n         and qp.NAME = 'NMR 14'\n         and qpdet.name = 'NMR DET 14')    \n     or (MP.organization_code = '15'\n         and qp.NAME = 'NMR 15'\n         and qpdet.name = 'NMR DET 15')          \n     or (MP.organization_code = '16'\n         and qp.NAME = 'NMR 16'\n         and qpdet.name = 'NMR DET 16')  \n     or (MP.organization_code = '30'\n         and qp.NAME = 'NMR 30'\n         and qpdet.name = 'NMR DET 30')  \n     or (MP.organization_code = '60'\n         and qp.NAME = 'NMR 60'\n         and qpdet.name = 'NMR DET 60')           \n     or (MP.organization_code = '75'\n         and qp.NAME = 'NMR 75'\n         and qpdet.name = 'NMR DET 75')  \n     or (MP.organization_code = '76'\n         and qp.NAME = 'NMR 76'\n         and qpdet.name = 'NMR DET 76') )                                  \n       \nand TO_DATE(OH.CREATION_DATE, 'DD-MON-YY') >= '28-JAN-21'\n--and noetix_vsat_utility_pkg.rma_number (NMR.rma_header_id) = '37101'\n--and TO_DATE(OH.CREATION_DATE, 'DD-MON-YY') < '08-MAY-19'",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "EBSPJD1_OpsAnalytics_ds",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "QAResults1",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "QAResults2",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select \nDISTINCT\nba.description as Business_Area\n, to_date(SUBSTR (NDET.CHARACTER24, 1, 10), 'YYYY/MM/DD') as Nmr_Det_Date_Action_Taken\n, case when MP.organization_code = '75' then NDET.COMMENT4 else NDET.COMMENT2 end as Nmr_Det_Desc_Of_Def\n, case when MP.organization_code = '75' then NDET.COMMENT5 else NDET.COMMENT3 end as Nmr_Det_Action_Taken\n, case when MP.organization_code = '10' then NDET.CHARACTER34 else NDET.CHARACTER14 end as Nmr_Det_Dispo\n, party.party_name as nmr_customer\n, to_date(NDET.DATE_CLOSED, 'DD-MON-YY') as Nmr_Det_Date_Closed\n, to_date(NDET.CREATION_DATE, 'DD-MON-YY') as Nmr_Det_Line_Creation_Date\n, case when MP.organization_code = '10' then NDET.CHARACTER42 else NDET.CHARACTER22 end as Nmr_Det_Oper_Name\n, case when MP.organization_code in ('75') then NDET.COMMENT3 else NDET.COMMENT1 end as Nmr_Det_Sn\n, NMR.COMMENT3 as Nmr_Sn\n, to_date(NMR.DATE_CLOSED, 'DD-MON-YY') as Nmr_Date_Closed\n, NMR.SEQUENCE1 as Nmr_No\n, case when MP.organization_code in ('10', '15', '16') then NMR.CHARACTER17 else NMR.CHARACTER19 end as Nmr_Parent_Nmr\n, case when MP.organization_code = '60' then null\n       when MP.organization_code = '16' then NMR.CHARACTER52\n       else NMR.CHARACTER49 end as NMR_Parent_Sn\n, NMR.CHARACTER5 as  Nmr_Pgm\n, MSI.segment1 as Nmr_Pn\n, NMR.CHARACTER1 as Nmr_Pn_Desc\n, case when MP.organization_code in ('10', '15', '16') then NMR.CHARACTER27 else NMR.CHARACTER11 end as Nmr_Po_Receipt_Date\n, PPA.SEGMENT1 as Nmr_Project_No\n, NMR.rma_header_id as NMR_RMA_Number\n, PO.VENDOR_NAME as Nmr_Supplier\n, NMR.CHARACTER10 as Nmr_Warranty\n, MP.ORGANIZATION_CODE as Organization_Code\n, ppa.segment1 as project_number\n, Repair_Line_ID.repair_line_id as Repair_Line_ID\n, to_date(OH.CREATION_DATE, 'DD-MON-YY') as RMA_Creation_Date\n, case when MP.organization_code = '10' then NDET.CHARACTER30 else NDET.CHARACTER10 end as Nmr_Det_Repair_Action\n, case when MP.organization_code in ('10', '15', '16') then NMR.CHARACTER11 else NMR.CHARACTER12 end as Nmr_Rma_Line_No\n, NDET.CHARACTER61 AS Failure_Cause_code\n, case when MP.organization_code in ('08', '14', '30', '60', '75', '76') then NMR.CHARACTER20\n       when MP.organization_code in ('15', '16') then NMR.CHARACTER18\n       when MP.organization_code in ('18') then NMR.CHARACTER25\n       end as Nmr_Originator\n, to_date(NMR.DATE_OPENED, 'DD-MON-YY') as NMR_Creation_Date\n, case when MP.organization_code in ('16') then NMR.CHARACTER81\n       when MP.organization_code in ('60') then null\n       else NMR.CHARACTER69\n       end as Salesforce_Number\n, case when MP.organization_code in ('16', '30') then NMR.CHARACTER39 else NMR.CHARACTER40 end as Failure_Site\n, case when MP.organization_code in ('08', '14', '30', '60', '75', '76') then NMR.CHARACTER27\n       when MP.organization_code in ('15', '16') then NMR.CHARACTER25\n       when MP.organization_code in ('10') then NMR.CHARACTER24\n       end as Report_Symptom\n, case when MP.organization_code in ('08', '10', '14', '15', '60', '75', '76') then TO_DATE (SUBSTR (NMR.CHARACTER29, 1, 10), 'YYYY/MM/DD')\n       when MP.organization_code in ('16') then TO_DATE (SUBSTR (NMR.CHARACTER28, 1, 10), 'YYYY/MM/DD')\n       when MP.organization_code in ('30') then TO_DATE (SUBSTR (NMR.CHARACTER14, 1, 10), 'YYYY/MM/DD')  \n       end as Failure_Date   \n       \n--, TO_CHAR (line.line_number)\n, nmr.character11        \n, NMR.rma_header_id\n\nfrom\nQA.QA_RESULTS NMR\ninner join QA.QA_RESULTS NDET on ndet.organization_id = nmr.organization_id \n                              AND ndet.SEQUENCE1 = nmr.SEQUENCE1\n                              and ndet.plan_id <> nmr.plan_id\nleft outer join AR.HZ_CUST_ACCOUNTS HCA on hca.CUST_ACCOUNT_ID = nmr.customer_id\nleft outer join AR.HZ_PARTIES PARTY on party.party_id = hca.party_id\nleft outer join INV.MTL_SYSTEM_ITEMS_B MSI on msi.inventory_item_id = nmr.item_id\n                                          and msi.organization_id = nmr.organization_id\nleft outer join AP.AP_SUPPLIERS PO on po.vendor_id = nmr.vendor_id -- AP.AP_SUPPLIERS PO (slows down query)\ninner join INV.MTL_PARAMETERS MP on mp.organization_id = nmr.organization_id\nleft outer join PA.PA_PROJECTS_ALL PPA on ppa.project_id = nmr.project_id\nleft outer join ONT.OE_ORDER_HEADERS_ALL OH on oh.header_id = ndet.rma_header_id\ninner join QA.QA_PLANS QP on QP.PLAN_ID = nmr.plan_id\ninner join QA.QA_PLANS QPDET on qpdet.plan_id = ndet.plan_id\n\nouter apply\n          (SELECT --cpt.repair_line_id \n           case when mp.organization_code in ('10', '15', '16') and TO_CHAR (line.line_number) = nmr.character11 then cpt.repair_line_id \n                when mp.organization_code in ('08', '14', '30', '60', '75' ,'76') and TO_CHAR (line.line_number) = nmr.character12 then cpt.repair_line_id \n                end as repair_line_id \n           FROM\n           csd.csd_product_transactions cpt\n           ,ont.oe_order_lines_all line   \n           , INV.MTL_PARAMETERS MP           \n           WHERE                     \n           order_header_id = nmr.rma_header_id \n          -- and to_char(case when nmr.organization_id in ('10', '15', '16') then nmr.character11    \n          --     when  nmr.organization_id in ('08', '14', '30', '60', '75' ,'76') then nmr.character12 end) =   TO_CHAR (line.line_number)      \n           AND (TO_CHAR (line.line_number) = nmr.character12 or TO_CHAR (line.line_number) = nmr.character11)          \n           AND line.line_id = cpt.order_line_id\n           AND line.header_id = nmr.rma_header_id\n           and mp.organization_id = nmr.organization_id\n           AND action_type = 'RMA'                   \n           AND ROWNUM = 1\n           ) Repair_Line_ID\n           \nouter apply\n         (SELECT description    \n          FROM qa.qa_char_value_lookups   \n          WHERE\n          short_code = NMR.CHARACTER5\n          AND char_id = 860         \n          AND ROWNUM = 1)   BA         \n\nwhere \n--rownum = 1\n--and \n( NMR.status IS NULL or NMR.status = 2 )\nand ( NDET.status IS NULL or NDET.status = 2 )\nand ((MP.organization_code = '08'\n         and qp.NAME = 'NMR 08'\n         and qpdet.name = 'NMR DET 08')\n     or (MP.organization_code = '10'\n         and qp.NAME = 'NMR 10'\n         and qpdet.name = 'NMR DET 10')\n     or (MP.organization_code = '14'\n         and qp.NAME = 'NMR 14'\n         and qpdet.name = 'NMR DET 14')    \n     or (MP.organization_code = '15'\n         and qp.NAME = 'NMR 15'\n         and qpdet.name = 'NMR DET 15')          \n     or (MP.organization_code = '16'\n         and qp.NAME = 'NMR 16'\n         and qpdet.name = 'NMR DET 16')  \n     or (MP.organization_code = '30'\n         and qp.NAME = 'NMR 30'\n         and qpdet.name = 'NMR DET 30')  \n     or (MP.organization_code = '60'\n         and qp.NAME = 'NMR 60'\n         and qpdet.name = 'NMR DET 60')           \n     or (MP.organization_code = '75'\n         and qp.NAME = 'NMR 75'\n         and qpdet.name = 'NMR DET 75')  \n     or (MP.organization_code = '76'\n         and qp.NAME = 'NMR 76'\n         and qpdet.name = 'NMR DET 76') )                                  \n       \nand TO_DATE(OH.CREATION_DATE, 'DD-MON-YY') >= '01-JAN-16' and TO_DATE(OH.CREATION_DATE, 'DD-MON-YY') <= '26-JAN-21'\n--and noetix_vsat_utility_pkg.rma_number (NMR.rma_header_id) = '37101'\n--and TO_DATE(OH.CREATION_DATE, 'DD-MON-YY') < '08-MAY-19'",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "EBSPJD1_OpsAnalytics_ds",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "QAResults1",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "Service/OracleCopy_Pipelines"
+		},
+		"annotations": []
+	}
+}

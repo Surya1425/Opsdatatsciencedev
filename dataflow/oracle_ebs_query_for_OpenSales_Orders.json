@@ -1,0 +1,73 @@
+{
+	"name": "oracle_ebs_query_for_OpenSales_Orders",
+	"properties": {
+		"folder": {
+			"name": "pte_project_cost"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference"
+					},
+					"name": "OpenSalesOrders"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_csv_output",
+						"type": "DatasetReference"
+					},
+					"name": "sinkingOutput"
+				}
+			],
+			"transformations": [
+				{
+					"name": "filteringLineCategory"
+				},
+				{
+					"name": "filteringOpenLineQuantity"
+				},
+				{
+					"name": "filteringCProjectNumber"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          PROJECT_NUMBER as string,",
+				"          PROJECT_NAME as string,",
+				"          ORDER_STATUS as string,",
+				"          ITEM_NUMBER as string,",
+				"          ITEM_DESCRIPTION as string,",
+				"          ORDER_NUMBER as string,",
+				"          LINE_NUMBER as string,",
+				"          LINE_QUANTITY as double,",
+				"          OPEN_LINE_QUANTITY as short,",
+				"          CUSTOMER_PO_NUMBER as string,",
+				"          PROMISED_DATE as string,",
+				"          LINE_CATEGORY_CODE as string,",
+				"          HEADER_SHIP_FROM_ORG as short,",
+				"          OM_OR_PC as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> OpenSalesOrders",
+				"OpenSalesOrders filter(LINE_CATEGORY_CODE==\"ORDER\") ~> filteringLineCategory",
+				"filteringLineCategory filter(OPEN_LINE_QUANTITY>0) ~> filteringOpenLineQuantity",
+				"filteringOpenLineQuantity filter(regexMatch(PROJECT_NUMBER,'C')) ~> filteringCProjectNumber",
+				"filteringCProjectNumber sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionFileNames:['pte_open_sales_orders.csv'],",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> sinkingOutput"
+			]
+		}
+	}
+}

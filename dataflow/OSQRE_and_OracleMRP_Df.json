@@ -1,0 +1,935 @@
+{
+	"name": "OSQRE_and_OracleMRP_Df",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"name": "mrpworkbenchwithonhandmrpearly"
+				},
+				{
+					"name": "INVG0ItemsVsat"
+				},
+				{
+					"name": "IndentedBOMMRPearly"
+				},
+				{
+					"name": "Textinput"
+				},
+				{
+					"name": "Plexus033"
+				},
+				{
+					"name": "Plexus952"
+				},
+				{
+					"name": "Plexus035204423SupplyDemand"
+				},
+				{
+					"name": "SCIViaSatSupplyDemand"
+				},
+				{
+					"name": "BenchMarkViasatSupplyDemand"
+				}
+			],
+			"sinks": [
+				{
+					"name": "sink1"
+				},
+				{
+					"name": "sink9"
+				}
+			],
+			"transformations": [
+				{
+					"name": "filter1"
+				},
+				{
+					"name": "select1"
+				},
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "select2"
+				},
+				{
+					"name": "filter2"
+				},
+				{
+					"name": "derivedColumn2"
+				},
+				{
+					"name": "union1"
+				},
+				{
+					"name": "aggregate2"
+				},
+				{
+					"name": "derivedColumn3"
+				},
+				{
+					"name": "derivedColumn4"
+				},
+				{
+					"name": "derivedColumn5"
+				},
+				{
+					"name": "derivedColumn6"
+				},
+				{
+					"name": "derivedColumn8"
+				},
+				{
+					"name": "select3"
+				},
+				{
+					"name": "derivedColumn9"
+				},
+				{
+					"name": "select4"
+				},
+				{
+					"name": "join1"
+				},
+				{
+					"name": "aggregate3"
+				},
+				{
+					"name": "filter3"
+				},
+				{
+					"name": "select5"
+				},
+				{
+					"name": "derivedColumn10"
+				},
+				{
+					"name": "select6"
+				},
+				{
+					"name": "aggregate4"
+				},
+				{
+					"name": "derivedColumn11"
+				},
+				{
+					"name": "select7"
+				},
+				{
+					"name": "select8"
+				},
+				{
+					"name": "union2"
+				},
+				{
+					"name": "select9"
+				},
+				{
+					"name": "derivedColumn12"
+				},
+				{
+					"name": "select10"
+				},
+				{
+					"name": "derivedColumn13"
+				},
+				{
+					"name": "select11"
+				},
+				{
+					"name": "filter4"
+				},
+				{
+					"name": "derivedColumn14"
+				},
+				{
+					"name": "derivedColumn15"
+				},
+				{
+					"name": "derivedColumn16"
+				},
+				{
+					"name": "derivedColumn17"
+				},
+				{
+					"name": "sort1"
+				},
+				{
+					"name": "window1"
+				},
+				{
+					"name": "filter5"
+				},
+				{
+					"name": "derivedColumn18"
+				},
+				{
+					"name": "derivedColumn19"
+				},
+				{
+					"name": "derivedColumn20"
+				},
+				{
+					"name": "sort2"
+				},
+				{
+					"name": "window2"
+				},
+				{
+					"name": "filter6"
+				},
+				{
+					"name": "derivedColumn21"
+				},
+				{
+					"name": "derivedColumn22"
+				},
+				{
+					"name": "derivedColumn23"
+				},
+				{
+					"name": "derivedColumn24"
+				},
+				{
+					"name": "sort3"
+				},
+				{
+					"name": "window3"
+				},
+				{
+					"name": "filter7"
+				},
+				{
+					"name": "select12"
+				},
+				{
+					"name": "derivedColumn25"
+				},
+				{
+					"name": "derivedColumn26"
+				},
+				{
+					"name": "derivedColumn27"
+				},
+				{
+					"name": "derivedColumn28"
+				},
+				{
+					"name": "select13"
+				},
+				{
+					"name": "sort4"
+				},
+				{
+					"name": "window4"
+				},
+				{
+					"name": "filter8"
+				},
+				{
+					"name": "select14"
+				},
+				{
+					"name": "derivedColumn29"
+				},
+				{
+					"name": "derivedColumn30"
+				},
+				{
+					"name": "derivedColumn31"
+				},
+				{
+					"name": "derivedColumn32"
+				},
+				{
+					"name": "select15"
+				},
+				{
+					"name": "select16"
+				},
+				{
+					"name": "derivedColumn33"
+				},
+				{
+					"name": "derivedColumn34"
+				},
+				{
+					"name": "select17"
+				},
+				{
+					"name": "derivedColumn36"
+				},
+				{
+					"name": "derivedColumn37"
+				},
+				{
+					"name": "sort5"
+				},
+				{
+					"name": "window5"
+				},
+				{
+					"name": "filter9"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          {Avg Item Cost} as string,",
+				"          {Component Revision} as string,",
+				"          {Item Description} as string,",
+				"          {Item Number} as string,",
+				"          {Item Status Code} as string,",
+				"          {Line Code} as string,",
+				"          {Make Buy} as string,",
+				"          {Old Dock Date} as string,",
+				"          {Old Due Date} as string,",
+				"          Org as string,",
+				"          {Planner Code} as string,",
+				"          {Planning Group Quantity} as string,",
+				"          {Planning Group} as string,",
+				"          {PO Price} as string,",
+				"          {Project Number} as string,",
+				"          Qty as string,",
+				"          {Sugg Dock Date} as string,",
+				"          {Sugg Due Date} as string,",
+				"          {Sugg Order Date} as string,",
+				"          {Sugg Start Date} as string,",
+				"          {Suggested Req Buyer} as string,",
+				"          Supplier as string,",
+				"          {Unit Number} as string,",
+				"          {Wip Supply Type} as string,",
+				"          {Order Type} as string,",
+				"          {On Hand Qty} as string,",
+				"          {Order Number} as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false) ~> mrpworkbenchwithonhandmrpearly",
+				"source(output(",
+				"          {Organization Code} as string,",
+				"          {Item Number} as string,",
+				"          {Item Description} as string,",
+				"          {Item Creation Date} as string,",
+				"          {Planning Make Buy Code} as string,",
+				"          {Buyer Name} as string,",
+				"          {Planner Code} as string,",
+				"          {Preprocessing Lead Time} as double,",
+				"          {Processing Lead Time} as double,",
+				"          {Postprocessing Lead Time} as double,",
+				"          {Fixed Lead Time} as double,",
+				"          {Cum Manufacturing Lead Time} as string,",
+				"          {Cumulative Total Lead Time} as string,",
+				"          {Purchase Commod} as string,",
+				"          {Unit Of Measure} as string,",
+				"          {Receipt Routing} as string,",
+				"          {Item Status Code} as string,",
+				"          {Item Type} as string,",
+				"          {Itemcatinv Item Category Kff} as string,",
+				"          {Average Cost} as string,",
+				"          {Mrp Planning Method} as string,",
+				"          {Items$Agile Item  Part  Catego} as string,",
+				"          {Wip Supply Type} as string,",
+				"          {Items$Item Setup Verified} as string,",
+				"          {Item Revision Control Flag} as string,",
+				"          {Items$Comsec} as string,",
+				"          {List Price Per Unit} as string,",
+				"          {Lot Control Flag} as string,",
+				"          {Serial Number Control Code} as string,",
+				"          {Serial Starting Number} as string,",
+				"          {Serial Starting Prefix} as string,",
+				"          {Shelf Life Code} as string,",
+				"          {Shrinkage Rate} as string,",
+				"          {Track In Installed Base} as string,",
+				"          {Variable Lead Time} as string,",
+				"          {Shelf Life Days} as string,",
+				"          {Itemcatpur Category Desc} as string,",
+				"          {Items$Target Cost} as string,",
+				"          {Hazard Class} as string,",
+				"          {Hazard Class Description} as string,",
+				"          {Hazardous Material Flag} as string,",
+				"          {Items$End Of Life Buy} as string,",
+				"          {Items$Vmi Item} as string,",
+				"          {Item Replenishment Type} as string,",
+				"          {Mtl Transactions Enabled Flag} as string,",
+				"          {Minimum Order Quantity} as string,",
+				"          {Items$Country Of Origin} as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false) ~> INVG0ItemsVsat",
+				"source(output(",
+				"          Assembly as string,",
+				"          BuyParentLevel as string,",
+				"          {Child of Buy} as string,",
+				"          Component as string,",
+				"          {Cum Manufacturing Lead Time} as string,",
+				"          {Cumulative Total Lead Time} as string,",
+				"          {Engineering Change Order} as string,",
+				"          {Extended Quantity} as string,",
+				"          {Implementation Date} as string,",
+				"          {Item Avg Cost} as string,",
+				"          {Item Buyer Name} as string,",
+				"          {Item Description} as string,",
+				"          {Item Revision (MAS)} as string,",
+				"          {Item Type} as string,",
+				"          Level as string,",
+				"          {Make/Buy} as string,",
+				"          Org as string,",
+				"          Path as string,",
+				"          {Postprocessing Lead Time} as string,",
+				"          {Preprocessing Lead Time} as string,",
+				"          {Processing Lead Time} as string,",
+				"          {Purchase Commod} as string,",
+				"          QPA as string,",
+				"          {Receipt Routing} as string,",
+				"          RecordID as string,",
+				"          {Using Assembly} as string,",
+				"          {Hold Attribute} as string,",
+				"          {Mrp Planning Method} as string,",
+				"          {Wip Supply Type} as string,",
+				"          {BOM Notes} as string,",
+				"          {Assembly Description} as string,",
+				"          {Date Published} as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false) ~> IndentedBOMMRPearly",
+				"source(output(",
+				"          Assembly as string,",
+				"          Org as string,",
+				"          Source as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false) ~> Textinput",
+				"source(output(",
+				"          FullPath as string,",
+				"          Directory as string,",
+				"          FileName as string,",
+				"          ShortFileName as string,",
+				"          CreationTime as string,",
+				"          LastAccessTime as string,",
+				"          LastWriteTime as string,",
+				"          Size as string,",
+				"          AttributeArchive as string,",
+				"          AttributeCompressed as string,",
+				"          AttributeEncrypted as string,",
+				"          AttributeHidden as string,",
+				"          AttributeNormal as string,",
+				"          AttributeOffline as string,",
+				"          AttributeReadonly as string,",
+				"          AttributeReparsePoint as string,",
+				"          AttributeSparseFile as string,",
+				"          AttributeSystem as string,",
+				"          AttributeTemporary as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false) ~> Plexus033",
+				"source(output(",
+				"          FullPath as string,",
+				"          Directory as string,",
+				"          FileName as string,",
+				"          ShortFileName as string,",
+				"          CreationTime as string,",
+				"          LastAccessTime as string,",
+				"          LastWriteTime as string,",
+				"          Size as string,",
+				"          AttributeArchive as string,",
+				"          AttributeCompressed as string,",
+				"          AttributeEncrypted as string,",
+				"          AttributeHidden as string,",
+				"          AttributeNormal as string,",
+				"          AttributeOffline as string,",
+				"          AttributeReadonly as string,",
+				"          AttributeReparsePoint as string,",
+				"          AttributeSparseFile as string,",
+				"          AttributeSystem as string,",
+				"          AttributeTemporary as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false) ~> Plexus952",
+				"source(output(",
+				"          FullPath as string,",
+				"          Directory as string,",
+				"          FileName as string,",
+				"          ShortFileName as string,",
+				"          CreationTime as string,",
+				"          LastAccessTime as string,",
+				"          LastWriteTime as string,",
+				"          Size as string,",
+				"          AttributeArchive as string,",
+				"          AttributeCompressed as string,",
+				"          AttributeEncrypted as string,",
+				"          AttributeHidden as string,",
+				"          AttributeNormal as string,",
+				"          AttributeOffline as string,",
+				"          AttributeReadonly as string,",
+				"          AttributeReparsePoint as string,",
+				"          AttributeSparseFile as string,",
+				"          AttributeSystem as string,",
+				"          AttributeTemporary as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false) ~> Plexus035204423SupplyDemand",
+				"source(output(",
+				"          FullPath as string,",
+				"          Directory as string,",
+				"          FileName as string,",
+				"          ShortFileName as string,",
+				"          CreationTime as string,",
+				"          LastAccessTime as string,",
+				"          LastWriteTime as string,",
+				"          Size as string,",
+				"          AttributeArchive as string,",
+				"          AttributeCompressed as string,",
+				"          AttributeEncrypted as string,",
+				"          AttributeHidden as string,",
+				"          AttributeNormal as string,",
+				"          AttributeOffline as string,",
+				"          AttributeReadonly as string,",
+				"          AttributeReparsePoint as string,",
+				"          AttributeSparseFile as string,",
+				"          AttributeSystem as string,",
+				"          AttributeTemporary as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false) ~> SCIViaSatSupplyDemand",
+				"source(output(",
+				"          FullPath as string,",
+				"          Directory as string,",
+				"          FileName as string,",
+				"          ShortFileName as string,",
+				"          CreationTime as string,",
+				"          LastAccessTime as string,",
+				"          LastWriteTime as string,",
+				"          Size as string,",
+				"          AttributeArchive as string,",
+				"          AttributeCompressed as string,",
+				"          AttributeEncrypted as string,",
+				"          AttributeHidden as string,",
+				"          AttributeNormal as string,",
+				"          AttributeOffline as string,",
+				"          AttributeReadonly as string,",
+				"          AttributeReparsePoint as string,",
+				"          AttributeSparseFile as string,",
+				"          AttributeSystem as string,",
+				"          AttributeTemporary as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false) ~> BenchMarkViasatSupplyDemand",
+				"mrpworkbenchwithonhandmrpearly filter({Org} ==\"30\"||{Org} ==\"10\"||{Org} ==\"75\"||{Org} ==\"1\"||{Org} ==\"2\"||{Org} ==\"3\"||{Org} ==\"4\"||",
+				"{Org} ==\"7\"||{Org} ==\"12\"||{Org} ==\"151\"||{Org} ==\"401\"||{Org} ==\"511\"||regexMatch(Org,\"L\")) ~> filter1",
+				"filter1 select(mapColumn(",
+				"          {Avg Item Cost},",
+				"          {Component Revision},",
+				"          {Item Description},",
+				"          {Item Number},",
+				"          {Item Status Code},",
+				"          {Line Code},",
+				"          {Make Buy},",
+				"          {Old Dock Date},",
+				"          {Old Due Date},",
+				"          Org,",
+				"          {Planner Code},",
+				"          {Planning Group Quantity},",
+				"          {Planning Group},",
+				"          {PO Price},",
+				"          {Project Number},",
+				"          Qty,",
+				"          {Sugg Dock Date},",
+				"          {Sugg Due Date},",
+				"          {Sugg Order Date},",
+				"          {Sugg Start Date},",
+				"          {Suggested Req Buyer},",
+				"          Supplier,",
+				"          {Unit Number},",
+				"          {Wip Supply Type},",
+				"          {Order Type},",
+				"          {On Hand Qty},",
+				"          {Order Number}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 derive({Supply/Demand} = iif({Qty}<\"0\",\"Demand\",\"Supply\")) ~> derivedColumn1",
+				"select1 select(mapColumn(",
+				"          Assembly = {Item Number},",
+				"          Org,",
+				"          Source = {Planning Group}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select2",
+				"select1 filter(Supplier==\"MICROELECTRONICS TECHNOLOGY INC\") ~> filter2",
+				"filter2 derive(Source = 'MTI ETRIA') ~> derivedColumn2",
+				"derivedColumn2, derivedColumn4, derivedColumn3, derivedColumn5, derivedColumn6 union(byName: true)~> union1",
+				"select2 aggregate(groupBy(Assembly,",
+				"          Org,",
+				"          Source),",
+				"     each(match(name!=\"Assembly\"&&name!=\"Org\"&&name!=\"Source\"), $$ = first($$))) ~> aggregate2",
+				"filter2 derive(Source = 'MTI Atria') ~> derivedColumn3",
+				"filter2 derive(Source = 'MTI PTRIA') ~> derivedColumn4",
+				"filter2 derive(Source = 'MTI Falcon') ~> derivedColumn5",
+				"filter2 derive(Source = 'MTI Blackbird') ~> derivedColumn6",
+				"derivedColumn1 derive(Date = iif({Supply/Demand}=='Demand',{Sugg Due Date},iif({Order Type}==\"Planned order\",{Sugg Due Date},{Old Dock Date}))) ~> derivedColumn8",
+				"derivedColumn8 select(mapColumn(",
+				"          {Item Description},",
+				"          {Item Number},",
+				"          Org,",
+				"          {Planning Group Quantity},",
+				"          {Planning Group},",
+				"          {Project Number},",
+				"          Qty,",
+				"          {Order Type},",
+				"          {On Hand Qty},",
+				"          {Order Number},",
+				"          Date",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select3",
+				"select3 derive(Source = \"Viasat\") ~> derivedColumn9",
+				"derivedColumn9 select(mapColumn(",
+				"          {Item Description},",
+				"          {Item Number},",
+				"          Org,",
+				"          {Planning Group Quantity},",
+				"          {Planning Group},",
+				"          {Project Number},",
+				"          Qty,",
+				"          {Order Type},",
+				"          {On Hand Qty},",
+				"          {Order Number},",
+				"          Date,",
+				"          Source",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select4",
+				"select4, derivedColumn11 join(select4@Org == aggregate4@Org",
+				"     && select4@{Item Number} == aggregate4@{Item Number},",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join1",
+				"select7 aggregate() ~> aggregate3",
+				"INVG0ItemsVsat filter({Organization Code}==\"30\"||{Organization Code}==\"10\"||{Organization Code}==\"75\") ~> filter3",
+				"filter3 select(mapColumn(",
+				"          Org = {Organization Code},",
+				"          {Item Number},",
+				"          {Item Description},",
+				"          {Planning Make Buy Code},",
+				"          {Buyer Name},",
+				"          {Preprocessing Lead Time},",
+				"          {Processing Lead Time},",
+				"          {Postprocessing Lead Time},",
+				"          {Fixed Lead Time},",
+				"          {Item Type}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select5",
+				"select5 derive({Total Lead Time} = iif({Planning Make Buy Code}=='Buy',{Preprocessing Lead Time}+{Processing Lead Time}+{Postprocessing Lead Time},{Fixed Lead Time})) ~> derivedColumn10",
+				"filter3 select(mapColumn(",
+				"          Org = {Organization Code},",
+				"          {Item Number},",
+				"          {Make / Buy} = {Planning Make Buy Code},",
+				"          {Buyer Name},",
+				"          {Preprocessing Lead Time},",
+				"          {Processing Lead Time},",
+				"          {Postprocessing Lead Time}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select6",
+				"select6 aggregate(groupBy(Org,",
+				"          {Item Number}),",
+				"     each(match(name!=\"Item Number\"&&name!=\"Org\"), $$ = first($$))) ~> aggregate4",
+				"aggregate4 derive({Lead Time} = {Postprocessing Lead Time}+{Preprocessing Lead Time}+{Processing Lead Time}) ~> derivedColumn11",
+				"join1 select(mapColumn(",
+				"          {Item Description},",
+				"          {Item Number} = select4@{Item Number},",
+				"          Org = select4@Org,",
+				"          {Planning Group Quantity},",
+				"          {Planning Group},",
+				"          {Project Number},",
+				"          Qty,",
+				"          {Order Type},",
+				"          {On Hand Qty},",
+				"          {Order Number},",
+				"          Date,",
+				"          Source,",
+				"          Org = aggregate4@Org,",
+				"          {Item Number} = aggregate4@{Item Number},",
+				"          {Make / Buy},",
+				"          {Buyer Name},",
+				"          {Preprocessing Lead Time},",
+				"          {Processing Lead Time},",
+				"          {Postprocessing Lead Time},",
+				"          {Lead Time}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select7",
+				"IndentedBOMMRPearly select(mapColumn(",
+				"          Assembly,",
+				"          {Item Number} = Component,",
+				"          {Cum Manufacturing Lead Time},",
+				"          {Cumulative Total Lead Time},",
+				"          {Engineering Change Order},",
+				"          {Extended Quantity},",
+				"          {Implementation Date},",
+				"          {Item Avg Cost},",
+				"          {Item Buyer Name},",
+				"          {Item Description},",
+				"          {Item Revision (MAS)},",
+				"          {Item Type},",
+				"          Level,",
+				"          {Make/Buy},",
+				"          Org,",
+				"          Path,",
+				"          {Postprocessing Lead Time},",
+				"          {Preprocessing Lead Time},",
+				"          {Processing Lead Time},",
+				"          {Purchase Commod},",
+				"          QPA,",
+				"          {Receipt Routing},",
+				"          RecordID,",
+				"          {Using Assembly},",
+				"          {Hold Attribute},",
+				"          {Mrp Planning Method},",
+				"          {Wip Supply Type},",
+				"          {BOM Notes},",
+				"          {Assembly Description},",
+				"          {Date Published}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select8",
+				"Textinput union(byName: true)~> union2",
+				"Plexus033 select(mapColumn(",
+				"          FullPath,",
+				"          Directory,",
+				"          FileName,",
+				"          ShortFileName,",
+				"          CreationTime,",
+				"          LastAccessTime,",
+				"          LastWriteTime",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select9",
+				"select9 derive({Update Date} = right(FileName, 20)) ~> derivedColumn12",
+				"Plexus952 select(skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select10",
+				"select10 derive({Update Date} = right(FileName, 20)) ~> derivedColumn13",
+				"Plexus035204423SupplyDemand select(mapColumn(",
+				"          FullPath,",
+				"          Directory,",
+				"          FileName,",
+				"          ShortFileName,",
+				"          CreationTime,",
+				"          LastAccessTime,",
+				"          LastWriteTime,",
+				"          Size,",
+				"          AttributeArchive,",
+				"          AttributeCompressed,",
+				"          AttributeEncrypted,",
+				"          AttributeHidden,",
+				"          AttributeNormal,",
+				"          AttributeOffline,",
+				"          AttributeReadonly,",
+				"          AttributeReparsePoint,",
+				"          AttributeSparseFile,",
+				"          AttributeSystem,",
+				"          AttributeTemporary",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select11",
+				"select11 filter(CreationTime > \"2020-05-12\") ~> filter4",
+				"filter4 derive({Update Date} = right(FileName, 21)) ~> derivedColumn14",
+				"derivedColumn12 derive({Update Date} = left({Update Date}, 8),",
+				"          Update_Year = left({Update Date},4),",
+				"          Update_Day = right({Update Date},2),",
+				"          Update_Month1 = right({Update Date},4)) ~> derivedColumn15",
+				"derivedColumn15 derive(Update_Month2 = left(Update_Month1, 2)) ~> derivedColumn16",
+				"derivedColumn16 derive({Update Date} = Update_Year+\"/\"+Update_Month2+\"/\"+Update_Day) ~> derivedColumn17",
+				"derivedColumn17 sort(desc({Update Date}, true)) ~> sort1",
+				"sort1 window() ~> window1",
+				"window1 filter(ERROR_FUNCTION('')) ~> filter5",
+				"derivedColumn13 derive({Update Date} = left({Update Date}, 8),",
+				"          Update_Year = left({Update Date},4),",
+				"          Update_Day = right({Update Date},2),",
+				"          Update_Month1 = right({Update Date},4)) ~> derivedColumn18",
+				"derivedColumn18 derive(Update_Month2 = left(Update_Month1, 2)) ~> derivedColumn19",
+				"derivedColumn19 derive({Update Date} = Update_Year+\"/\"+Update_Month2+\"/\"+Update_Day) ~> derivedColumn20",
+				"derivedColumn20 sort(desc({Update Date}, true)) ~> sort2",
+				"sort2 window() ~> window2",
+				"window2 filter(ERROR_FUNCTION('')) ~> filter6",
+				"derivedColumn14 derive({Update Date} = left({Update Date}, 9)) ~> derivedColumn21",
+				"derivedColumn21 derive({Update Date} = right({Update Date}, 8),",
+				"          Update_Year = left({Update Date},4),",
+				"          Update_Day = right({Update Date},2),",
+				"          Update_Month1 = right({Update Date},4)) ~> derivedColumn22",
+				"derivedColumn22 derive(Update_Month2 = left(Update_Month1, 2)) ~> derivedColumn23",
+				"derivedColumn23 derive({Update Date} = Update_Year+\"/\"+Update_Month2+\"/\"+Update_Day) ~> derivedColumn24",
+				"derivedColumn24 sort(desc({Update Date}, true)) ~> sort3",
+				"sort3 window() ~> window3",
+				"window3 filter(ERROR_FUNCTION('')) ~> filter7",
+				"SCIViaSatSupplyDemand select(mapColumn(",
+				"          FullPath,",
+				"          Directory,",
+				"          FileName,",
+				"          ShortFileName,",
+				"          CreationTime,",
+				"          LastAccessTime,",
+				"          LastWriteTime,",
+				"          Size,",
+				"          AttributeArchive,",
+				"          AttributeCompressed,",
+				"          AttributeEncrypted,",
+				"          AttributeHidden,",
+				"          AttributeNormal,",
+				"          AttributeOffline,",
+				"          AttributeReadonly,",
+				"          AttributeReparsePoint,",
+				"          AttributeSparseFile,",
+				"          AttributeSystem,",
+				"          AttributeTemporary",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select12",
+				"select12 derive(FileName = right(FileName, 12)) ~> derivedColumn25",
+				"derivedColumn25 derive(FileName = left(FileName, 8)) ~> derivedColumn26",
+				"derivedColumn26 derive(FileName = left(right(FileName, 4),2)+\"-\"+right(FileName, 2)+\"-\"+left(FileName, 4)) ~> derivedColumn27",
+				"derivedColumn27 derive({Update Date} = toDate(FileName,'yyyy-MM-dd','MM-dd-yyyy')) ~> derivedColumn28",
+				"derivedColumn28 select(mapColumn(",
+				"          FullPath,",
+				"          Directory,",
+				"          ShortFileName,",
+				"          CreationTime,",
+				"          LastAccessTime,",
+				"          LastWriteTime,",
+				"          Size,",
+				"          AttributeArchive,",
+				"          AttributeCompressed,",
+				"          AttributeEncrypted,",
+				"          AttributeHidden,",
+				"          AttributeNormal,",
+				"          AttributeOffline,",
+				"          AttributeReadonly,",
+				"          AttributeReparsePoint,",
+				"          AttributeSparseFile,",
+				"          AttributeSystem,",
+				"          AttributeTemporary,",
+				"          {Update Date}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select13",
+				"select13 sort(desc({Update Date}, true)) ~> sort4",
+				"sort4 window() ~> window4",
+				"window4 filter(ERROR_FUNCTION('')) ~> filter8",
+				"filter8 select(mapColumn(",
+				"          FullPath,",
+				"          Directory,",
+				"          ShortFileName,",
+				"          CreationTime,",
+				"          LastAccessTime,",
+				"          LastWriteTime,",
+				"          Size,",
+				"          AttributeArchive,",
+				"          AttributeCompressed,",
+				"          AttributeEncrypted,",
+				"          AttributeHidden,",
+				"          AttributeNormal,",
+				"          AttributeOffline,",
+				"          AttributeReadonly,",
+				"          AttributeReparsePoint,",
+				"          AttributeSparseFile,",
+				"          AttributeSystem,",
+				"          AttributeTemporary,",
+				"          {Update Date}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select14",
+				"select14 derive() ~> derivedColumn29",
+				"derivedColumn29 derive() ~> derivedColumn30",
+				"derivedColumn30 derive() ~> derivedColumn31",
+				"derivedColumn31 derive() ~> derivedColumn32",
+				"derivedColumn32 select(mapColumn(",
+				"          FullPath,",
+				"          Directory,",
+				"          ShortFileName,",
+				"          CreationTime,",
+				"          LastAccessTime,",
+				"          LastWriteTime,",
+				"          Size,",
+				"          AttributeArchive,",
+				"          AttributeCompressed,",
+				"          AttributeEncrypted,",
+				"          AttributeHidden,",
+				"          AttributeNormal,",
+				"          AttributeOffline,",
+				"          AttributeReadonly,",
+				"          AttributeReparsePoint,",
+				"          AttributeSparseFile,",
+				"          AttributeSystem,",
+				"          AttributeTemporary,",
+				"          {Update Date}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select15",
+				"BenchMarkViasatSupplyDemand select(mapColumn(",
+				"          FullPath,",
+				"          Directory,",
+				"          FileName,",
+				"          ShortFileName,",
+				"          CreationTime,",
+				"          LastAccessTime,",
+				"          LastWriteTime,",
+				"          Size,",
+				"          AttributeArchive,",
+				"          AttributeCompressed,",
+				"          AttributeEncrypted,",
+				"          AttributeHidden,",
+				"          AttributeNormal,",
+				"          AttributeOffline,",
+				"          AttributeReadonly,",
+				"          AttributeReparsePoint,",
+				"          AttributeSparseFile,",
+				"          AttributeSystem,",
+				"          AttributeTemporary",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select16",
+				"select16 derive(FileName = right(FileName, 13)) ~> derivedColumn33",
+				"derivedColumn33 derive(FileName = left(FileName, 8)) ~> derivedColumn34",
+				"derivedColumn37 select(mapColumn(",
+				"          FullPath,",
+				"          Directory,",
+				"          FileName,",
+				"          ShortFileName,",
+				"          CreationTime,",
+				"          LastAccessTime,",
+				"          LastWriteTime,",
+				"          Size,",
+				"          AttributeArchive,",
+				"          AttributeCompressed,",
+				"          AttributeEncrypted,",
+				"          AttributeHidden,",
+				"          AttributeNormal,",
+				"          AttributeOffline,",
+				"          AttributeReadonly,",
+				"          AttributeReparsePoint,",
+				"          AttributeSparseFile,",
+				"          AttributeSystem,",
+				"          AttributeTemporary,",
+				"          {Update Date}",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select17",
+				"derivedColumn34 derive(FileName = left(right(FileName, 4),2)+\"/\"+right(FileName, 2)+\"/\"+right(left(FileName,4),2)) ~> derivedColumn36",
+				"derivedColumn36 derive({Update Date} = toDate(FileName,\"yyyy-MM-dd\",\"MM/dd/yy\")) ~> derivedColumn37",
+				"select17 sort(desc({Update Date}, true)) ~> sort5",
+				"sort5 window() ~> window5",
+				"window5 filter(ERROR_FUNCTION('')) ~> filter9",
+				"join1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1",
+				"aggregate3 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink9"
+			]
+		}
+	}
+}

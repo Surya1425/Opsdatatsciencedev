@@ -1,0 +1,69 @@
+{
+	"name": "AMSFinancialsBacklog_Master_Pipeline",
+	"properties": {
+		"activities": [
+			{
+				"name": "Execute Oracle Query",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "CopyOracleAMS_Financials_Backlog",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "AMSFinancialsBacklog_pipeline",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "Execute Oracle Query",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "AMSFinancialsBacklog_df",
+						"type": "DataFlowReference",
+						"datasetParameters": {
+							"AMSFinancialBacklogInput": {
+								"container": "ops-datascience-5026-dev",
+								"filepath": "AMS Financial Backlog/raw",
+								"filename": "AMSFinancialsbacklog_Input.csv"
+							},
+							"AMSFinancialBacklogTableaueOutput": {
+								"schema": "opsdatascience",
+								"table": "AMS_FINANCIAL_BACKLOG"
+							}
+						}
+					},
+					"integrationRuntime": {
+						"referenceName": "AZIR-adf-ops-datascience-5026-dev",
+						"type": "IntegrationRuntimeReference"
+					},
+					"traceLevel": "None",
+					"cacheSinks": {
+						"firstRowOnly": true
+					}
+				}
+			}
+		],
+		"folder": {
+			"name": "OpsInsight_Workflows/Master_Pipelines"
+		},
+		"annotations": []
+	}
+}

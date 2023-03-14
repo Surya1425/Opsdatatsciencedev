@@ -1,0 +1,132 @@
+{
+	"name": "DS_Oracle_EBSPJD1_TXN",
+	"properties": {
+		"activities": [
+			{
+				"name": "DS_Oracle_EBSPJD1_TXN",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select txn.ORGANIZATION_CODE \"Org\",\n\ttxn.ITEM$SV$PART_NUMBER \"Item Number\",\n\tproj.PLANNING_GROUP \"Planning Group\",\n\tSum(txn.QUANTITY) \"Avg Consumption\",\n\tSum(\n\t\tcase \n\t\t\t\twhen txn.REASON = 'INV-Scrap' then txn.QUANTITY \n\t\t\t\telse 0 \n\t\t\tend) \"Scrap Qty\",\n\tSum(\n\t\tcase \n\t\t\t\twhen txn.REASON = 'INV-Scrap' then txn.ACTUAL_COST \n\t\t\t\telse 0 \n\t\t\tend) \"Scrap Cost\" \nfrom invg0_transactions txn \n\tleft join pag0_project_parameters_vsat proj on txn.PROJECT_NUMBER = proj.PROJECT_NUMBER and txn.ORGANIZATION_CODE = proj.ORGANIZATION_CODE \nwhere txn.TRANSACTION_TYPE in ('Project Issue', 'Project Adj Issue', 'WIP Issue', 'Non-Project Adj Issue', 'WIP Return', 'Project Receipt') \n\tand txn.TRANSACTION_DATE >= Add_Months(SysDate, -6) \ngroup by txn.ORGANIZATION_CODE, txn.ITEM$SV$PART_NUMBER, proj.PLANNING_GROUP",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "Org",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Org",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Item Number",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Item Number",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Planning Group",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Planning Group",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Avg Consumption",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "Avg Consumption",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Scrap Qty",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "Scrap Qty",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Scrap Cost",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "Scrap Cost",
+									"type": "String",
+									"physicalType": "String"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_Oracle_EBSPJD1_TXN",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_ORACLE_TXN",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "ExceptionTrackingLOB_pipeline"
+		},
+		"annotations": []
+	}
+}

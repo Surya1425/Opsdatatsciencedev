@@ -1,0 +1,68 @@
+{
+	"name": "CopyOracleAMS_Financials_Backlog",
+	"properties": {
+		"activities": [
+			{
+				"name": "AMS Financial Backlog_Copy",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OdbcSource",
+						"query": "select om.ORDER_NUMBER,\n\tom.OM_OR_PC,\n\tom.CUSTOMER_PO_NUMBER,\n\tom.BILL_TO_CUSTOMER_NAME,\n\tom.ORDER_TYPE_NAME,\n\tom.SHIP_TO_CUSTOMER_NAME,\n\tom.ORDER_STATUS,\n\tom.SALES_PERSON,\n\tom.SHIP_TO_LOCATION,\n\tom.ORDER_CREATED_DATE,\n\tom.ORDER_CREATED_BY,\n\tom.ORDER_BOOKED_FLAG,\n\tom.ORDER_BOOKED_DATE,\n\tom.ORDER_PRICE_LIST,\n\tom.LINE_NUMBER,\n\tom.ITEM_NUMBER,\n\tom.ITEM_DESCRIPTION,\n\tom.LINE_QUANTITY,\n\tom.UOM,\n\tom.UNIT_SELLING_PRICE,\n\tom.SCHEDULED_SHIP_DATE,\n\tom.LINE_STATUS,\n\tom.ORG_ONHAND_QUANTITY,\n\tom.LINE_SHIP_FROM_ORG,\n\tom.HEADER_SHIP_FROM_ORG,\n\tom.SHIPPED_QUANTITY,\n\tom.PROJECT_NUMBER,\n\tom.TASK_NUMBER,\n\tom.FREIGHT_TERMS,\n\tom.ORDER_OPEN_FLAG,\n\tom.OPEN_LINE_QUANTITY,\n\tom.ORDER_PAYMENT_TERMS,\n\tom.LINE_SHIPPABLE_FLAG,\n\tom.PROMISED_DATE,\n\tom.COST_GROUP_ITEM_COST,\n\tom.COMPLETED_FLAG,\n\tom.SHIP_FROM_LOCATION,\n\tom.MAKE_BUY,\n\tpc.PRODUCT_LINE,\n\tpc.PRODUCT_LINE_BUSINESS_AREA business_area \nfrom oeog0_om_pc_order_info_vsat om, pag0_class_categories_vsat pc \nwhere om.PROJECT_NUMBER = pc.PROJECT_NUMBER(+) \n\tand om.ITEM_NUMBER <> 'HOLDITEM' \n\tand om.LINE_STATUS in ('ACTIVE', 'ENTERED', 'AWAITING_SHIPPING', 'BOOKED', 'SIGNED') \n\tand om.OPEN_LINE_QUANTITY <> 0",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "OdbcTable1",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_csv_input",
+						"type": "DatasetReference",
+						"parameters": {
+							"container": "adf-ops-datascience-5026-dev",
+							"filepath": "AMS Financial Backlog/input",
+							"filename": "AMSFinancialsbacklog_Input.csv"
+						}
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "OpsInsight_Workflows/Copy Oracle Pipelines"
+		},
+		"annotations": []
+	}
+}

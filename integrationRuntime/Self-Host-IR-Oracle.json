@@ -1,0 +1,6 @@
+{
+	"name": "Self-Host-IR-Oracle",
+	"properties": {
+		"type": "SelfHosted"
+	}
+}

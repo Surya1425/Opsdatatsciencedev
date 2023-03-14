@@ -1,0 +1,382 @@
+{
+	"name": "CopyOracleAmsOperationsJc",
+	"properties": {
+		"activities": [
+			{
+				"name": "POG0_All_Distribution_Vsat",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select POG0_All_Distribution_Vsat.Requisition Number,POG0_All_Distribution_Vsat.Pdstr$Ams   Viasat Rtv Rma,POG0_All_Distribution_Vsat.Pdstr$Ams   Viasat Parent Rma,POG0_All_Distribution_Vsat.Pdstr$Ams   Viasat Nmr,POG0_All_Distribution_Vsat.Po Number from POG0_All_Distribution_Vsat",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "OracleDS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "POG0_All_Distribution_Vsat_Out",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "QAG0_NMR_Detail_Vsat",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select * from QAG0_NMR_Detail_Vsat",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "OracleDS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "QAG0_NMR_Detail_Vsat_Out",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "OEOG0_Delivery_Depart_D_Vsat",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select * from OEOG0_Delivery_Depart_D_Vsat",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "OracleDS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "OEOG0_Delivery_Depart_D_Vsat_Out",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "OEOG0_OM_PC_Order_Info_Vsat",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select * from OEOG0_OM_PC_Order_Info_Vsat",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "OracleDS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "OEOG0_OM_PC_Order_Info_Vsat_out",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "CSDG0-repair-orders",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select CSDG0_REPAIR_ORDERS.APPROVAL_REQUIRED_FLAG,\n\tCSDG0_REPAIR_ORDERS.AUTOMATIC_RMA_PROCESS_FLAG,\n\tCSDG0_REPAIR_ORDERS.AVG_ADDL_FUNDS,\n\tCSDG0_REPAIR_ORDERS.BILL_TO_ADDRESS1,\n\tCSDG0_REPAIR_ORDERS.BILL_TO_ADDRESS2,\n\tCSDG0_REPAIR_ORDERS.BILL_TO_ADDRESS3,\n\tCSDG0_REPAIR_ORDERS.BILL_TO_CITY,\n\tCSDG0_REPAIR_ORDERS.BILL_TO_ADDRESS4,\n\tCSDG0_REPAIR_ORDERS.BILL_TO_COUNTRY,\n\tCSDG0_REPAIR_ORDERS.BILL_TO_COUNTY,\n\tCSDG0_REPAIR_ORDERS.BILL_TO_POSTAL_CODE,\n\tCSDG0_REPAIR_ORDERS.BILL_TO_STATE,\n\tCSDG0_REPAIR_ORDERS.CONTACT_PERSON_NAME,\n\tCSDG0_REPAIR_ORDERS.CONTACT_PERSON_NUMBER,\n\tCSDG0_REPAIR_ORDERS.CONTACT_PHONE,\n\tCSDG0_REPAIR_ORDERS.CONTACT_RELATIONSHIP,\n\tCSDG0_REPAIR_ORDERS.CONTACT_TYPE,\n\tCSDG0_REPAIR_ORDERS.CONTRACT_LINE_ID,\n\tCSDG0_REPAIR_ORDERS.CONTRACT_NUMBER,\n\tCSDG0_REPAIR_ORDERS.CONTRACT_WARRANTY_END_DATE,\n\tCSDG0_REPAIR_ORDERS.CUSTOMER_NAME,\n\tCSDG0_REPAIR_ORDERS.CUSTOMER_NUMBER,\n\tCSDG0_REPAIR_ORDERS.CUSTOMER_PHONE,\n\tCSDG0_REPAIR_ORDERS.CUSTOMER_PRODUCT_ID,\n\tCSDG0_REPAIR_ORDERS.CUSTOMER_TYPE,\n\tCSDG0_REPAIR_ORDERS.ESTIMATE_APPROVAL_STATUS,\n\tCSDG0_REPAIR_ORDERS.INCIDENT_TYPE,\n\tCSDG0_REPAIR_ORDERS.INSTALL_SITE_ADDRESS1,\n\tCSDG0_REPAIR_ORDERS.INSTALL_SITE_ADDRESS2,\n\tCSDG0_REPAIR_ORDERS.INSTALL_SITE_ADDRESS3,\n\tCSDG0_REPAIR_ORDERS.INSTALL_SITE_ADDRESS4,\n\tCSDG0_REPAIR_ORDERS.INSTALL_SITE_CITY,\n\tCSDG0_REPAIR_ORDERS.INSTALL_SITE_COUNTRY,\n\tCSDG0_REPAIR_ORDERS.INSTALL_SITE_COUNTY,\n\tCSDG0_REPAIR_ORDERS.INSTALL_SITE_STATE,\n\tCSDG0_REPAIR_ORDERS.INSTALL_SITE_POSTAL_CODE,\n\tCSDG0_REPAIR_ORDERS.INSTANCE_WARRANTY_END_DATE,\n\tCSDG0_REPAIR_ORDERS.INTERNAL_ORDER_FLAG,\n\tCSDG0_REPAIR_ORDERS.INVENTORY_ORGANIZATION_NAME,\n\tCSDG0_REPAIR_ORDERS.ITEM$INVENTORY_ITEM_ID,\n\tCSDG0_REPAIR_ORDERS.ITEM$ORGANIZATION_ID,\n\tCSDG0_REPAIR_ORDERS.ITEM$SV$PART_NUMBER,\n\tCSDG0_REPAIR_ORDERS.ITEM_DESCRIPTION,\n\tCSDG0_REPAIR_ORDERS.ITEM_INSTANCE_NUMBER,\n\tCSDG0_REPAIR_ORDERS.ITEM_INSTANCE_STATUS,\n\tCSDG0_REPAIR_ORDERS.ITEM_LOT_NUMBER,\n\tCSDG0_REPAIR_ORDERS.ITEM_REVISION,\n\tCSDG0_REPAIR_ORDERS.LOCATOR,\n\tCSDG0_REPAIR_ORDERS.PO_NUMBER,\n\tCSDG0_REPAIR_ORDERS.PRICE_LIST,\n\tCSDG0_REPAIR_ORDERS.PROBLEM_DESCRIPTION,\n\tCSDG0_REPAIR_ORDERS.QUANTITY_IN_WIP,\n\tCSDG0_REPAIR_ORDERS.RMA_LINE_NUMBER,\n\tCSDG0_REPAIR_ORDERS.RMA_ORDER_NUMBER,\n\tCSDG0_REPAIR_ORDERS.RECEIVED_QUANTITY,\n\tCSDG0_REPAIR_ORDERS.RECEIVE_DATE,\n\tCSDG0_REPAIR_ORDERS.REPAIR$AAR_ORDER_NUMBER,\n\tCSDG0_REPAIR_ORDERS.REPAIR$ACTUAL_COMPLETE_DATE,\n\tCSDG0_REPAIR_ORDERS.REPAIR$ACTUAL_REPAIR_PRICE,\n\tCSDG0_REPAIR_ORDERS.REPAIR$ACTUAL_START_DATE,\n\tCSDG0_REPAIR_ORDERS.REPAIR$COST_JUSTIFICATION,\n\tCSDG0_REPAIR_ORDERS.REPAIR$CUST_RL_ORIGINAL_FAILUR,\n\tCSDG0_REPAIR_ORDERS.REPAIR$ECD,\n\tCSDG0_REPAIR_ORDERS.REPAIR$CUST_RL_TRX_CONTEXT_VAL,\n\tCSDG0_REPAIR_ORDERS.REPAIR$CUSTOMER_RL_FILE_NAME,\n\tCSDG0_REPAIR_ORDERS.REPAIR$METRIC_COMPLETION_DATE,\n\tCSDG0_REPAIR_ORDERS.REPAIR$OUT_OF_SCOPE_REPAIR_EST,\n\tCSDG0_REPAIR_ORDERS.REPAIR$PROGRAM,\n\tCSDG0_REPAIR_ORDERS.REPAIR$RETURNING_PLATFORM,\n\tCSDG0_REPAIR_ORDERS.REPAIR$SSL,\n\tCSDG0_REPAIR_ORDERS.REPAIR$SERVICE_AFFILIATION,\n\tCSDG0_REPAIR_ORDERS.REPAIR$TAT_ADJ_REASON,\n\tCSDG0_REPAIR_ORDERS.REPAIR$TAT_ADJ,\n\tCSDG0_REPAIR_ORDERS.REPAIR$TAIL_NUMBER,\n\tCSDG0_REPAIR_ORDERS.REPAIR$VENDOR_NAME,\n\tCSDG0_REPAIR_ORDERS.REPAIR$VENDOR_RMA,\n\tCSDG0_REPAIR_ORDERS.REPAIR$VIASAT_ORDER_NUMBER,\n\tCSDG0_REPAIR_ORDERS.REPAIR_CURRENCY_CODE,\n\tCSDG0_REPAIR_ORDERS.REPAIR_ITEM_SERIAL_NUMBER,\n\tCSDG0_REPAIR_ORDERS.REPAIR_ITEM_UOM,\n\tCSDG0_REPAIR_ORDERS.REPAIR_LINE_ID,\n\tCSDG0_REPAIR_ORDERS.REPAIR_MODE_CODE,\n\tCSDG0_REPAIR_ORDERS.REPAIR_NUMBER,\n\tCSDG0_REPAIR_ORDERS.REPAIR_ORDER_CLOSED_DATE,\n\tCSDG0_REPAIR_ORDERS.REPAIR_ORDER_CREATION_DATE,\n\tCSDG0_REPAIR_ORDERS.REPAIR_ORDER_PROJECT,\n\tCSDG0_REPAIR_ORDERS.REPAIR_ORDER_PROMISED_DATE,\n\tCSDG0_REPAIR_ORDERS.REPAIR_ORDER_SPLIT_FLAG,\n\tCSDG0_REPAIR_ORDERS.REPAIR_ORDER_TASK,\n\tCSDG0_REPAIR_ORDERS.REPAIR_OWNER_NAME,\n\tCSDG0_REPAIR_ORDERS.REPAIR_REASON,\n\tCSDG0_REPAIR_ORDERS.REPAIR_PRIORITY,\n\tCSDG0_REPAIR_ORDERS.REPAIR_QUANTITY,\n\tCSDG0_REPAIR_ORDERS.REPAIR_STATUS,\n\tCSDG0_REPAIR_ORDERS.REPAIR_TYPE,\n\tCSDG0_REPAIR_ORDERS.REPAIR_TYPE_REFERENCE,\n\tCSDG0_REPAIR_ORDERS.SR_GROUP_NAME,\n\tCSDG0_REPAIR_ORDERS.SR_ITEM_SERIAL_NUMBER,\n\tCSDG0_REPAIR_ORDERS.SR_OPERATING_UNIT_NAME,\n\tCSDG0_REPAIR_ORDERS.SR_OWNER_NAME,\n\tCSDG0_REPAIR_ORDERS.SR_PROBLEM_SUMMARY,\n\tCSDG0_REPAIR_ORDERS.SR_SEVERITY,\n\tCSDG0_REPAIR_ORDERS.SR_STATUS,\n\tCSDG0_REPAIR_ORDERS.SALESFORCE_RMA,\n\tCSDG0_REPAIR_ORDERS.SERVICE_REQUEST_NUMBER,\n\tCSDG0_REPAIR_ORDERS.SHIP_DATE,\n\tCSDG0_REPAIR_ORDERS.SHIP_TO_ADDRESS1,\n\tCSDG0_REPAIR_ORDERS.SHIP_TO_ADDRESS2,\n\tCSDG0_REPAIR_ORDERS.SHIP_TO_ADDRESS3,\n\tCSDG0_REPAIR_ORDERS.SHIP_TO_ADDRESS4,\n\tCSDG0_REPAIR_ORDERS.SHIP_TO_COUNTRY,\n\tCSDG0_REPAIR_ORDERS.SHIP_TO_CITY,\n\tCSDG0_REPAIR_ORDERS.SHIP_TO_COUNTY,\n\tCSDG0_REPAIR_ORDERS.SHIP_TO_POSTAL_CODE,\n\tCSDG0_REPAIR_ORDERS.SHIP_TO_STATE,\n\tCSDG0_REPAIR_ORDERS.SHIPPED_QUANTITY,\n\tCSDG0_REPAIR_ORDERS.TIME_IN_HOLD_STATUS,\n\tCSDG0_REPAIR_ORDERS.SUBINVENTORY,\n\tCSDG0_REPAIR_ORDERS.TIME_IN_OPEN_STATUS,\n\tCSDG0_REPAIR_ORDERS.TIME_IN_REPAIR,\n\tCSDG0_REPAIR_ORDERS.TIMES_RETURNED,\n\tCSDG0_REPAIR_ORDERS.TOP_REPAIR_NOTES,\n\tCSDG0_REPAIR_ORDERS.TOTAL_ACTUAL_AMOUNT,\n\tCSDG0_REPAIR_ORDERS.TOTAL_ESTIMATE_AMOUNT,\n\tCSDG0_REPAIR_ORDERS.UNIT_SELLING_PRICE,\n\tCSDG0_REPAIR_ORDERS.WARRANTY_STATUS,\n\tCSDG0_REPAIR_ORDERS.WAREHOUSE_CODE \nfrom CSDG0_REPAIR_ORDERS \nwhere CSDG0_REPAIR_ORDERS.CUSTOMER_NAME in ('AMERICAN AIRLINES', 'DELTA AIR LINES, INC.', 'FINNAIR PLC', 'Icelandair ehf.', 'JETBLUE AIRWAYS CORPORATION', 'KLM ROYAL DUTCH AIRLINES', 'SCANDINAVIAN AIRLINES', 'EMBRAER SA', 'AIRBUS', 'BOEING COMPANY', 'BOEING COMMERCIAL AIRPLANES', 'EL AL ISRAEL AIRLINES, LTD', 'AEROVIAS DE MEXICO SA DE CV', 'AZUL LINHAS AERAS BRASILEIRAS S.A', 'QANTAS AIRWAYS LIMITED', 'UNITED AIRLINES, INC.', 'THALES')\n",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "OracleDS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "CSDG0_REPAIR_ORDERS_out",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "csdg0_oe_repair_rma_orders_vsa",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select csdg0_oe_repair_rma_orders_vsa.ACTION_TYPE,\n\tcsdg0_oe_repair_rma_orders_vsa.ACTUAL_SHIPMENT_DATE,\n\tcsdg0_oe_repair_rma_orders_vsa.REPAIR_NUMBER,\n\tcsdg0_oe_repair_rma_orders_vsa.REPAIR_LINE_ID,\n\tcsdg0_oe_repair_rma_orders_vsa.ORDER_NUMBER,\n\tcsdg0_oe_repair_rma_orders_vsa.LINE_CATEGORY_CODE,\n\tcsdg0_oe_repair_rma_orders_vsa.RETURN$NMR_NUMBER,\n\tcsdg0_oe_repair_rma_orders_vsa.RETURN$REQUISITION_NUMBER,\n\tcsdg0_oe_repair_rma_orders_vsa.ORDER_LINE_ID,\n\tcsdg0_oe_repair_rma_orders_vsa.ITEM$SV$PART_NUMBER,\n\tcsdg0_oe_repair_rma_orders_vsa.ITEM_DESCRIPTION,\n\tcsdg0_oe_repair_rma_orders_vsa.ORDERED_DATE,\n\tcsdg0_oe_repair_rma_orders_vsa.PO_NUMBER,\n\tcsdg0_oe_repair_rma_orders_vsa.REPAIR$AAR_ORDER_NUMBER,\n\tcsdg0_oe_repair_rma_orders_vsa.REPAIR$ACTUAL_COMPLETE_DATE,\n\tcsdg0_oe_repair_rma_orders_vsa.REPAIR$ACTUAL_START_DATE,\n\tcsdg0_oe_repair_rma_orders_vsa.REPAIR_STATUS,\n\tcsdg0_oe_repair_rma_orders_vsa.REPAIR_ORDER_CREATION_DATE,\n\tcsdg0_oe_repair_rma_orders_vsa.REPAIR_ORDER_PROJECT,\n\tcsdg0_oe_repair_rma_orders_vsa.WAREHOUSE_CODE,\n\tcsdg0_oe_repair_rma_orders_vsa.SOURCE_SERIAL_NUMBER,\n\tcsdg0_oe_repair_rma_orders_vsa.SALES_ORDER_STATUS,\n\tcsdg0_oe_repair_rma_orders_vsa.SR_OWNER_NAME,\n\tcsdg0_oe_repair_rma_orders_vsa.SERVICE_ACTIVITY,\n\tcsdg0_oe_repair_rma_orders_vsa.SERVICE_REQUEST_NUMBER,\n\tcsdg0_oe_repair_rma_orders_vsa.SHIP_SALES_ORDER_FLAG,\n\tcsdg0_oe_repair_rma_orders_vsa.SUBINVENTORY_NAME,\n\tcsdg0_oe_repair_rma_orders_vsa.RETURN_REASON,\n\tcsdg0_oe_repair_rma_orders_vsa.RETURN_BY_DATE,\n\tcsdg0_oe_repair_rma_orders_vsa.RETURN$VENDOR_SERIAL_NUMBER,\n\tcsdg0_oe_repair_rma_orders_vsa.RETURN$VENDOR_PART_NUMBER,\n\tcsdg0_oe_repair_rma_orders_vsa.RETURN$DELIVER_TO_LOCATION,\n\tcsdg0_oe_repair_rma_orders_vsa.REPAIR_TYPE,\n\tcsdg0_oe_repair_rma_orders_vsa.REPAIR_QUANTITY,\n\tcsdg0_oe_repair_rma_orders_vsa.REPAIR_ORDER_PROMISED_DATE,\n\tcsdg0_oe_repair_rma_orders_vsa.REPAIR_ORDER_TASK,\n\tcsdg0_oe_repair_rma_orders_vsa.REPAIR_OWNER_NAME,\n\tcsdg0_oe_repair_rma_orders_vsa.REPAIR_MODE_CODE,\n\tcsdg0_oe_repair_rma_orders_vsa.REPAIR_CURRENCY_CODE,\n\tcsdg0_oe_repair_rma_orders_vsa.REPAIR$VIASAT_ORDER_NUMBER,\n\tcsdg0_oe_repair_rma_orders_vsa.REPAIR$VENDOR_RMA,\n\tcsdg0_oe_repair_rma_orders_vsa.REPAIR$VENDOR_NAME,\n\tcsdg0_oe_repair_rma_orders_vsa.REPAIR$TAT_ADJ_REASON,\n\tcsdg0_oe_repair_rma_orders_vsa.REPAIR$TAIL_NUMBER,\n\tcsdg0_oe_repair_rma_orders_vsa.REPAIR$TAT_ADJ,\n\tcsdg0_oe_repair_rma_orders_vsa.REPAIR$SERVICE_AFFILIATION,\n\tcsdg0_oe_repair_rma_orders_vsa.REPAIR$SSL,\n\tcsdg0_oe_repair_rma_orders_vsa.REPAIR$RETURNING_PLATFORM,\n\tcsdg0_oe_repair_rma_orders_vsa.REPAIR$PROGRAM,\n\tcsdg0_oe_repair_rma_orders_vsa.REPAIR$OUT_OF_SCOPE_REPAIR_EST,\n\tcsdg0_oe_repair_rma_orders_vsa.REPAIR$METRIC_COMPLETION_DATE,\n\tcsdg0_oe_repair_rma_orders_vsa.REPAIR$ECD,\n\tcsdg0_oe_repair_rma_orders_vsa.REPAIR$CUSTOMER_RL_FILE_NAME,\n\tcsdg0_oe_repair_rma_orders_vsa.REPAIR$CUST_RL_TRX_CONTEXT_VAL,\n\tcsdg0_oe_repair_rma_orders_vsa.REPAIR$CUST_RL_ORIGINAL_FAILUR,\n\tcsdg0_oe_repair_rma_orders_vsa.REPAIR$COST_JUSTIFICATION,\n\tcsdg0_oe_repair_rma_orders_vsa.REPAIR$ACTUAL_REPAIR_PRICE,\n\tcsdg0_oe_repair_rma_orders_vsa.RELEASE_SALES_ORDER_FLAG,\n\tcsdg0_oe_repair_rma_orders_vsa.RECEIVED_QUANTITY,\n\tcsdg0_oe_repair_rma_orders_vsa.RECEIVED_ITEM_UOM,\n\tcsdg0_oe_repair_rma_orders_vsa.ORDER_LINE_TYPE,\n\tcsdg0_oe_repair_rma_orders_vsa.ORDER_LINE_NUMBER,\n\tcsdg0_oe_repair_rma_orders_vsa.ORDER_FULFILLMENT_DATE,\n\tcsdg0_oe_repair_rma_orders_vsa.NON_SOURCE_SERIAL_NUMBER,\n\tcsdg0_oe_repair_rma_orders_vsa.LOT_NUMBER,\n\tcsdg0_oe_repair_rma_orders_vsa.LINE_ATTACHMENT_TEXT,\n\tcsdg0_oe_repair_rma_orders_vsa.APPROVAL_REQUIRED_FLAG,\n\tcsdg0_oe_repair_rma_orders_vsa.ACTION_CODE,\n\tcsdg0_oe_repair_rma_orders_vsa.ACTION_DESCRIPTION,\n\tcsdg0_oe_repair_rma_orders_vsa.CUSTOMER_NAME,\n\tcsdg0_oe_repair_rma_orders_vsa.CUSTOMER_NUMBER,\n\tcsdg0_oe_repair_rma_orders_vsa.EXTENDED_PRICE,\n\tcsdg0_oe_repair_rma_orders_vsa.ESTIMATE_APPROVAL_STATUS \nfrom csdg0_oe_repair_rma_orders_vsa\nwhere csdg0_oe_repair_rma_orders_vsa.CUSTOMER_NAME in ('AMERICAN AIRLINES', 'DELTA AIR LINES, INC.', 'FINNAIR PLC', 'Icelandair ehf.', 'JETBLUE AIRWAYS CORPORATION', 'KLM ROYAL DUTCH AIRLINES', 'SCANDINAVIAN AIRLINES', 'EMBRAER SA', 'AIRBUS', 'BOEING COMPANY', 'BOEING COMMERCIAL AIRPLANES', 'EL AL ISRAEL AIRLINES, LTD', 'AEROVIAS DE MEXICO SA DE CV', 'AZUL LINHAS AERAS BRASILEIRAS S.A', 'QANTAS AIRWAYS LIMITED', 'UNITED AIRLINES, INC.', 'THALES')\n\n",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "OracleDS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "csdg0_oe_repair_rma_orders_vsa_out",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "OEOG0_RMA_Line_Details_Vsat",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select OEOG0_RMA_Line_Details_Vsat.CUSTOMER,\n\tOEOG0_RMA_Line_Details_Vsat.LINE_STATUS,\n\tOEOG0_RMA_Line_Details_Vsat.RMA_RECEIVED_DATE,\n\tOEOG0_RMA_Line_Details_Vsat.REPAIR_NUMBER,\n\tOEOG0_RMA_Line_Details_Vsat.SERIAL_NUMBER,\n\tOEOG0_RMA_Line_Details_Vsat.ORDER_NUMBER,\n\tOEOG0_RMA_Line_Details_Vsat.PRODUCT_LINE_BUSINESS_AREA,\n\tOEOG0_RMA_Line_Details_Vsat.PRODUCT_LINE,\n\tOEOG0_RMA_Line_Details_Vsat.LINE_NUMBER \nfrom OEOG0_RMA_Line_Details_Vsat \nwhere OEOG0_RMA_Line_Details_Vsat.CUSTOMER in ('AMERICAN AIRLINES', 'DELTA AIR LINES, INC.', 'FINNAIR PLC', 'Icelandair ehf.', 'JETBLUE AIRWAYS CORPORATION', 'KLM ROYAL DUTCH AIRLINES', 'SCANDINAVIAN AIRLINES', 'EMBRAER SA', 'AIRBUS', 'BOEING COMPANY', 'BOEING COMMERCIAL AIRPLANES', 'EL AL ISRAEL AIRLINES, LTD', 'AEROVIAS DE MEXICO SA DE CV', 'AZUL LINHAS AERAS BRASILEIRAS S.A', 'QANTAS AIRWAYS LIMITED', 'UNITED AIRLINES, INC.', 'THALES', 'DUCOMMUN INCORPORATED', 'ASTRODYNE TDI', 'ASTRONICS ARMSTRONG AEROSPACE', 'BENCHMARK ELECTRONICS', 'BENCHMARK ELECTRONICS (NH)', 'TELEFONIX, INC.')\n",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "OracleDS",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "OEOG0_RMA_Line_Details_Vsat_out",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "OpsInsight_Workflows/Copy Oracle Pipelines"
+		},
+		"annotations": []
+	}
+}

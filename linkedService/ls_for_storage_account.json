@@ -1,0 +1,18 @@
+{
+	"name": "ls_for_storage_account",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://sagtappsadfusrstrgv2dev.dfs.core.windows.net/",
+			"credential": {
+				"referenceName": "cred_Ops-DataScience-5026_dev",
+				"type": "CredentialReference"
+			}
+		},
+		"connectVia": {
+			"referenceName": "AZIR-adf-ops-datascience-5026-dev",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

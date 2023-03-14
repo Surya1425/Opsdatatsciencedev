@@ -1,0 +1,36 @@
+{
+	"name": "oracle test",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "OracleSource",
+						"oracleReaderQuery": "select ppa.SEGMENT1,\n\tppa.DESCRIPTION,\n\tppa.PROJECT_TYPE,\n\tppcv.CLASS_CATEGORY,\n\tppcv.CLASS_CODE \nfrom apps.pa_project_classes_v ppcv, apps.pa_projects_all ppa \nwhere ppa.PROJECT_ID = ppcv.PROJECT_ID \n\tand ppcv.CLASS_CATEGORY = 'Related Projects'",
+						"partitionOption": "None",
+						"queryTimeout": "02:00:00"
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "OracleTable2",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}
